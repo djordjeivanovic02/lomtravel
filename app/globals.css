@@ -5,17 +5,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --main-color: #f38255;
+  --title-color: #094174;
+  --text-color: #05073c;
+  --light-text: #717171;
+  --border-color: #e7e6e6;
+  --red-color: #f60000;
+
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-nothing-you-could-do: "Nothing You Could Do", cursive;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
