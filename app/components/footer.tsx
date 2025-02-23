@@ -5,7 +5,7 @@ import FooterLink from "./footerLink";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-footer py-24 px-5 relative overflow-hidden">
+    <footer className="w-full bg-footer py-24 relative overflow-hidden">
       <Image
         src="/images/half_circle.svg"
         alt="Half Circle Image"
@@ -20,8 +20,8 @@ export default function Footer() {
         height={532}
         className="absolute top-4 left-1/2 -translate-x-1/2 z-10"
       />
-      <div className="container p-4 flex-col md:flex-row flex items-start justify-between relative z-20">
-        <div className="firstColumn pr-20 border-r-[1px] border-border">
+      <div className="container p-4 flex flex-col gap-20 md:flex-row items-start justify-between relative z-20">
+        <div className="firstColumn pr-0 xl:pr-20 md-border-none xl:border-r border-border">
           <Image
             src="/images/footer_logo.svg"
             alt="Lom Travel Logo"
@@ -38,7 +38,7 @@ export default function Footer() {
             <p className="text-xl text-white font-bold">Kontaktiraj Nas</p>
           </Link>
           <p className="text-md text-white sans mt-8">
-            Copyright © 2025 Lom Travel. All Rights Reserved
+            Copyright © {new Date().getFullYear()} Lom Travel. All Rights Reserved
           </p>
           <p className="text-md text-white sans">
             Design & Development By <b>Remenex</b>
