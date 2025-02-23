@@ -30,7 +30,7 @@ export default function HamburgerMenu({
       )}
 
       <div
-        className={`font-roboto fixed top-0 right-0 w-60 h-[100%] bg-white shadow-lg pt-10 px-3 rounded-md 
+        className={`font-roboto fixed top-0 right-0 w-72 h-[100%] bg-white shadow-lg pt-10 px-3 rounded-md 
           transform transition-transform duration-500 ease-in-out ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
