@@ -26,6 +26,7 @@ export default {
         lightText: "var(--light-text)",
         border: "var(--border-color)",
         red: "var(--red-color)",
+        footer: "var(--footer-color)"
       },
       fontFamily: {
         sans: "var(--font-dm-sans)",

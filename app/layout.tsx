@@ -2,6 +2,8 @@ import { dmSans } from "@/lib/fonts";
 import type { Metadata } from "next";
 import ScrollHeader from "./components/scroll-header";
 import "./globals.css";
+import "./globalsicon.css";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,6 +20,7 @@ export default function RootLayout({
       <body className={`${dmSans.variable} antialiased`}>
         <ScrollHeader />
         {children}
+        <Footer />
       </body>
     </html>
   );
