@@ -20,7 +20,7 @@ export default function Footer() {
         height={532}
         className="absolute top-4 left-1/2 -translate-x-1/2 z-10"
       />
-      <div className="container p-4 flex items-start justify-between relative z-20">
+      <div className="container p-4 flex-col md:flex-row flex items-start justify-between relative z-20">
         <div className="firstColumn pr-20 border-r-[1px] border-border">
           <Image
             src="/images/footer_logo.svg"
