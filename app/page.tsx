@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="container bg-main">
-      <p className="font-handwritten">Sjajne Ture</p>
+    <main className="container ">
+      <p className="font-handwritten h-[200vh] ">Sjajne Ture</p>
     </main>
   );
 }
