@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dmSans.variable} antialiased`}>
         <ScrollHeader />
-        {children}
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
