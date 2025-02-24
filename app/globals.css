@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -13,7 +12,7 @@
   --light-text: #717171;
   --border-color: #e7e6e6;
   --red-color: #f60000;
-  --footer-color: #242C31;
+  --footer-color: #242c31;
 
   --font-dm-sans: "DM Sans", sans-serif;
   --font-roboto: "Roboto", sans-serif;
@@ -25,4 +24,3 @@ body {
   background: var(--background);
   font-family: "DM Sans", sans-serif;
 }
-
