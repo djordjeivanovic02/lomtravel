@@ -18,6 +18,9 @@ export default {
       },
     },
     extend: {
+      screens: {
+        md: "850px",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
