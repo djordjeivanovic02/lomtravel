@@ -11,7 +11,7 @@ type Props = {
 export default function Header({ isScrolled, isOpen, toggleMenu }: Props) {
   return (
     <header
-      className={`w-full p-8 sticky top-0 z-50 py-2 transition-all duration-500 text-x ${
+      className={`w-full p-8 fixed top-0 z-50 py-2 transition-all duration-500 text-x ${
         isScrolled ? "bg-white shadow-lg" : "bg-transparent"
       } `}
     >
