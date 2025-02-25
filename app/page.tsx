@@ -1,6 +1,5 @@
 import Image from "next/image";
 import HeroSearch from "./components/heroSearch";
-import VacattionOffer from "./components/vacationOffer";
 import Offers from "./components/offers";
 
 export default function Index() {

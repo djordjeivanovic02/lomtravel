@@ -1,25 +1,36 @@
-import CustomIcon from "./icon";
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
 } from "@heroui/react";
+import CustomIcon from "./icon";
 
 type Props = {
   icon: string;
   title: string;
   desc: string;
   items: string[];
-  border?: boolean
+  border?: boolean;
 };
 
-export default function HeroSectionItem({ icon, title, desc, items, border = true}: Props) {
+export default function HeroSectionItem({
+  icon,
+  title,
+  desc,
+  items,
+  border = true,
+}: Props) {
   return (
     <Dropdown className="w-72 md:w-64 rounded-md ml-16 mt-2">
       <DropdownTrigger>
-        <Button variant="bordered" className={`outline-none w-full md:w-auto py-2 md:py-0 px-5 md:px-0 md:border-b md:border-none ${border ? 'border-b md:border-none pb-3 md:pb-0': ''}`}>
+        <Button
+          variant="bordered"
+          className={`outline-none w-full md:w-auto py-2 md:py-0 px-5 md:px-0 md:border-b md:border-none ${
+            border ? "border-b md:border-none pb-3 md:pb-0" : ""
+          }`}
+        >
           <div className="flex items-center gap-3">
             <div className="px-3 py-3 rounded-full border flex items-center justify-center">
               <CustomIcon name={icon} size={24} color="black" />
