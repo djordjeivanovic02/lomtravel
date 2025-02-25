@@ -28,7 +28,7 @@ export default function Footer() {
             width={100}
             height={86}
           />
-          <p className="roboto text-lg text-white max-w-72 mt-4">
+          <p className="font-roboto text-lg text-white max-w-72 mt-4">
             Lider u organizaciji jednodnevnih putovanja
           </p>
           <Link href="" className="flex items-center gap-4 mt-5">
@@ -37,11 +37,11 @@ export default function Footer() {
             </div>
             <p className="text-xl text-white font-bold">Kontaktiraj Nas</p>
           </Link>
-          <p className="text-md text-white sans mt-8">
-            Copyright © {new Date().getFullYear()} Lom Travel. All Rights
-            Reserved
+
+          <p className="text-md text-white font-sans mt-8">
+            Copyright © {new Date().getFullYear()} Lom Travel. All Rights Reserved
           </p>
-          <p className="text-md text-white sans">
+          <p className="text-md text-white font-sans">
             Design & Development By <b>Remenex</b>
           </p>
         </div>
@@ -72,8 +72,8 @@ export default function Footer() {
             alt="Arrow"
             className="my-5"
           />
-          <p className="roboto text-lg text-white font-bold">063/70-56-233</p>
-          <p className="roboto text-lg text-white font-bold">
+          <p className="font-roboto text-lg text-white font-bold">063/70-56-233</p>
+          <p className="font0roboto text-lg text-white font-bold">
             lomtravel11@gmail.com
           </p>
           <Link href="" className="flex items-center gap-1 my-4">
@@ -83,7 +83,7 @@ export default function Footer() {
               width={24}
               height={24}
             />
-            <p className="roboto text-md text-white">@lom_travel</p>
+            <p className="font-roboto text-md text-white">@lom_travel</p>
           </Link>
           <Link href="" className="flex items-center gap-1 mb-4">
             <Image
@@ -92,7 +92,7 @@ export default function Footer() {
               width={24}
               height={24}
             />
-            <p className="roboto text-md text-white">lom travel</p>
+            <p className="font-roboto text-md text-white">lom travel</p>
           </Link>
         </div>
       </div>
