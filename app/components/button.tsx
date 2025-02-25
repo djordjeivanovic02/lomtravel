@@ -23,7 +23,7 @@ export default function CustomButton({
       className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding}`}
     >
       {text}
-      <CustomIcon name={icon} />
+      <CustomIcon name={icon} size={24} />
     </button>
   );
 }
