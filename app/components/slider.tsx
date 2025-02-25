@@ -38,9 +38,9 @@ export default function Slider({
         className="w-full max-w-3xl h-[80vh]"
         style={
           {
-            "--swiper-pagination-color": "#f38255", // Crvena za progress bar
-            "--swiper-navigation-color": "#717171", // Zelena za strelice
-            "--swiper-navigation-size": "35px", // Veličina strelica
+            "--swiper-pagination-color": "#f38255",
+            "--swiper-navigation-color": "#fff",
+            "--swiper-navigation-size": "35px",
           } as React.CSSProperties
         }
       >

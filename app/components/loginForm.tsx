@@ -1,15 +1,15 @@
+import CustomButton from "./button";
 import Input from "./input";
 
 export default function LoginForm() {
   return (
-    <div className="bg-form backdrop-blur-md rounded-[40px] py-16 md:px-16 px-8 flex flex-col items-center">
-      <div className="md:w-80 w-full">
+    <div className="w-full max-w-[400px] bg-form backdrop-blur-md rounded-[40px] py-16 md:px-16 px-10 flex flex-col items-center ">
+      <div className="md:w-70 w-full">
         <Input
           labelText="Korisnicko ime"
           inputType="text"
           placeholderValue="Unesite vase korisnicko ime"
         />
-
         <Input
           labelText="Lozinka"
           inputType="password"
@@ -22,9 +22,9 @@ export default function LoginForm() {
         <input type="checkbox" className="mx-3 cursor-pointer" />
       </div>
 
-      <button className="bg-title w-full rounded-full text-white font-roboto text-sm font-bold p-5 my-8">
-        Prijavi se
-      </button>
+      <div className="w-full mt-6">
+        <CustomButton text="Prijavi se" color="text" radius="full" />
+      </div>
     </div>
   );
 }
