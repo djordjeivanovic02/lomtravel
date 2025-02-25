@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import CustomIcon from "./icon";
 import FooterLink from "./footerLink";
+import CustomIcon from "./icon";
 
 export default function Footer() {
   return (
@@ -37,6 +37,7 @@ export default function Footer() {
             </div>
             <p className="text-xl text-white font-bold">Kontaktiraj Nas</p>
           </Link>
+
           <p className="text-md text-white font-sans mt-8">
             Copyright © {new Date().getFullYear()} Lom Travel. All Rights Reserved
           </p>
