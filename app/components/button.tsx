@@ -6,6 +6,7 @@ type Props = {
   type?: "button" | "submit" | "reset";
   radius?: string;
   icon?: string;
+  padding?: string;
 };
 
 export default function CustomButton({
@@ -14,14 +15,15 @@ export default function CustomButton({
   type = "button",
   radius = "",
   icon = "",
+  padding = "",
 }: Props) {
   return (
     <button
       type={type}
-      className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius}`}
+      className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding}`}
     >
       {text}
-      <CustomIcon name={icon} />
+      <CustomIcon name={icon} size={24} />
     </button>
   );
 }

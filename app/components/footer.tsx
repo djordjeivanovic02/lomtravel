@@ -5,7 +5,7 @@ import CustomIcon from "./icon";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-footer py-24 relative overflow-hidden">
+    <footer className="w-full bg-footer py-24 relative overflow-hidden mt-20">
       <Image
         src="/images/half_circle.svg"
         alt="Half Circle Image"
@@ -39,7 +39,8 @@ export default function Footer() {
           </Link>
 
           <p className="text-md text-white font-sans mt-8">
-            Copyright © {new Date().getFullYear()} Lom Travel. All Rights Reserved
+            Copyright © {new Date().getFullYear()} Lom Travel. All Rights
+            Reserved
           </p>
           <p className="text-md text-white font-sans">
             Design & Development By <b>Remenex</b>
@@ -72,7 +73,9 @@ export default function Footer() {
             alt="Arrow"
             className="my-5"
           />
-          <p className="font-roboto text-lg text-white font-bold">063/70-56-233</p>
+          <p className="font-roboto text-lg text-white font-bold">
+            063/70-56-233
+          </p>
           <p className="font0roboto text-lg text-white font-bold">
             lomtravel11@gmail.com
           </p>
