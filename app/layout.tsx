@@ -1,7 +1,7 @@
 import { dmSans } from "@/lib/fonts";
 import type { Metadata } from "next";
 import Footer from "./components/footer";
-import ScrollHeader from "./components/scrollHeader";
+import Header from "./components/header";
 import "./globals.css";
 import "./globalsicon.css";
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmSans.variable} antialiased`}>
-        <ScrollHeader />
+        <Header />
         {children}
         <Footer />
       </body>

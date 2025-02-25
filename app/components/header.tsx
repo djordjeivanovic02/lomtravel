@@ -1,21 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import HamburgerMenu from "./hamburger";
+import ScrollHeader from "./scrollHeader";
 
-type Props = {
-  isScrolled?: boolean;
-  isOpen?: boolean;
-  toggleMenu: () => void;
-};
-
-export default function Header({ isScrolled, isOpen, toggleMenu }: Props) {
+export default function Header() {
   return (
     <header
-      className={`w-full p-8 sticky top-0 z-50 py-2 transition-all duration-500 text-x ${
-        isScrolled ? "bg-white shadow-lg" : "bg-transparent"
-      } `}
+      className={`flex justify-center w-full p-8 fixed top-0 z-50 py-2 transition-all duration-500 text-x  `}
+      id="header"
     >
-      <nav className="flex justify-between items-center text-title">
+      <nav className="flex justify-between items-center text-title w-full max-w-[1400px]">
         <Link href="/">
           <Image
             src="/images/logo.svg"
@@ -23,6 +17,7 @@ export default function Header({ isScrolled, isOpen, toggleMenu }: Props) {
             width={102}
             height={84}
             className="w-20 md:w-24"
+            priority
           />
         </Link>
 
@@ -62,7 +57,8 @@ export default function Header({ isScrolled, isOpen, toggleMenu }: Props) {
           </Link>
         </div>
 
-        <HamburgerMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+        <HamburgerMenu />
+        <ScrollHeader />
       </nav>
     </header>
   );

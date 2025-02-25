@@ -1,21 +1,19 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import HamburgerLink from "./hamburgerLink";
 import CustomIcon from "./icon";
 
-export default function HamburgerMenu({
-  isOpen,
-  toggleMenu,
-}: {
-  isOpen?: boolean;
-  toggleMenu: () => void;
-}) {
+export default function HamburgerMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="md:hidden relative">
       {/* Dugme za otvaranje menija */}
       {!isOpen && (
         <button
-          onClick={toggleMenu}
+          onClick={() => setIsOpen(!isOpen)}
           className="flex justify-center items-center w-11 h-11 shadow-lg rounded-md"
         >
           <CustomIcon name="menu" color="black" size={20} />
@@ -25,7 +23,7 @@ export default function HamburgerMenu({
       {isOpen && (
         <div
           className="fixed inset-0 bg-black opacity-50"
-          onClick={toggleMenu}
+          onClick={() => setIsOpen(!isOpen)}
         />
       )}
 
@@ -36,18 +34,33 @@ export default function HamburgerMenu({
           }`}
       >
         <div className="flex flex-col justify-between h-full pb-5">
-          <button onClick={toggleMenu} className="absolute top-2 right-2">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="absolute top-2 right-2"
+          >
             <CustomIcon name="close" color="black" size={20} />
           </button>
           <div className="">
-            <HamburgerLink text="Pocetna" link="/" toggleMenu={toggleMenu} />
-            <HamburgerLink text="Ponude" link="/" toggleMenu={toggleMenu} />
+            <HamburgerLink
+              text="Pocetna"
+              link="/"
+              toggleMenu={() => setIsOpen(!isOpen)}
+            />
+            <HamburgerLink
+              text="Ponude"
+              link="/"
+              toggleMenu={() => setIsOpen(!isOpen)}
+            />
             <HamburgerLink
               text="Destinacije"
               link="/destinations"
-              toggleMenu={toggleMenu}
+              toggleMenu={() => setIsOpen(!isOpen)}
             />
-            <HamburgerLink text="O nama" link="/" toggleMenu={toggleMenu} />
+            <HamburgerLink
+              text="O nama"
+              link="/"
+              toggleMenu={() => setIsOpen(!isOpen)}
+            />
           </div>
 
           <div className="">
