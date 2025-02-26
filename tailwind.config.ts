@@ -18,6 +18,20 @@ export default {
       },
     },
     extend: {
+      animation: {
+        "slide-up": "slide-up 400ms ease-out",
+        "fade-in": "fade-in 1000ms ease-out",
+      },
+      keyframes: {
+        "slide-up": {
+          "0%": { transform: "translateY(50%)", opacity: "0" },
+          "100%": { transform: "translateY(0%)", opacity: "1" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
       screens: {
         md: "850px",
       },

@@ -2,11 +2,13 @@
 import { useRef, useState, useEffect } from "react";
 import CustomIcon from "./icon";
 import VacattionOffer from "./vacationOffer";
+import { motion } from "framer-motion";
 
 export default function Offers() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
+  const [sliderInView, setSliderInView] = useState(false);
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
@@ -43,7 +45,14 @@ export default function Offers() {
   };
 
   return (
-    <div className="relative w-full flex items-center">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }} 
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.5 }}
+      onViewportEnter={() => setSliderInView(true)}
+      className="relative w-full flex items-center"
+    >
       <div
         className={`rounded-full p-2 mr-4 border-2 items-center justify-center hover:bg-[#ddd] cursor-pointer bg-white hidden lg:flex duration-300 ${
           !showLeftButton ? "opacity-0 pointer-events-none" : ""
@@ -56,41 +65,29 @@ export default function Offers() {
         className="flex overflow-x-auto space-x-8 hide-scrollbar px-5 md:px-0"
         ref={scrollContainerRef}
       >
-        <VacattionOffer
-          imageUrl="/images/church.png"
-          location="Kopaonik, Srbija"
-          duration="1 dan"
-          title="Poseti prestonicu kulture jednodnevno putovanje"
-          price={34}
-        />
-        <VacattionOffer
-          imageUrl="/images/church.png"
-          location="Kopaonik, Srbija"
-          duration="1 dan"
-          title="Poseti prestonicu kulture jednodnevno putovanje"
-          price={34}
-        />
-        <VacattionOffer
-          imageUrl="/images/church.png"
-          location="Kopaonik, Srbija"
-          duration="1 dan"
-          title="Poseti prestonicu kulture jednodnevno putovanje"
-          price={34}
-        />
-        <VacattionOffer
-          imageUrl="/images/church.png"
-          location="Kopaonik, Srbija"
-          duration="1 dan"
-          title="Poseti prestonicu kulture jednodnevno putovanje"
-          price={34}
-        />
-        <VacattionOffer
-          imageUrl="/images/church.png"
-          location="Kopaonik, Srbija"
-          duration="1 dan"
-          title="Poseti prestonicu kulture jednodnevno putovanje"
-          price={34}
-        />
+        {Array(5)
+          .fill(null)
+          .map(
+            (_, index) =>
+              sliderInView && (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="flex-shrink-0"
+                >
+                  <VacattionOffer
+                    imageUrl="/images/church.png"
+                    location="Kopaonik, Srbija"
+                    duration="1 dan"
+                    title="Poseti prestonicu kulture jednodnevno putovanje"
+                    price={34}
+                  />
+                </motion.div>
+              )
+          )}
       </div>
       <div
         className={`p-2 rounded-full border-2 ml-4 items-center justify-center hover:bg-[#ddd] cursor-pointer bg-white hidden lg:flex duration-300 ${
@@ -100,6 +97,6 @@ export default function Offers() {
       >
         <CustomIcon name="arrow_right_alt" size={24} color="black" />
       </div>
-    </div>
+    </motion.div>
   );
 }

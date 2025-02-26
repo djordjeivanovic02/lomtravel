@@ -6,7 +6,7 @@ import ScrollHeader from "./scrollHeader";
 export default function Header() {
   return (
     <header
-      className={`flex justify-center w-full p-8 fixed top-0 z-50 py-2 transition-all duration-500 text-x  `}
+      className={`flex justify-center w-full p-8 fixed top-0 z-50 py-2 transition-all text-x animate-fade-in`}
       id="header"
     >
       <nav className="flex justify-between items-center text-title w-full max-w-[1400px]">

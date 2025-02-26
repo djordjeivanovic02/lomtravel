@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import HeroSearch from "./components/heroSearch";
 import Offers from "./components/offers";
 import WideWidget from "./components/wideWidget";
+import { motion } from "framer-motion";
+import OurDestinations from "./components/ourDestinations";
 
 const wideData = [
   {
@@ -28,13 +31,13 @@ const wideData = [
 
 export default function Index() {
   return (
-    <div className="w-full">
+    <div className="w-full relative overflow-hidden">
       <section
         className="HeroSection w-full h-[735px] bg-cover bg-center 
              lg:bg-[url('/images/hero.svg')] 
-             bg-gradient-to-b from-white to-[#FCE9E0]"
+             bg-gradient-to-b from-white to-[#FCE9E0] relative animate-fade-in"
       >
-        <div className="container h-full flex flex-col md:justify-center">
+        <div className="container h-full flex flex-col md:justify-center delay-1000 animate-slide-up">
           <h1 className="text-[54px] mt-40 md:mt-0 md:text-[70px] font-bold text-title max-w-[585px]">
             Putovanja Koja Neces <span className="text-main">Zaboraviti</span>
           </h1>
@@ -47,74 +50,12 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="CurrentOffers w-full mt-24 md:mt-60 bg-[url('/images/red_lines.svg')] relative z-20">
-        <div className="container">
-          <h3 className="font-handwritten text-xl md:text-2xl text-main">
-            Sjajne Ture
-          </h3>
-          <h2 className="font-bold text text-4xl md:text-6xl text-title max-w-xl my-5">
-            Nase Aktuelne Ponude
-          </h2>
-          <Image
-            src="/images/orange_arrow.svg"
-            width={300}
-            height={10}
-            alt="Orange Arrow"
-          />
-        </div>
-        <div className="w-full flex justify-center">
-          <div className="w-full max-w-[1500px] px-0 md:px-5">
-            <div className="py-14">
-              <Offers />
-            </div>
-          </div>
-        </div>
+      <section className="CurrentOffers w-full mt-24  bg-[url('/images/red_lines.svg')] relative z-20">
+        <OurDestinations />
       </section>
 
       <section className="TopDestinations w-full mt-24 md:mt-60 relative">
-        <Image
-          src="/images/half_circle_right.svg"
-          alt="Half Circle"
-          width={223}
-          height={334}
-          className="absolute -top-40 right-0 z-10"
-        />
-        <div className="container relative z-20">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center">
-            <div>
-              <h3 className="font-handwritten text-xl md:text-2xl text-main">
-                Top Destinacije
-              </h3>
-              <h2 className="font-bold text text-4xl md:text-6xl text-title max-w-xl my-5">
-                Neke Od Nasih Sjajnih{" "}
-                <span className="font-light">Destinacija</span>
-              </h2>
-              <Image
-                src="/images/orange_arrow.svg"
-                width={300}
-                height={10}
-                alt="Orange Arrow"
-              />
-            </div>
-            <p className="font-roboto text-sm md:text-base max-w-xl text-lightText mt-5 lg:mt-0">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. doloremque laudantium, totam rem aperiam,
-              eaque ipsa quae ab illo inventore veritatis.
-            </p>
-          </div>
-        </div>
-        <div className="w-full flex flex-col lg:flex-row mt-16 lg:mt-20 justify-between relative z-20">
-          {wideData.map((data) => (
-            <WideWidget
-              key={data.image}
-              image={data.image}
-              title={data.title}
-              description={data.description}
-            />
-          ))}
-        </div>
+        
       </section>
 
       <section className="AboutUs w-full mt-24 md:mt-60 pb-24 md:pb-72 bg-[url('/images/grid.svg')] bg-bottom bg-cover relative">
