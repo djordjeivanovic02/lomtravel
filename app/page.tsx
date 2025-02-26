@@ -5,29 +5,9 @@ import Offers from "./components/offers";
 import WideWidget from "./components/wideWidget";
 import { motion } from "framer-motion";
 import OurDestinations from "./components/ourDestinations";
+import TopDestinations from "./components/topDestinations";
 
-const wideData = [
-  {
-    image: "/images/img1.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-  {
-    image: "/images/img2.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-  {
-    image: "/images/img3.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-  {
-    image: "/images/img4.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-];
+
 
 export default function Index() {
   return (
@@ -55,7 +35,7 @@ export default function Index() {
       </section>
 
       <section className="TopDestinations w-full mt-24 md:mt-60 relative">
-        
+        <TopDestinations/>
       </section>
 
       <section className="AboutUs w-full mt-24 md:mt-60 pb-24 md:pb-72 bg-[url('/images/grid.svg')] bg-bottom bg-cover relative">

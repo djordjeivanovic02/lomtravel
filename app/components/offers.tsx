@@ -48,7 +48,7 @@ export default function Offers() {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }} 
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 1 }}
       transition={{ duration: 0.5 }}
       onViewportEnter={() => setSliderInView(true)}
       className="relative w-full flex items-center"
