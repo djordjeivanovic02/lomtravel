@@ -1,4 +1,5 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,10 +8,10 @@ import CustomIcon from "./icon";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <div className="md:hidden relative">
-      {/* Dugme za otvaranje menija */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -109,11 +110,15 @@ export default function HamburgerMenu() {
             </Link>
 
             <Link
-              href="#"
-              className="flex justify-center items-center mt-2 gap-2 bg-main rounded-full py-3 px-5 text-white  hover:bg-title transition-all duration-300 ease-in-out"
+              href={session ? "#" : "/destinations"}
+              onClick={session ? () => signOut() : undefined}
+              className="flex justify-center items-center mt-2 gap-2 bg-main rounded-full py-3 px-5 text-white hover:bg-title transition-all duration-300 ease-in-out"
             >
-              Rezervisi putovanje
-              <CustomIcon name="call_made" size={20} />
+              {session ? "Odjavi se" : "Rezervisi putovanje"}
+              <CustomIcon
+                name={session ? "exit_to_app" : "call_made"}
+                size={20}
+              />
             </Link>
           </div>
         </div>

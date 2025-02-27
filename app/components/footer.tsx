@@ -56,11 +56,11 @@ export default function Footer() {
             alt="Arrow"
             className="my-5"
           />
-          <FooterLink link="" text="Pocetna" />
+          <FooterLink link="/" text="Pocetna" />
           <FooterLink link="" text="Ponude" />
-          <FooterLink link="" text="Destinacije" />
+          <FooterLink link="/destinations" text="Destinacije" />
           <FooterLink link="" text="O nama" />
-          <FooterLink link="" text="Admin" />
+          <FooterLink link="/login" text="Admin" />
         </div>
         <div className="secondColumn">
           <h2 className="text-2xl text-white font-bold">
