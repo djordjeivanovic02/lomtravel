@@ -15,6 +15,11 @@ export default function Create() {
                 placeholderValue="Unesite naslov putovanja"
                 inputType="text"
               />
+              <Input
+                labelText="Destinacija"
+                placeholderValue="Unesite ime destinacije"
+                inputType="text"
+              />
               <div className="lg:flex gap-5">
                 <div className="md:flex-1">
                   <Input

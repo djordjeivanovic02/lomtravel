@@ -31,11 +31,11 @@ export default function Footer() {
           <p className="font-roboto text-lg text-white max-w-72 mt-4">
             Lider u organizaciji jednodnevnih putovanja
           </p>
-          <Link href="" className="flex items-center gap-4 mt-5">
-            <div className="bg-title p-4 rounded-[1000px] flex items-center justify-center">
-              <CustomIcon name="arrow_right_alt" size={24} />
+          <Link href="mailto: lomtravel11@gmail.com" className="flex items-center gap-4 mt-5 group">
+            <div className="bg-title p-4 rounded-[1000px] flex items-center justify-center group-hover:bg-main duration-300">
+              <CustomIcon name="arrow_right_alt" size={24}/>
             </div>
-            <p className="text-xl text-white font-bold">Kontaktiraj Nas</p>
+            <p className="text-xl text-white font-bold group-hover:text-lightText duration-300">Kontaktiraj Nas</p>
           </Link>
 
           <p className="text-md text-white font-sans mt-8">
