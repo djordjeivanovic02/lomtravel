@@ -32,7 +32,8 @@ export default function Header() {
             </Link>
             <Link
               className="rounded-3xl px-5 py-2 hover:bg-border transition-all duration-300 ease-in-out"
-              href="/"
+              href="/#CurrentOffers"
+              scroll={false}
             >
               Ponude
             </Link>
@@ -44,7 +45,8 @@ export default function Header() {
             </Link>
             <Link
               className="rounded-3xl px-5 py-2 hover:bg-border transition-all duration-300 ease-in-out"
-              href="#"
+              href="/#AboutUs"
+              scroll={false}
             >
               O nama
             </Link>

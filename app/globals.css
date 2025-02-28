@@ -24,6 +24,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: "DM Sans", sans-serif;
+  scroll-behavior: smooth;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

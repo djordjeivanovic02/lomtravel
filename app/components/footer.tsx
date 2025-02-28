@@ -57,10 +57,10 @@ export default function Footer() {
             className="my-5"
           />
           <FooterLink link="/" text="Pocetna" />
-          <FooterLink link="" text="Ponude" />
+          <FooterLink link="/#CurrentOffers" text="Ponude"/>
           <FooterLink link="/destinations" text="Destinacije" />
-          <FooterLink link="" text="O nama" />
-          <FooterLink link="/login" text="Admin" />
+          <FooterLink link="/#AboutUs" text="O nama" />
+          <FooterLink link="/login" text="Admin" scroll={true}/>
         </div>
         <div className="secondColumn">
           <h2 className="text-2xl text-white font-bold">
@@ -79,23 +79,23 @@ export default function Footer() {
           <p className="font0roboto text-lg text-white font-bold">
             lomtravel11@gmail.com
           </p>
-          <Link href="" className="flex items-center gap-1 my-4">
+          <Link href="https://www.instagram.com/lom_travel/" className="flex items-center gap-1 my-4">
             <Image
               src="/icons/insta_icon.svg"
               alt="Instagram"
               width={24}
               height={24}
             />
-            <p className="font-roboto text-md text-white">@lom_travel</p>
+            <p className="font-roboto text-md text-white hover:text-lightText duration-300">@lom_travel</p>
           </Link>
-          <Link href="" className="flex items-center gap-1 mb-4">
+          <Link href="https://www.facebook.com/p/lom-travel-100066774284154/" className="flex items-center gap-1 mb-4">
             <Image
               src="/icons/facebook_icon.svg"
               alt="Facebook"
               width={24}
               height={24}
             />
-            <p className="font-roboto text-md text-white">lom travel</p>
+            <p className="font-roboto text-md text-white hover:text-lightText duration-300">lom travel</p>
           </Link>
         </div>
       </div>
