@@ -1,9 +1,13 @@
 import AdminDestination from "@/app/components/adminDestination";
 import ClientLink from "@/app/components/clientLink";
 import CustomIcon from "@/app/components/icon";
+import { Travel } from "@/app/interfaces/travel";
 import Link from "next/link";
 
 export default async function Dashboard() {
+  const res = await fetch(process.env.NEXTAUTH_URL + "/api/travel");
+  const data: Travel[] = await res.json();
+
   return (
     <section className="AdminDashboard w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
       <div className="container bg-cover bg-center flex justify-center p-4">
@@ -27,41 +31,14 @@ export default async function Dashboard() {
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {data.map((travel) => (
             <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
+              key={travel.id}
+              location={travel.location}
+              description={travel.description}
+              image={travel.images[1]}
             />
-            <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
-            />
-            <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
-            />
-            <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
-            />
-            <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
-            />
-            <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
-            />
-            <AdminDestination
-              location="Niš, Srbija"
-              description="Jednodnevno putovanje do Ćele kule u Nišu"
-              image="widget_image.svg"
-            />
+          ))}
           </div>
         </div>
       </div>

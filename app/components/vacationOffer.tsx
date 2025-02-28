@@ -1,12 +1,12 @@
 import Image from "next/image";
-import CustomIcon from "./icon";
 import Link from "next/link";
+import CustomIcon from "./icon";
 
 type Props = {
   imageUrl: string;
   location: string;
   title: string;
-  duration: string;
+  duration: number;
   price: number;
 };
 
@@ -37,14 +37,18 @@ export default function VacattionOffer({
         <CustomIcon name="location_on" size={24} color="#717171" />
         <p className="font-roboto text-sm text-lightText">{location}</p>
       </div>
-      <h2 className="font-bold text-lg hover:underline cursor-pointer">{title}</h2>
-      <hr className="my-4"/>
+      <h2 className="font-bold text-lg hover:underline cursor-pointer">
+        {title}
+      </h2>
+      <hr className="my-4" />
       <div className="w-full flex justify-between items-center">
         <div className="flex items-center gap-1">
-            <CustomIcon name="schedule" size={20} color="#05073C"/>
-            <p className="font-roboto text-sm text-title">{duration}</p>
+          <CustomIcon name="schedule" size={20} color="#05073C" />
+          <p className="font-roboto text-sm text-title">{duration}</p>
         </div>
-        <Link href="" className="font-roboto text-sm">Prikazi Detalje</Link>
+        <Link href="" className="font-roboto text-sm">
+          Prikazi Detalje
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import CustomIcon from "./icon";
 import Input from "./input";
 
@@ -22,17 +23,19 @@ export default function SelectCity() {
       setDepartures([
         ...departures,
         {
-          id: crypto.randomUUID(), // Generiše unikatan ID
+          id: crypto.randomUUID(),
           city: newCity,
           departureTime,
           extraCharge: extraCharge.trim() === "" ? 0 : Number(extraCharge),
         },
       ]);
-      // Resetuj polja
+
       setNewCity("");
       setDepartureTime("");
       setExtraCharge("");
       setIsOpen(false);
+    } else {
+      toast.error("Morate popuniti sva polja");
     }
   };
 
