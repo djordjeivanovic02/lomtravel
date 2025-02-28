@@ -1,67 +1,11 @@
 import CustomButton from "@/app/components/button";
 import CustomIcon from "@/app/components/icon";
 import VacattionOffer from "@/app/components/vacationOffer";
+import { Travel } from "@/app/interfaces/travel";
 
-export default function Destionations() {
-  const destinations = [
-    {
-      imageUrl: "/images/church.png",
-      location: "Paris, France",
-      title: "Eiffel Tower Tour",
-      duration: "2 hours",
-      price: 50,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "New York, USA",
-      title: "Central Park Walk",
-      duration: "1 hour",
-      price: 30,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "Tokyo, Japan",
-      title: "Shibuya Crossing Experience",
-      duration: "30 minutes",
-      price: 15,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "London, UK",
-      title: "Big Ben and Thames Cruise",
-      duration: "3 hours",
-      price: 75,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "Rome, Italy",
-      title: "Vatican Museums Tour",
-      duration: "4 hours",
-      price: 100,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "Sydney, Australia",
-      title: "Sydney Opera House Tour",
-      duration: "1.5 hours",
-      price: 45,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "Dubai, UAE",
-      title: "Burj Khalifa Observation Deck",
-      duration: "1 hour",
-      price: 80,
-    },
-    {
-      imageUrl: "/images/church.png",
-      location: "Machu Picchu, Peru",
-      title: "Machu Picchu Day Trip",
-      duration: "6 hours",
-      price: 120,
-    },
-  ];
-
+export default async function Destionations() {
+  const res = await fetch(process.env.NEXTAUTH_URL + "/api/travel");
+  const data: Travel[] = await res.json();
   return (
     <div className="container mt-32">
       <div className="w-full   mb-14">
@@ -80,10 +24,10 @@ export default function Destionations() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-8 mb-10">
-        {destinations.map((destination, index) => (
+        {data.map((destination, index) => (
           <VacattionOffer
             key={index}
-            imageUrl={destination.imageUrl}
+            imageUrl={destination.images[1]}
             location={destination.location}
             title={destination.title}
             duration={destination.duration}

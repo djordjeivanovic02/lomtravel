@@ -14,13 +14,12 @@ export default function AdminDestination({
   return (
     <div className="w-full max-w-md border-b-2 border-form flex items-center justify-between gap-3">
       <div className="flex">
-        <div className=" h-full flex-shrink-0">
+        <div className="w-[85px] h-[85px] relative">
           <Image
-            src={`/images/${image}`}
+            src={image}
             alt="login_image"
-            width={85}
-            height={85}
-            className="w-full h-full object-cover p-1"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
 

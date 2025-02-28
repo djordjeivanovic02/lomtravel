@@ -1,9 +1,13 @@
 import AdminDestination from "@/app/components/adminDestination";
 import ClientLink from "@/app/components/clientLink";
 import CustomIcon from "@/app/components/icon";
+import { Travel } from "@/app/interfaces/travel";
 import Link from "next/link";
 
 export default async function Dashboard() {
+  const res = await fetch(process.env.NEXTAUTH_URL + "/api/travel");
+  const data: Travel[] = await res.json();
+
   return (
     <div className="container bg-[url('/images/dashboard_bg.svg')] bg-cover bg-center min-h-screen flex justify-center items-center p-4">
       <div className="mt-32 bg-form backdrop-blur-md md:rounded-[40px] rounded-3xl md:px-12 md:py-8 p-6 w-full max-w-4xl">
@@ -26,41 +30,14 @@ export default async function Dashboard() {
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
-          <AdminDestination
-            location="Niš, Srbija"
-            description="Jednodnevno putovanje do Ćele kule u Nišu"
-            image="widget_image.svg"
-          />
+          {data.map((travel) => (
+            <AdminDestination
+              key={travel.id}
+              location={travel.location}
+              description={travel.description}
+              image={travel.images[1]}
+            />
+          ))}
         </div>
       </div>
     </div>
