@@ -5,9 +5,9 @@ import Link from "next/link";
 
 export default async function Dashboard() {
   return (
-    <section className="w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
-      <div className="container bg-cover bg-center min-h-screen flex justify-center items-center p-4">
-        <div className="mt-32 bg-form backdrop-blur-md md:rounded-[40px] rounded-3xl md:px-12 md:py-8 p-6 w-full max-w-[1120px]">
+    <section className="AdminDashboard w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
+      <div className="container bg-cover bg-center flex justify-center p-4">
+        <div className="mt-40 bg-form backdrop-blur-md md:rounded-[40px] rounded-3xl md:px-12 md:py-8 p-6 w-full max-w-[1120px]">
           <div className="flex justify-between flex-wrap pb-10 gap-2 text-white">
             <Link
               href="/create"
