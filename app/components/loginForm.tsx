@@ -47,7 +47,7 @@ export default function LoginForm() {
     if (result?.error) {
       toast.error("Uneti podaci nisu validni");
     } else {
-      router.push("/dashboard");
+      router.replace("/dashboard");
     }
   };
 

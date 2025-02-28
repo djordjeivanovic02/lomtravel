@@ -1,14 +1,13 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import ClientLink from "./clientLink";
 import HamburgerLink from "./hamburgerLink";
 import CustomIcon from "./icon";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession();
 
   return (
     <div className="md:hidden relative">
@@ -101,6 +100,7 @@ export default function HamburgerMenu() {
               <CustomIcon name="mail" size={22} color="#094174" />
               lomtravel11@gmail.com
             </Link>
+
             <Link
               href="tel:+381637056233"
               className="flex gap-2 pb-2 border-b border-border"
@@ -109,17 +109,18 @@ export default function HamburgerMenu() {
               063/70-56-233
             </Link>
 
-            <Link
-              href={session ? "#" : "/destinations"}
-              onClick={session ? () => signOut() : undefined}
-              className="flex justify-center items-center mt-2 gap-2 bg-main rounded-full py-3 px-5 text-white hover:bg-title transition-all duration-300 ease-in-out"
-            >
-              {session ? "Odjavi se" : "Rezervisi putovanje"}
-              <CustomIcon
-                name={session ? "exit_to_app" : "call_made"}
-                size={20}
+            <div onClick={() => setIsOpen(false)}>
+              <ClientLink
+                signedText="Odjavi se"
+                notSignedText="Rezervisi putovanje"
+                notSignedUrl="/destinations"
+                radius="full"
+                padding="py-2 px-5 mt-2"
+                signedIcon="exit_to_app"
+                notSignedIcon="call_made"
+                action="signout"
               />
-            </Link>
+            </div>
           </div>
         </div>
       </div>

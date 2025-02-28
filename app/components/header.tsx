@@ -50,7 +50,13 @@ export default function Header() {
             </Link>
           </div>
 
-          <ClientLink />
+          <ClientLink
+            notSignedText="Rezervisi putovanje"
+            signedUrl="/dashboard"
+            notSignedUrl="/destinations"
+            padding="py-3 px-5"
+            radius="full"
+          />
         </div>
 
         <HamburgerMenu />
