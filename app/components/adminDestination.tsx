@@ -12,7 +12,7 @@ export default function AdminDestination({
   image,
 }: Props) {
   return (
-    <div className="w-full max-w-md border-b-2 border-form flex items-center justify-between gap-3">
+    <div className="w-full border-b-2 border-form flex items-center justify-between gap-3">
       <div className="flex">
         <div className=" h-full flex-shrink-0">
           <Image

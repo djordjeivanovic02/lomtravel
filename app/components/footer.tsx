@@ -5,7 +5,7 @@ import CustomIcon from "./icon";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-footer py-24 relative overflow-hidden mt-20">
+    <footer className="w-full bg-footer py-24 relative overflow-hidden">
       <Image
         src="/images/half_circle.svg"
         alt="Half Circle Image"
