@@ -1,19 +1,73 @@
+"use client";
+
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import CustomButton from "./button";
 import Input from "./input";
+import Loader from "./loader";
 
 export default function LoginForm() {
+  const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  useEffect(() => {
+    const errorMessage = searchParams.get("error");
+    if (errorMessage) {
+      toast.error(`Greška: ${errorMessage}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      router.replace("/login", { scroll: false });
+    }
+  }, [searchParams, router]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const username = formData.get("username");
+    const password = formData.get("password");
+
+    if (!username || !password) {
+      toast.error("Morate popuniti oba polja");
+      return;
+    }
+    setLoading(true);
+    const result = await signIn("credentials", {
+      username,
+      password,
+      redirect: false,
+    });
+
+    setLoading(false);
+
+    if (result?.error) {
+      toast.error("Uneti podaci nisu validni");
+    } else {
+      router.replace("/dashboard");
+    }
+  };
+
   return (
-    <div className="w-full max-w-[400px] bg-form backdrop-blur-md rounded-[40px] py-16 md:px-16 px-10 flex flex-col items-center ">
+    <form
+      onSubmit={handleSubmit}
+      className="w-full max-w-[400px] h-fit md:mt-0 2xl:mt-20 bg-form backdrop-blur-md rounded-[40px] py-16 md:px-16 px-10 flex flex-col items-center"
+    >
       <div className="md:w-70 w-full">
         <Input
-          labelText="Korisnicko ime"
+          labelText="Korisničko ime"
           inputType="text"
-          placeholderValue="Unesite vase korisnicko ime"
+          placeholderValue="Unesite vaše korisničko ime"
+          name="username"
         />
         <Input
           labelText="Lozinka"
           inputType="password"
-          placeholderValue="Unesite vasu lozinku"
+          placeholderValue="Unesite vašu lozinku"
+          name="password"
         />
       </div>
 
@@ -23,8 +77,15 @@ export default function LoginForm() {
       </div>
 
       <div className="w-full mt-6">
-        <CustomButton text="Prijavi se" color="text" radius="full" />
+        <CustomButton
+          text={loading ? "Prijavljivanje..." : "Prijavi se"}
+          color="text"
+          radius="full"
+          type="submit"
+        />
       </div>
-    </div>
+
+      {loading && <Loader />}
+    </form>
   );
 }
