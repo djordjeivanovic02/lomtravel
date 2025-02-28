@@ -24,7 +24,7 @@ export default function HeroSectionItem({
 }: Props) {
   return (
     <Dropdown className="w-72 md:w-64 rounded-md ml-16 mt-2">
-      <DropdownTrigger>
+      <DropdownTrigger className="h-auto">
         <Button
           variant="bordered"
           className={`outline-none w-full md:w-auto py-2 md:py-0 px-5 md:px-0 md:border-b md:border-none ${
