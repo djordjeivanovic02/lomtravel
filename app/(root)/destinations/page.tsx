@@ -29,27 +29,28 @@ export default async function Destionations() {
             </div>
           </div>
         </div>
-      <div className="flex flex-wrap justify-center gap-8 mb-10">
-        {data.map((destination, index) => (
-          <VacattionOffer
-            key={index}
-            imageUrl={destination.images[1]}
-            location={destination.location}
-            title={destination.title}
-            duration={destination.duration}
-            price={destination.price}
-          />
-        ))}
-      </div>
-      <div className="flex justify-center">
-        <div>
-          <CustomButton
-            text="Prikazi jos"
-            color="main"
-            icon="keyboard_arrow_down"
-            radius="full"
-            padding="px-6"
-          />
+        <div className="flex flex-wrap justify-center gap-8 mb-10">
+          {data.map((destination, index) => (
+            <VacattionOffer
+              key={index}
+              imageUrl={destination.images[1]}
+              location={destination.location}
+              title={destination.title}
+              duration={destination.duration}
+              price={destination.price}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <div>
+            <CustomButton
+              text="Prikazi jos"
+              color="main"
+              icon="keyboard_arrow_down"
+              radius="full"
+              padding="px-6"
+            />
+          </div>
         </div>
       </div>
     </section>
