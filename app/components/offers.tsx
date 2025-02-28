@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function Offers() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
-  const [showRightButton, setShowRightButton] = useState(false);
+  const [showRightButton, setShowRightButton] = useState(true);
   const [sliderInView, setSliderInView] = useState(false);
 
   const checkScrollPosition = () => {
@@ -22,7 +22,7 @@ export default function Offers() {
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      checkScrollPosition();
+      // checkScrollPosition();
       scrollContainer.addEventListener("scroll", checkScrollPosition);
     }
     return () => {
@@ -55,7 +55,7 @@ export default function Offers() {
     >
       <div
         className={`rounded-full p-2 mr-4 border-2 items-center justify-center hover:bg-[#ddd] cursor-pointer bg-white hidden lg:flex duration-300 ${
-          !showLeftButton ? "opacity-0 pointer-events-none" : ""
+          !showLeftButton ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         onClick={handleScrollLeft}
       >
@@ -90,8 +90,8 @@ export default function Offers() {
           )}
       </div>
       <div
-        className={`p-2 rounded-full border-2 ml-4 items-center justify-center hover:bg-[#ddd] cursor-pointer bg-white hidden lg:flex duration-300 ${
-          !showRightButton ? "opacity-0 pointer-events-none" : ""
+        className={`p-2 rounded-full border-2 ml-4 items-center justify-center hover:bg-[#ddd] hidden cursor-pointer bg-white lg:flex duration-300 ${
+          !showRightButton ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         onClick={handleScrollRight}
       >

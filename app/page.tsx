@@ -1,20 +1,16 @@
-"use client";
 import Image from "next/image";
 import HeroSearch from "./components/heroSearch";
-import Offers from "./components/offers";
-import WideWidget from "./components/wideWidget";
-import { motion } from "framer-motion";
 import OurDestinations from "./components/ourDestinations";
 import TopDestinations from "./components/topDestinations";
-
-
+import SmoothScrollHandler from "./hooks/smoothScrollHandler";
 
 export default function Index() {
   return (
     <div className="w-full relative overflow-hidden">
+      <SmoothScrollHandler/>
       <section
-        className="HeroSection w-full h-[735px] bg-cover bg-center 
-             lg:bg-[url('/images/hero.svg')] 
+        className="HeroSection w-full h-[735px]  bg-center 
+             lg:bg-[url('/images/hero.svg')] bg-cover
              bg-gradient-to-b from-white to-[#FCE9E0] relative animate-fade-in"
       >
         <div className="container h-full flex flex-col md:justify-center delay-1000 animate-slide-up">
@@ -30,7 +26,7 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="CurrentOffers w-full mt-24  bg-[url('/images/red_lines.svg')] relative z-20">
+      <section id="CurrentOffers" className="CurrentOffers w-full mt-24  bg-[url('/images/red_lines.svg')]  bg-no-repeat bg-cover relative z-20">
         <OurDestinations />
       </section>
 
@@ -38,7 +34,7 @@ export default function Index() {
         <TopDestinations/>
       </section>
 
-      <section className="AboutUs w-full mt-24 md:mt-60 pb-24 md:pb-72 bg-[url('/images/grid.svg')] bg-bottom bg-cover relative">
+      <section id="AboutUs" className="AboutUs w-full mt-24 md:mt-60 pb-24 md:pb-72 bg-[url('/images/grid.svg')] bg-bottom bg-cover relative">
         <Image
           src="/images/dots.svg"
           alt="Half Circle"
