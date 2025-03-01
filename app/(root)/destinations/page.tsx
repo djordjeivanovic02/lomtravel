@@ -5,7 +5,7 @@ import VacattionOffer from "@/app/components/vacationOffer";
 import { Travel } from "@/app/interfaces/travel";
 
 export default async function Destionations() {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/travel");
+  const res = await fetch(process.env.BASE_URL + "/api/travel");
   const data: Travel[] = await res.json();
   return (
     <section className="DestinationsSection mb-24">
@@ -33,7 +33,7 @@ export default async function Destionations() {
           {data.map((destination, index) => (
             <VacattionOffer
               key={index}
-              imageUrl={destination.images[1]}
+              imageUrl={destination.images?.[1] ?? ""}
               location={destination.location}
               title={destination.title}
               duration={destination.duration}

@@ -5,7 +5,7 @@ import { Travel } from "@/app/interfaces/travel";
 import Link from "next/link";
 
 export default async function Dashboard() {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/travel");
+  const res = await fetch(process.env.BASE_URL + "/api/travel");
   const data: Travel[] = await res.json();
 
   return (
@@ -32,13 +32,13 @@ export default async function Dashboard() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {data.map((travel) => (
-            <AdminDestination
-              key={travel.id}
-              location={travel.location}
-              description={travel.description}
-              image={travel.images[1]}
-            />
-          ))}
+              <AdminDestination
+                key={travel.id}
+                location={travel.location}
+                description={travel.description}
+                image={travel.images?.[1] ?? ""}
+              />
+            ))}
           </div>
         </div>
       </div>

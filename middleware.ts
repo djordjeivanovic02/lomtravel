@@ -8,10 +8,12 @@ export async function middleware(request: NextRequest) {
   });
 
   if (token) {
+    // If the user is authenticated
     if (request.nextUrl.pathname === "/login") {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   } else {
+    // If the user is not authenticated
     if (request.nextUrl.pathname === "/login") {
       return NextResponse.next();
     }
@@ -24,5 +26,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/login", "/create"],
 };
