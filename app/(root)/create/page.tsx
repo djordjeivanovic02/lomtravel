@@ -1,85 +1,184 @@
+"use client";
 import CustomButton from "@/app/components/button";
 import ImageUpload from "@/app/components/imageUpload";
 import Input from "@/app/components/input";
 import SelectCity from "@/app/components/selectCity";
+import { Departure } from "@/app/interfaces/departure";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Create() {
+  const [images, setImages] = useState<File[]>([]);
+  const [departures, setDepartures] = useState<Departure[]>([]);
+  const [resetTrigger, setResetTrigger] = useState(false);
+
+  const handleDeparturesChange = (updatedDepartures: Departure[]) => {
+    setDepartures(updatedDepartures);
+  };
+
+  const handleImagesChange = (newFiles: File[]) => {
+    setImages(newFiles);
+  };
+
+  useEffect(() => {
+    if (resetTrigger) {
+      setResetTrigger(false);
+    }
+  }, [resetTrigger]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+
+      const form = e.currentTarget;
+      const title = form.title.valueOf;
+      const destination = form.destination.value;
+      const date = form.date.value;
+      const price = form.price.value;
+      const seats = form.seats.value;
+      const duration = form.duration.value;
+      const description = form.description.value;
+
+      if (
+        !title ||
+        !destination ||
+        !date ||
+        !price ||
+        !seats ||
+        !duration ||
+        !description
+      ) {
+        toast.error("Sva polja moraju biti popunjena!");
+        return;
+      }
+
+      if (images.length === 0) {
+        toast.error("Morate dodati barem jednu sliku!");
+        return;
+      }
+
+      if (departures.length === 0) {
+        toast.error("Morate dodati barem jedan polazak!");
+        return;
+      }
+
+      formData.append("departures", JSON.stringify(departures));
+      images.forEach((image) => {
+        formData.append("images[]", image);
+      });
+
+      const res = await fetch("http://localhost:3000/api/travel", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        toast.success("Putovanje uspešno kreirano!");
+        setResetTrigger(true);
+        setImages([]);
+        setDepartures([]);
+        form.reset();
+      } else {
+        toast.error("Greška prilikom kreiranja putovanja.");
+      }
+    } catch (error) {
+      toast.error("Došlo je do greške: " + error);
+    }
+  };
+
   return (
     <section className="CreateSection w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
-      <div className="container">
-        <div className="mt-40 bg-form backdrop-blur-md rounded-3xl md:rounded-[40px]">
-          <div className="flex flex-col md:flex-row flex-wrap">
-            <div className="flex-1 md:p-9 p-9">
-              <Input
-                labelText="Naslov"
-                placeholderValue="Unesite naslov putovanja"
-                inputType="text"
-              />
-              <Input
-                labelText="Destinacija"
-                placeholderValue="Unesite ime destinacije"
-                inputType="text"
-              />
-              <div className="lg:flex gap-5">
-                <div className="md:flex-1">
-                  <Input
-                    labelText="Datum"
-                    placeholderValue="Izaberite datum polaska"
-                    inputType="date"
-                  />
+      <form onSubmit={handleSubmit}>
+        <div className="container">
+          <div className="mt-40 bg-form backdrop-blur-md rounded-3xl md:rounded-[40px]">
+            <div className="flex flex-col md:flex-row flex-wrap">
+              <div className="flex-1 md:p-9 p-9">
+                <Input
+                  labelText="Naslov"
+                  placeholderValue="Unesite naslov putovanja"
+                  inputType="text"
+                  name="title"
+                />
+                <Input
+                  labelText="Destinacija"
+                  placeholderValue="Unesite ime destinacije"
+                  inputType="text"
+                  name="destination"
+                />
+                <div className="lg:flex gap-5">
+                  <div className="md:flex-1">
+                    <Input
+                      labelText="Datum"
+                      placeholderValue="Izaberite datum polaska"
+                      inputType="date"
+                      name="date"
+                    />
+                  </div>
+                  <div className="md:flex-1">
+                    <Input
+                      labelText="Cena"
+                      placeholderValue="Unesite cenu"
+                      inputType="number"
+                      name="price"
+                    />
+                  </div>
                 </div>
-                <div className="md:flex-1">
-                  <Input
-                    labelText="Cena"
-                    placeholderValue="Unesite cenu"
-                    inputType="number"
+                <div>
+                  <SelectCity
+                    onDeparturesChange={handleDeparturesChange}
+                    resetTrigger={resetTrigger}
                   />
                 </div>
               </div>
-              <div>
-                <SelectCity />
+              <div className="flex-1 md:p-9 p-9">
+                <div className="md:flex gap-5">
+                  <div className="md:flex-1">
+                    <Input
+                      labelText="Broj mesta"
+                      placeholderValue="Unesite broj mesta"
+                      inputType="number"
+                      name="seats"
+                    />
+                  </div>
+                  <div className="md:flex-1">
+                    <Input
+                      labelText="Trajanje putovanja"
+                      placeholderValue="Unesite trajanje u danima"
+                      inputType="number"
+                      name="duration"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-roboto my-3">Opis</p>
+                  <textarea
+                    className="w-full h-44 resize-none rounded-3xl py-3 px-6"
+                    placeholder="Unesite opis putovanja"
+                    name="description"
+                  ></textarea>
+                </div>
               </div>
             </div>
-            <div className="flex-1 md:p-9 p-9">
-              <div className="md:flex gap-5">
-                <div className="md:flex-1">
-                  <Input
-                    labelText="Broj mesta"
-                    placeholderValue="Unesite broj mesta"
-                    inputType="number"
-                  />
-                </div>
-                <div className="md:flex-1">
-                  <Input
-                    labelText="Trajanje putovanja"
-                    placeholderValue="Unesite trajanje u danima"
-                    inputType="number"
-                  />
-                </div>
+            <ImageUpload
+              onImagesChange={handleImagesChange}
+              resetTrigger={resetTrigger}
+            />
+            <div className="flex justify-end md:p-12 p-9">
+              <div className="w-fit">
+                <CustomButton
+                  text="Postavi putovanje"
+                  icon="check"
+                  padding="px-10 py-3"
+                  radius="xl"
+                  color="text"
+                  type="submit"
+                />
               </div>
-              <div>
-                <p className="font-roboto my-3">Opis</p>
-                <textarea
-                  className="w-full h-44 resize-none rounded-3xl py-3 px-6 "
-                  placeholder="Unesite opis putovanja"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <ImageUpload />
-          <div className="flex justify-end md:p-12 p-9">
-            <div className="w-fit">
-              <CustomButton
-                text="Postavi putovanje"
-                icon="check"
-                padding="px-10 py-3"
-                radius="xl"
-                color="text"
-              />
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </section>
   );
 }

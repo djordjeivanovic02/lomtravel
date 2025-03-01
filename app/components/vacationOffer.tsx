@@ -3,15 +3,15 @@ import Link from "next/link";
 import CustomIcon from "./icon";
 
 type Props = {
-  imageUrl: string;
-  location: string;
-  title: string;
-  duration: number;
-  price: number;
+  imageUrl?: string;
+  location?: string;
+  title?: string;
+  duration?: number;
+  price?: number;
 };
 
 export default function VacattionOffer({
-  imageUrl,
+  imageUrl = "",
   location,
   title,
   duration,

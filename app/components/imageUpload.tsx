@@ -1,39 +1,36 @@
-"use client";
+import { convertBlobUrlToFile } from "@/lib/utils";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomIcon from "./icon";
 
-export default function ImageUpload() {
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+type Props = {
+  onImagesChange: (files: File[]) => void;
+  resetTrigger: boolean;
+};
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
+export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
-    const fileReaders: Promise<string>[] = [];
+  useEffect(() => {
+    if (resetTrigger) setImageUrls([]);
+  }, [resetTrigger]);
 
-    Array.from(files).forEach((file) => {
-      if (!file.type.startsWith("image/")) return;
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+      const newImageUrls = filesArray.map((file) => URL.createObjectURL(file));
 
-      const reader = new FileReader();
-      fileReaders.push(
-        new Promise((resolve) => {
-          reader.onload = () => resolve(reader.result as string);
-          reader.readAsDataURL(file);
-        })
-      );
-    });
+      setImageUrls((prevImageUrls) => [...prevImageUrls, ...newImageUrls]);
 
-    Promise.all(fileReaders).then((newImages) => {
-      setUploadedImages((prev) => [
-        ...prev,
-        ...newImages.filter((img) => !prev.includes(img)),
-      ]);
-    });
+      const files = await Promise.all(newImageUrls.map(convertBlobUrlToFile));
+
+      onImagesChange(files);
+    }
   };
 
   const handleRemoveImage = (index: number) => {
-    setUploadedImages((prev) => prev.filter((_, i) => i !== index));
+    const updatedImages = imageUrls.filter((_, i) => i !== index);
+    setImageUrls(updatedImages);
   };
 
   return (
@@ -45,14 +42,13 @@ export default function ImageUpload() {
             type="file"
             accept="image/*"
             multiple
-            onChange={handleImageUpload}
+            onChange={handleImageChange}
             className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer"
           />
           <CustomIcon name="add_2" color="#717171" size={60} />
         </div>
 
-        {/* Prikaz uploadovanih slika */}
-        {uploadedImages.map((imgSrc, index) => (
+        {imageUrls.map((url, index) => (
           <div key={index} className="relative">
             <button
               className="bg-white rounded-full w-fit h-fit flex justify-center items-center p-[2px] absolute top-1 right-1 z-10"
@@ -61,7 +57,7 @@ export default function ImageUpload() {
               <CustomIcon name="close" color="#717171" />
             </button>
             <Image
-              src={imgSrc}
+              src={url}
               alt={`Uploaded ${index + 1}`}
               width={128}
               height={128}
