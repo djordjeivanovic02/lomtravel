@@ -22,14 +22,16 @@ export default function AdminDestination({
             objectFit="cover"
           />
         </div>
-        <div className="flex-1 pl-4 h-full">
+        <div className="flex-1 pl-4 h-full w-full relative">
           <div className="flex items-center">
             <CustomIcon name="location_on" size={12} color="#717171" />
             <h1 className="text-xs font-roboto text-lightText">{location}</h1>
           </div>
-          <h1 className="text-base font-sans font-semibold text-text">
-            {description}
-          </h1>
+          <div className="w-full overflow-hidden">
+            <h1 className="text-base max-w-full text-nowrap font-sans font-semibold text-text text-ellipsis overflow-hidden max-h-[70px]">
+              {description}
+            </h1>
+          </div>
         </div>
       </div>
       <div>
