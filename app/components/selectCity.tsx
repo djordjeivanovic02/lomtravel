@@ -1,45 +1,55 @@
-"use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Departure } from "../interfaces/departure";
 import CustomIcon from "./icon";
 import Input from "./input";
 
-interface Departure {
-  id: string; // Dodali smo unikatan ID
-  city: string;
-  departureTime: string;
-  extraCharge: number;
+interface Props {
+  onDeparturesChange: (departures: Departure[]) => void;
+  resetTrigger: boolean;
 }
 
-export default function SelectCity() {
+export default function SelectCity({
+  onDeparturesChange,
+  resetTrigger,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [departures, setDepartures] = useState<Departure[]>([]);
   const [newCity, setNewCity] = useState("");
   const [departureTime, setDepartureTime] = useState("");
   const [extraCharge, setExtraCharge] = useState("");
 
+  useEffect(() => {
+    if (resetTrigger) setDepartures([]);
+  }, [resetTrigger]);
+
   const handleAddDeparture = () => {
     if (newCity.trim() !== "" && departureTime.trim() !== "") {
-      setDepartures([
-        ...departures,
-        {
-          id: crypto.randomUUID(), // Generiše unikatan ID
-          city: newCity,
-          departureTime,
-          extraCharge: extraCharge.trim() === "" ? 0 : Number(extraCharge),
-        },
-      ]);
-      // Resetuj polja
+      const newDeparture = {
+        city: newCity,
+        time: departureTime,
+        price: extraCharge.trim() === "" ? 0 : Number(extraCharge),
+      };
+
+      const updatedDepartures = [...departures, newDeparture];
+      setDepartures(updatedDepartures);
+      onDeparturesChange(updatedDepartures);
+
       setNewCity("");
       setDepartureTime("");
       setExtraCharge("");
       setIsOpen(false);
+    } else {
+      toast.error("Morate popuniti sva polja");
     }
   };
 
-  const handleRemoveDeparture = (idToRemove: string) => {
-    setDepartures(
-      departures.filter((departure) => departure.id !== idToRemove)
+  const handleRemoveDeparture = (timeToRemove: string) => {
+    const updatedDepartures = departures.filter(
+      (departure) => departure.time !== timeToRemove
     );
+    setDepartures(updatedDepartures);
+    onDeparturesChange(updatedDepartures);
   };
 
   return (
@@ -49,20 +59,21 @@ export default function SelectCity() {
         <button
           className="bg-title h-fit px-4 py-2 text-white rounded-full"
           onClick={() => setIsOpen(true)}
+          type="button"
         >
           Dodaj polazak
         </button>
         {departures.map((departure) => (
           <div
-            key={departure.id}
+            key={departure.time}
             className="flex items-center my-2 bg-white w-fit px-4 py-2 rounded-full gap-3"
           >
             <span>{departure.city}</span>
-            <span>{departure.departureTime}</span>
-            <span>{departure.extraCharge} €</span>
+            <span>{departure.time}</span>
+            <span>{departure.price} €</span>
             <button
               className="flex items-center "
-              onClick={() => handleRemoveDeparture(departure.id)}
+              onClick={() => handleRemoveDeparture(departure.time)}
             >
               <CustomIcon name="close" color="#717171" />
             </button>
@@ -76,7 +87,7 @@ export default function SelectCity() {
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="bg-white p-6 rounded-xl shadow-lg w-96 bg-form backdrop-blur-md md:rounded-[40px]"
+            className={`bg-white p-8  rounded-xl shadow-lg w-96 bg-form md:rounded-[40px] bg-opacity-90 `}
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="mb-2 font-semibold">Dodaj polazak</h3>

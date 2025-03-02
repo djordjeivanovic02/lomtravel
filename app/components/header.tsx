@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ClientLink from "./clientLink";
 import HamburgerMenu from "./hamburger";
 import ScrollHeader from "./scrollHeader";
 
@@ -31,7 +32,8 @@ export default function Header() {
             </Link>
             <Link
               className="rounded-3xl px-5 py-2 hover:bg-border transition-all duration-300 ease-in-out"
-              href="/"
+              href="/#CurrentOffers"
+              scroll={false}
             >
               Ponude
             </Link>
@@ -43,18 +45,20 @@ export default function Header() {
             </Link>
             <Link
               className="rounded-3xl px-5 py-2 hover:bg-border transition-all duration-300 ease-in-out"
-              href="#"
+              href="/#AboutUs"
+              scroll={false}
             >
               O nama
             </Link>
           </div>
 
-          <Link
-            href="#"
-            className="hidden md:flex bg-main rounded-full py-3 px-5 text-white  hover:bg-title transition-all duration-300 ease-in-out"
-          >
-            Rezervisi putovanje
-          </Link>
+          <ClientLink
+            notSignedText="Rezervisi putovanje"
+            signedUrl="/dashboard"
+            notSignedUrl="/destinations"
+            padding="py-3 px-5"
+            radius="full"
+          />
         </div>
 
         <HamburgerMenu />

@@ -7,11 +7,11 @@ type Props = {
 export default function CustomIcon({
   name,
   size = 18,
-  color = "white",
+  color = "white"
 }: Props) {
   return (
     <span
-      className="material-symbols-outlined"
+      className={`material-symbols-outlined`}
       style={{ fontSize: `${size}px`, color }}
     >
       {name}

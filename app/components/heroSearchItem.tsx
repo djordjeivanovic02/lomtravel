@@ -24,7 +24,7 @@ export default function HeroSectionItem({
 }: Props) {
   return (
     <Dropdown className="w-72 md:w-64 rounded-md ml-16 mt-2">
-      <DropdownTrigger>
+      <DropdownTrigger className="h-auto">
         <Button
           variant="bordered"
           className={`outline-none w-full md:w-auto py-2 md:py-0 px-5 md:px-0 md:border-b md:border-none ${
@@ -46,10 +46,10 @@ export default function HeroSectionItem({
         aria-label="Static Actions"
         className="w-full bg-white outline-none rounded-md border my-0"
       >
-        {items.map((element) => (
+        {items.map((element, index) => (
           <DropdownItem
             key={element}
-            className="w-full border-b roboto text-base py-4"
+            className={`w-full ${index !== items.length - 1 ? 'border-b' : ''} roboto text-base py-4`}
           >
             <p className="px-6">{element}</p>
           </DropdownItem>
