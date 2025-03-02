@@ -80,3 +80,31 @@ export const createTravel = async (
 
   return { travelData, imagesUrls };
 };
+
+export const deleteTravel = async (travelId: number) => {
+  const folderName = `${travelId}/`;
+
+  const { data: files, error: listError } = await supabase.storage
+    .from("travels-images")
+    .list(folderName);
+
+  if (listError) {
+    throw new Error("Error listing files:" + listError.message);
+  } else if (files && files.length > 0) {
+    const filePaths = files.map((file) => `${folderName}${file.name}`);
+    const { error: deleteError } = await supabase.storage
+      .from("travels-images")
+      .remove(filePaths);
+
+    if (deleteError) {
+      throw new Error("Error deleting files:" + deleteError.message);
+    }
+  }
+  const { data, error } = await supabase
+    .from("travels")
+    .delete()
+    .eq("id", travelId);
+
+  if (error) throw new Error(error.message);
+  return data;
+};

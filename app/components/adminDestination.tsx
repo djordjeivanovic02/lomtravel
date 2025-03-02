@@ -1,14 +1,17 @@
 import Image from "next/image";
 import CustomIcon from "./icon";
+import IconWithDialog from "./iconWithDialog";
 type Props = {
+  id: number;
   location?: string;
-  description?: string;
+  title?: string;
   image?: string;
 };
 
 export default function AdminDestination({
+  id,
   location,
-  description,
+  title,
   image = "",
 }: Props) {
   return (
@@ -28,8 +31,8 @@ export default function AdminDestination({
             <h1 className="text-xs font-roboto text-lightText">{location}</h1>
           </div>
           <div className="w-full overflow-hidden">
-            <h1 className="text-base max-w-full text-nowrap font-sans font-semibold text-text text-ellipsis overflow-hidden max-h-[70px]">
-              {description}
+            <h1 className="text-base font-sans font-semibold text-text line-clamp-3 overflow-hidden">
+              {title}
             </h1>
           </div>
         </div>
@@ -38,9 +41,7 @@ export default function AdminDestination({
         <div className="bg-main rounded-md p-1 flex justify-center items-center cursor-pointer my-1">
           <CustomIcon name="edit" size={24} />
         </div>
-        <div className="bg-red rounded-md p-1 flex justify-center items-center cursor-pointer">
-          <CustomIcon name="delete" size={24} />
-        </div>
+       <IconWithDialog travelId={id}/> 
       </div>
     </div>
   );

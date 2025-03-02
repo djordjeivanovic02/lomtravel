@@ -1,6 +1,6 @@
 import { Departure } from "@/app/interfaces/departure";
 import { NextResponse } from "next/server";
-import { createTravel, getAllTravels } from "./service";
+import { createTravel, deleteTravel, getAllTravels } from "./service";
 
 export async function GET() {
   try {
@@ -42,6 +42,24 @@ export async function POST(req: Request) {
     const newTravel = await createTravel(travel, departures, images);
 
     return NextResponse.json(newTravel, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    
+    if (!id) {
+      return NextResponse.json({ error: "Missing travel id" }, { status: 400 });
+    }
+    const deletedTravel = await deleteTravel(Number(id));
+    return NextResponse.json({ deletedTravel }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Unknown error" },
