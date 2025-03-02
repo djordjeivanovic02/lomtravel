@@ -10,3 +10,13 @@ export const createDeparture = async (departure: Departure) => {
   if (error) throw new Error(error.message);
   return data;
 };
+
+export const deleteDeparture = async (id: number) => {
+  const { data, error } = await supabase
+    .from("departures")
+    .delete()
+    .eq("travel_id", id);
+
+  if (error) throw new Error(error.message);
+  return data;
+};

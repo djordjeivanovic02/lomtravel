@@ -34,8 +34,9 @@ export default async function Dashboard() {
             {data.map((travel) => (
               <AdminDestination
                 key={travel.id}
+                id={travel.id ?? -1}
                 location={travel.location}
-                description={travel.description}
+                title={travel.title}
                 image={travel.images?.[1] ?? ""}
               />
             ))}

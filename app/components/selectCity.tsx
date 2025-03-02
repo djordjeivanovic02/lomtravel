@@ -87,7 +87,7 @@ export default function SelectCity({
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="bg-white p-6 rounded-xl shadow-lg w-96 bg-form backdrop-blur-md md:rounded-[40px]"
+            className={`bg-white p-8  rounded-xl shadow-lg w-96 bg-form md:rounded-[40px] bg-opacity-90 `}
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="mb-2 font-semibold">Dodaj polazak</h3>

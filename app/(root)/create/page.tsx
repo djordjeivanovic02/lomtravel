@@ -11,6 +11,11 @@ export default function Create() {
   const [images, setImages] = useState<File[]>([]);
   const [departures, setDepartures] = useState<Departure[]>([]);
   const [resetTrigger, setResetTrigger] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleLoading = (value: boolean) => {
+    setLoading(value);
+  };
 
   const handleDeparturesChange = (updatedDepartures: Departure[]) => {
     setDepartures(updatedDepartures);
@@ -63,6 +68,7 @@ export default function Create() {
         return;
       }
 
+      handleLoading(true);
       formData.append("departures", JSON.stringify(departures));
       images.forEach((image) => {
         formData.append("images[]", image);
@@ -82,8 +88,10 @@ export default function Create() {
       } else {
         toast.error("Greška prilikom kreiranja putovanja.");
       }
+      handleLoading(false);
     } catch (error) {
       toast.error("Došlo je do greške: " + error);
+      handleLoading(false);
     }
   };
 
@@ -173,6 +181,7 @@ export default function Create() {
                   radius="xl"
                   color="text"
                   type="submit"
+                  loading={loading}
                 />
               </div>
             </div>
