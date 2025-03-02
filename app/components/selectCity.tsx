@@ -52,8 +52,6 @@ export default function SelectCity({
     onDeparturesChange(updatedDepartures);
   };
 
-  const isBackdropFilterSupported = CSS.supports("backdrop-filter", "blur(10px)");
-
   return (
     <div className="relative">
       <p className="font-roboto my-3">Mesta polaska</p>

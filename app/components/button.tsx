@@ -1,3 +1,4 @@
+import Image from "next/image";
 import CustomIcon from "./icon";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
   radius?: string;
   icon?: string;
   padding?: string;
+  loading?: boolean;
 };
 
 export default function CustomButton({
@@ -16,14 +18,24 @@ export default function CustomButton({
   radius = "",
   icon = "",
   padding = "",
+  loading = false,
 }: Props) {
   return (
     <button
       type={type}
-      className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding}`}
+      disabled={loading}
+      className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding} relative`}
     >
-      {text}
-      <CustomIcon name={icon} size={24} />
+      <div className={`flex items-center justify-center gap-2 ${loading ? "invisible" : ""}`}>
+        {text}
+        <CustomIcon name={icon} size={24} />
+      </div>
+
+      {loading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image src="/gifs/loading.svg" width={30} height={30} alt="Loading" />
+        </div>
+      )}
     </button>
   );
 }
