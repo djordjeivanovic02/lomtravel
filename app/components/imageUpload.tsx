@@ -1,6 +1,6 @@
 import { convertBlobUrlToFile } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CustomIcon from "./icon";
 
 type Props = {
@@ -15,6 +15,7 @@ export default function ImageUpload({
   resetTrigger,
 }: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (resetTrigger) setImageUrls([]);
@@ -38,6 +39,23 @@ export default function ImageUpload({
     const updatedImages = imageUrls.filter((_, i) => i !== index);
     setImageUrls(updatedImages);
     onImagesChange(undefined, updatedImages);
+
+    const files = inputFileRef.current?.files;
+    if (files) {
+      const filesArray = Array.from(files);
+
+      filesArray.splice(index, 1);
+
+      const newFileList = new DataTransfer();
+      filesArray.forEach((file) => {
+        newFileList.items.add(file);
+      });
+
+      inputFileRef.current!.files = newFileList.files;
+
+      const imagesFiles = Array.from(inputFileRef.current!.files);
+      onImagesChange(imagesFiles);
+    }
   };
 
   return (
@@ -46,6 +64,7 @@ export default function ImageUpload({
       <div className="flex flex-wrap gap-5">
         <div className="w-32 h-32 rounded-xl bg-white flex justify-center items-center cursor-pointer relative">
           <input
+            ref={inputFileRef}
             type="file"
             accept="image/*"
             multiple
@@ -60,6 +79,7 @@ export default function ImageUpload({
             <button
               className="bg-white rounded-full w-fit h-fit flex justify-center items-center p-[2px] absolute top-1 right-1 z-10"
               onClick={() => handleRemoveImage(index)}
+              type="button"
             >
               <CustomIcon name="close" color="#717171" />
             </button>
