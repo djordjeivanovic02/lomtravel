@@ -15,7 +15,7 @@ export default async function Dashboard() {
           <div className="flex justify-between flex-wrap pb-10 gap-2 text-white">
             <Link
               href="/create"
-              className="flex  w-fit items-center gap-3 rounded-lg bg-text py-3 px-8"
+              className="flex w-fit items-center gap-3 rounded-lg bg-text py-3 px-8"
             >
               Dodaj putovanje <CustomIcon name="add" />
             </Link>
@@ -37,7 +37,7 @@ export default async function Dashboard() {
                 id={travel.id ?? -1}
                 location={travel.location}
                 title={travel.title}
-                image={travel.images?.[1] ?? ""}
+                image={travel.images?.[0] ?? ""}
               />
             ))}
           </div>

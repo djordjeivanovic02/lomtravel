@@ -4,16 +4,22 @@ import { useEffect, useState } from "react";
 import CustomIcon from "./icon";
 
 type Props = {
-  onImagesChange: (files: File[]) => void;
+  onImagesChange: (files?: File[], urls?: string[]) => void;
+  initialImages?: string[];
   resetTrigger: boolean;
 };
 
-export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
+export default function ImageUpload({
+  onImagesChange,
+  initialImages,
+  resetTrigger,
+}: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   useEffect(() => {
     if (resetTrigger) setImageUrls([]);
-  }, [resetTrigger]);
+    if (initialImages) setImageUrls(initialImages);
+  }, [initialImages, resetTrigger]);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -31,6 +37,7 @@ export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
   const handleRemoveImage = (index: number) => {
     const updatedImages = imageUrls.filter((_, i) => i !== index);
     setImageUrls(updatedImages);
+    onImagesChange(undefined, updatedImages);
   };
 
   return (

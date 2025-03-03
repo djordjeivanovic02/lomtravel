@@ -21,8 +21,8 @@ export default function Create() {
     setDepartures(updatedDepartures);
   };
 
-  const handleImagesChange = (newFiles: File[]) => {
-    setImages(newFiles);
+  const handleImagesChange = (newFiles?: File[]) => {
+    if (newFiles !== undefined) setImages(newFiles);
   };
 
   useEffect(() => {

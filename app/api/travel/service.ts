@@ -1,7 +1,7 @@
 import { Departure } from "@/app/interfaces/departure";
 import { Travel } from "@/app/interfaces/travel";
 import { supabase } from "@/lib/supabase";
-import { createDeparture } from "../departure/service";
+import { createDeparture, deleteDeparture } from "../departure/service";
 
 export const getAllTravels = async () => {
   const { data, error } = await supabase.from("travels").select("*");
@@ -15,6 +15,28 @@ export const getAllTravels = async () => {
   );
 
   return travelsWithImages;
+};
+
+export const getTravel = async (id: number) => {
+  const { data, error } = await supabase
+    .from("travels")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+  if (!data) return null;
+
+  const images = await getTravelImages(id);
+
+  const { data: departures, error: departuresError } = await supabase
+    .from("departures")
+    .select("*")
+    .eq("travel_id", id);
+
+  if (departuresError) throw new Error(departuresError.message);
+
+  return { ...data, images, departures };
 };
 
 export const getTravelImages = async (id: number) => {
@@ -79,6 +101,58 @@ export const createTravel = async (
   });
 
   return { travelData, imagesUrls };
+};
+
+export const editTravel = async (
+  travel: Travel,
+  departures: Departure[],
+  deletedDepartures: number[],
+  images: File[],
+  deletedImages: string[]
+) => {
+  if (!travel && !departures && !images) return;
+
+  const { error: travelError } = await supabase
+    .from("travels")
+    .update(travel)
+    .eq("id", travel.id);
+
+  if (travelError) throw new Error(travelError.message);
+
+  if (deletedDepartures.length > 0) {
+    const deletedDeparturesPromises = deletedDepartures.map(async (id) => {
+      if (id) return await deleteDeparture(id);
+    });
+
+    await Promise.all(deletedDeparturesPromises);
+  }
+
+  const departurePromises = departures.map(async (departure: Departure) => {
+    if (departure.id === undefined)
+      return await createDeparture({ ...departure, travel_id: travel.id });
+  });
+
+  await Promise.all(departurePromises);
+
+  if (deletedImages.length > 0) {
+    const deletedImagePromises = deletedImages.map(async (url: string) => {
+      const filename = url.split("/").pop();
+      return await supabase.storage
+        .from("travels-images")
+        .remove([`${travel.id}/${filename}`]);
+    });
+
+    await Promise.all(deletedImagePromises);
+  }
+
+  const imageUploadPromises = images.map((file) => {
+    const filePath = `${travel.id}/${file.name}`;
+    return supabase.storage.from("travels-images").upload(filePath, file);
+  });
+
+  await Promise.all(imageUploadPromises);
+
+  return true;
 };
 
 export const deleteTravel = async (travelId: number) => {

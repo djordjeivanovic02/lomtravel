@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import CustomIcon from "./icon";
 import IconWithDialog from "./iconWithDialog";
 type Props = {
@@ -38,10 +39,12 @@ export default function AdminDestination({
         </div>
       </div>
       <div>
-        <div className="bg-main rounded-md p-1 flex justify-center items-center cursor-pointer my-1">
-          <CustomIcon name="edit" size={24} />
+        <div className="bg-main rounded-md p-1 cursor-pointer my-1">
+          <Link href={"/edit/" + id} className="flex justify-center">
+            <CustomIcon name="edit" size={24} />
+          </Link>
         </div>
-       <IconWithDialog travelId={id}/> 
+        <IconWithDialog travelId={id} />
       </div>
     </div>
   );
