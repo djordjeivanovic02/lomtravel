@@ -1,5 +1,5 @@
 export interface Departure {
-  id?: string;
+  id?: number;
   city: string;
   time: string;
   price: number;

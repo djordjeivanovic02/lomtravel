@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Offers from "./offers";
@@ -26,7 +26,6 @@ export default function OurDestinations() {
           alt="Orange Arrow"
         />
       </motion.div>
-      ;
       <div className="w-full flex justify-center">
         <div className="w-full max-w-[1500px] px-0 md:px-5">
           <div className="py-14">

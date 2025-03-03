@@ -1,5 +1,6 @@
 import { dmSans } from "@/lib/fonts";
 import type { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
 import { Bounce, ToastContainer } from "react-toastify";
 import Footer from "./components/footer";
 import Header from "./components/header";
@@ -18,27 +19,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-lt-installed="true">
-      <body className={`${dmSans.variable} antialiased`}>
-        <Provider>
-          <Header />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-            transition={Bounce}
-          />
-          {children}
-          <Footer />
-        </Provider>
-      </body>
-    </html>
+    <>
+      <html lang="en" data-lt-installed="true">
+        <body className={`${dmSans.variable} antialiased`}>
+          <NextTopLoader color="#f38255" showSpinner={false} />
+
+          <Provider>
+            <Header />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+              transition={Bounce}
+            />
+            {children}
+            <Footer />
+          </Provider>
+        </body>
+      </html>
+    </>
   );
 }
