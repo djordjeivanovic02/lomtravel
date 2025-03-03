@@ -1,3 +1,5 @@
+import { Departure } from "./departure";
+
 export interface Travel {
   id?: number;
   title?: string;
@@ -9,4 +11,5 @@ export interface Travel {
   duration?: number;
   description?: string;
   created_at?: Date;
+  departures?: Departure[]
 }

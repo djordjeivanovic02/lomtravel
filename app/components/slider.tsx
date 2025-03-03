@@ -48,7 +48,7 @@ export default function Slider({
           <SwiperSlide key={index}>
             <div className="relative h-full w-full">
               <Image
-                src={`/images/${img}`}
+                src={`${img}`}
                 alt={`Slika ${index + 1}`}
                 fill
                 sizes="(max-width: 768px) 100vw, 80vw"

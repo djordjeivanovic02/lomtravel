@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import DeparturesTable from "./departuresTable";
 
-export default function DestinationTabs() {
+type Props = {
+  description: string;
+};
+
+export default function DestinationTabs({ description }: Props) {
   const [activeTab, setActiveTab] = useState("description");
 
   const renderContent = () => {
@@ -16,7 +20,7 @@ export default function DestinationTabs() {
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
           >
-            Ovo je descripcija
+            {description}
           </motion.p>
         );
       case "departures":

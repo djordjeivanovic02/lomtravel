@@ -2,19 +2,17 @@
 import CustomButton from "./button";
 import HeroSectionItem from "./heroSearchItem";
 
-export default function DestinationForm() {
-  const destinations = [
-    "Kopaonik",
-    "Zlatibor",
-    "Fruska Gora",
-    "Ohrid",
-    "Srebrno Jezero",
-  ];
+type Props = {
+  price: number;
+  destinations?: string[];
+  arrivals?: string[];
+};
 
+export default function DestinationForm({ price, destinations = [], arrivals = [] }: Props) {
   return (
     <div className="md:w-72 w-full flex flex-col gap-3 text-roboto p-4 shadow-[0_4px_10px_rgba(0,0,0,0.3)] rounded-xl">
       <p>
-        Cena od <span className="font-bold">€34</span>
+        Cena od <span className="font-bold text-xl">€{price}</span>
       </p>
       <div>
         <HeroSectionItem
@@ -29,7 +27,7 @@ export default function DestinationForm() {
           icon="calendar_month"
           title="Datum"
           desc="Pretrazi datum"
-          items={destinations}
+          items={arrivals}
           border={false}
         />
       </div>
