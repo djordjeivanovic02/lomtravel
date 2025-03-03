@@ -62,8 +62,8 @@ export default async function Destination({
         <div className="mb-20">
           <DestinationForm
             price={data.price || 0}
-            destinations={data.departures?.map((element) => element.city)}
-            arrivals={data.departures?.map((element) => element.time)}
+            departures={data.departures ?? []}
+            maxReservations={data.number_of_seats ?? 0}
           />
         </div>
       </div>
