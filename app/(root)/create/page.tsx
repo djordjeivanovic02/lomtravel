@@ -125,7 +125,7 @@ export default function Create() {
                   </div>
                   <div className="md:flex-1">
                     <Input
-                      labelText="Cena"
+                      labelText="Cena (€)"
                       placeholderValue="Unesite cenu"
                       inputType="number"
                       name="price"
