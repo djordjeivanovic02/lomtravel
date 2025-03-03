@@ -7,6 +7,7 @@ import {
   getAllTravels,
   getTravel,
 } from "./service";
+import sharp from "sharp";
 
 export async function GET(req: Request) {
   try {
@@ -54,12 +55,25 @@ export async function POST(req: Request) {
       formData.get("departures") as string
     );
 
-    const images: File[] = [];
-    formData.getAll("images[]").forEach((file) => {
-      if (file instanceof File) {
-        images.push(file);
-      }
-    });
+    let images: File[] = [];
+    const imgs: File[] = formData.getAll("images[]") as File[];
+
+    images = await Promise.all(
+      imgs.map(async (file) => {
+        if (file instanceof File) {
+          const arrayBuffer = await file.arrayBuffer();
+          const compressedBuffer = await sharp(Buffer.from(arrayBuffer))
+            .resize(1024)
+            .jpeg({ quality: 90 })
+            .toBuffer();
+
+          return new File([compressedBuffer], file.name, {
+            type: "image/jpeg"
+          });
+        }
+        return file;
+      })
+    );
 
     const newTravel = await createTravel(travel, departures, images);
 
