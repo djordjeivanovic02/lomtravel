@@ -68,7 +68,7 @@ export async function POST(req: Request) {
             .toBuffer();
 
           return new File([compressedBuffer], file.name, {
-            type: "image/jpeg"
+            type: "image/jpeg",
           });
         }
         return file;
@@ -111,13 +111,25 @@ export async function PUT(req: Request) {
       ? JSON.parse(deletedDeparturesJson)
       : [];
 
-    const images: File[] = [];
-    if (formData.getAll("images[]"))
-      formData.getAll("images[]").forEach((file) => {
+    let images: File[] = [];
+    const imgs: File[] = formData.getAll("images[]") as File[];
+
+    images = await Promise.all(
+      imgs.map(async (file) => {
         if (file instanceof File) {
-          images.push(file);
+          const arrayBuffer = await file.arrayBuffer();
+          const compressedBuffer = await sharp(Buffer.from(arrayBuffer))
+            .resize(1024)
+            .jpeg({ quality: 90 })
+            .toBuffer();
+
+          return new File([compressedBuffer], file.name, {
+            type: "image/jpeg",
+          });
         }
-      });
+        return file;
+      })
+    );
     const deletedImagesJson = formData.get("deletedImages[]");
     const deletedImages: string[] = deletedImagesJson
       ? JSON.parse(deletedImagesJson as string)
