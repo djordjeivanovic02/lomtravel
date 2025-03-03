@@ -1,16 +1,16 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CustomIcon from "./icon";
-import Dialog from "./dialog";
 import { DialogActions } from "../interfaces/dialogAction";
-
-
+import Dialog from "./dialog";
+import CustomIcon from "./icon";
 
 type Props = {
   travelId: number;
 };
 
 export default function IconWithDialog({ travelId }: Props) {
+  const router = useRouter();
   const buttonActions: DialogActions[] = [
     {
       title: "Obrisi",
@@ -18,8 +18,10 @@ export default function IconWithDialog({ travelId }: Props) {
       textColor: "#ffffff",
       action: async () => {
         await fetch(`http://localhost:3000/api/travel?id=${travelId}`, {
-          method: "DELETE"
+          method: "DELETE",
         });
+
+        router.refresh();
       },
     },
   ];
