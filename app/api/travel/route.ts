@@ -1,18 +1,24 @@
 import { Departure } from "@/app/interfaces/departure";
 import { NextResponse } from "next/server";
+import sharp from "sharp";
 import {
   createTravel,
   deleteTravel,
   editTravel,
   getAllTravels,
   getTravel,
+  searchTravels,
 } from "./service";
-import sharp from "sharp";
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
+    const title = searchParams.get("search") || "";
+    const page = Number(searchParams.get("page"));
+    const limit = Number(searchParams.get("limit"));
+    const place = searchParams.get("place") || "";
+    const date = searchParams.get("date") || "";
 
     if (id) {
       const travel = await getTravel(Number(id));
@@ -25,6 +31,10 @@ export async function GET(req: Request) {
       }
 
       return NextResponse.json(travel, { status: 200 });
+    }
+    if (page && limit) {
+      const travels = await searchTravels(page, limit, title, place, date);
+      return NextResponse.json(travels, { status: 200 });
     }
 
     const travels = await getAllTravels();
@@ -68,7 +78,7 @@ export async function POST(req: Request) {
             .toBuffer();
 
           return new File([compressedBuffer], file.name, {
-            type: "image/jpeg"
+            type: "image/jpeg",
           });
         }
         return file;

@@ -28,6 +28,7 @@ export default async function Dashboard() {
               padding="py-3 px-8"
               radius="lg"
               action="signout"
+              linkVisibility="flex"
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

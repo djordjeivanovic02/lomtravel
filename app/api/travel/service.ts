@@ -39,6 +39,75 @@ export const getTravel = async (id: number) => {
   return { ...data, images, departures };
 };
 
+export const searchTravels = async (
+  page: number,
+  limit: number,
+  searchTerm: string | "",
+  place: string | "",
+  date: string | ""
+) => {
+  const offset = (page - 1) * limit;
+
+  let query = supabase
+    .from("travels")
+    .select("*")
+    .ilike("title", `%${searchTerm}%`);
+
+  if (place) {
+    query = query.eq("location", place);
+  }
+
+  if (date) {
+    query = query.eq("date", date);
+  }
+
+  query = query.range(offset, offset + limit - 1);
+
+  const { data, error } = await query;
+
+  if (error) throw new Error(error.message);
+
+  const travelsWithImages = await Promise.all(
+    data.map(async (travel) => {
+      const images = await getTravelImages(travel.id);
+      return { ...travel, images };
+    })
+  );
+
+  let count = 0;
+
+  if (page === 1) {
+    count = await getTravelCount(searchTerm, place, date);
+  }
+
+  return { data: travelsWithImages, totalCount: count };
+};
+
+export const getTravelCount = async (
+  searchTerm: string | "",
+  place: string | "",
+  date: string | ""
+) => {
+  let query = supabase
+    .from("travels")
+    .select("*", { count: "exact" })
+    .ilike("title", `%${searchTerm}%`);
+
+  if (place) {
+    query = query.eq("location", place);
+  }
+
+  if (date) {
+    query = query.eq("date", date);
+  }
+
+  const { count, error } = await query;
+
+  if (error) throw new Error(error.message);
+
+  return count || 0;
+};
+
 export const getTravelImages = async (id: number) => {
   const { data, error } = await supabase.storage
     .from("travels-images")

@@ -16,6 +16,7 @@ type Props = {
   signedIcon?: string;
   notSignedIcon?: string;
   action?: string;
+  linkVisibility: string;
 };
 
 export default function ClientLink({
@@ -29,15 +30,10 @@ export default function ClientLink({
   signedIcon = "",
   notSignedIcon = "",
   action = "",
+  linkVisibility = "",
 }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
-
-  if (!signedText && session && session !== undefined) {
-    signedText = session.user?.name || "";
-  }
-
-  const linkVisibility = action === "signout" ? "flex" : "hidden md:flex";
 
   return (
     <Link
