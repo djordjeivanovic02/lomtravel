@@ -10,39 +10,35 @@ type Props = {
   maxReservations: number;
 };
 
+type SelectedCity = {
+  time: string;
+  price: number;
+};
+
 export default function DestinationForm({
   price,
   departures,
   maxReservations,
 }: Props) {
   const [city, setCity] = useState<string>("");
-  const [time, setTime] = useState<string>("");
+  const [time, setTime] = useState<SelectedCity>({ time: "", price: 0 });
   const [counter, setCounter] = useState(1);
   const [total, setTotal] = useState(price);
 
   useEffect(() => {
-    console.log(time, city);
-    setTotal(
-      price * counter +
-        (city !== "" && time !== ""
-          ? departures
-              .filter(
-                (element) =>
-                  element.city === city &&
-                  element.time === time
-              )
-              .map((element) => element.price)[0] || 0
-          : 0)
-    );
-  }, [counter, price, time, city]);
+    setTotal(price * counter + (time?.price ?? 0));
+  }, [counter, time]);
 
   const handleCity = (value: string) => {
     setCity(value);
-    setTime("");
   };
 
   const handleTime = (value: string) => {
-    setTime(value);
+    const newVal = value.replace(/\s*\(.*?\)/, "");
+    setTime({
+      time: value,
+      price: departures.filter((element) => element.time === newVal)[0]?.price,
+    });
   };
 
   const handleCounter = (value: number) => {
@@ -73,7 +69,7 @@ export default function DestinationForm({
         <HeroSectionItem
           icon="calendar_month"
           title="Vreme polaska"
-          desc={time !== "" ? time : "Izaberi vreme polaska"}
+          desc={time?.time !== "" ? time!.time : "Izaberi vreme polaska"}
           items={departures
             .filter((element) => element.city === city)
             .map(

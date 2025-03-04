@@ -55,7 +55,10 @@ export default async function Destination({
             />
           </div>
           <div>
-            <DestinationTabs description={data.description ?? ""} />
+            <DestinationTabs
+              description={data.description ?? ""}
+              departures={data.departures ?? []}
+            />
           </div>
         </div>
 
