@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CustomButton from "./button";
 import HeroSectionItem from "./heroSearchItem";
 import { Departure } from "../interfaces/departure";
+import ReserveDialog from "./reserve";
 
 type Props = {
   price: number;
@@ -103,7 +104,10 @@ export default function DestinationForm({
         <p>Ukupno</p>
         <span className="font-bold">{total}€</span>
       </div>
-      <CustomButton text="Rezervisi sada" icon="call_made" radius="lg" />
+      <ReserveDialog
+        title="Unesite podatke za rezervaciju"
+        passengers={counter}
+      />
     </div>
   );
 }

@@ -9,6 +9,7 @@ type Props = {
   icon?: string;
   padding?: string;
   loading?: boolean;
+  action?: () => void;
 };
 
 export default function CustomButton({
@@ -19,14 +20,20 @@ export default function CustomButton({
   icon = "",
   padding = "",
   loading = false,
+  action,
 }: Props) {
   return (
     <button
       type={type}
       disabled={loading}
       className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding} relative`}
+      onClick={action ?? (() => void {})}
     >
-      <div className={`flex items-center justify-center gap-2 ${loading ? "invisible" : ""}`}>
+      <div
+        className={`flex items-center justify-center gap-2 ${
+          loading ? "invisible" : ""
+        }`}
+      >
         {text}
         <CustomIcon name={icon} size={24} />
       </div>
