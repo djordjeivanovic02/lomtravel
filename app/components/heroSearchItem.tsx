@@ -6,6 +6,7 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import CustomIcon from "./icon";
+import { useState } from "react";
 
 type Props = {
   icon: string;
@@ -13,6 +14,7 @@ type Props = {
   desc: string;
   items: string[];
   border?: boolean;
+  action?: (selected: string) => void;
 };
 
 export default function HeroSectionItem({
@@ -21,6 +23,7 @@ export default function HeroSectionItem({
   desc,
   items,
   border = true,
+  action,
 }: Props) {
   return (
     <Dropdown className="w-72 md:w-64 rounded-md ml-16 mt-2">
@@ -48,8 +51,9 @@ export default function HeroSectionItem({
       >
         {items.map((element, index) => (
           <DropdownItem
-            key={element}
+            key={element + '_' + index}
             className={`w-full ${index !== items.length - 1 ? 'border-b' : ''} roboto text-base py-4`}
+            onPress={() => action && action(element)}
           >
             <p className="px-6">{element}</p>
           </DropdownItem>

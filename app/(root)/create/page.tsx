@@ -75,7 +75,7 @@ export default function Create() {
         formData.append("images[]", image);
       });
 
-      const res = await fetch("http://localhost:3000/api/travel", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`, {
         method: "POST",
         body: formData,
       });

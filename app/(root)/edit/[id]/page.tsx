@@ -39,11 +39,12 @@ export default function Edit() {
     description: "",
   });
 
+  console.log("ENV:", process.env.NEXT_PUBLIC_OUR_EMAIL);
   useEffect(() => {
     const fetchTravel = async () => {
       try {
         setLoadingPage(true);
-        const res = await fetch(`http://localhost:3000/api/travel?id=${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${id}`);
         if (!res.ok) {
           throw new Error("Failed to fetch travel data");
         }
@@ -170,7 +171,7 @@ export default function Edit() {
         console.log(key, value);
       });
 
-      const res = await fetch(`http://localhost:3000/api/travel`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`, {
         method: "PUT",
         body: formData,
       });

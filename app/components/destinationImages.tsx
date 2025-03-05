@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import CustomButton from "./button";
 import Slider from "./slider";
 
-export default function DestinationImages() {
-  const [images, setImages] = useState<string[]>([]);
-  useEffect(() => {
-    setImages(["img1.png", "img2.png", "img3.png", "img4.png"]);
-  }, []);
+type Props = {
+  images: string[];
+};
 
+export default function DestinationImages({ images }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -28,7 +27,7 @@ export default function DestinationImages() {
           </div>
           <div className="w-full h-full relative overflow-hidden rounded-2xl md:rounded-r-none md:rounded-bl-xl">
             <Image
-              src="/images/img1.png"
+              src={images[0] ?? ''}
               alt="Glavna slika"
               fill
               priority
@@ -41,7 +40,7 @@ export default function DestinationImages() {
         <div className="w-full md:w-2/5 h-2/5 md:h-full flex md:flex-col gap-2">
           <div className="relative w-1/2 md:w-full md:h-1/2 overflow-hidden rounded-tl-xl rounded-bl-xl md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl">
             <Image
-              src="/images/img2.png"
+              src={images[1] ?? ''}
               alt="Slika 2"
               fill
               className="object-cover"
@@ -52,7 +51,7 @@ export default function DestinationImages() {
           <div className="w-1/2 md:w-auto h-full md:h-1/2 flex gap-2">
             <div className="relative w-full md:w-1/2 overflow-hidden">
               <Image
-                src="/images/img3.png"
+                src={images[2] ?? ''}
                 alt="Slika 3"
                 fill
                 className="md:rounded-none rounded-br-xl rounded-tr-xl object-cover"
@@ -61,7 +60,7 @@ export default function DestinationImages() {
             </div>
             <div className="hidden md:block relative w-1/2 overflow-hidden rounded-br-xl">
               <Image
-                src="/images/img4.png"
+                src={images[3] ?? ''}
                 alt="Slika 4"
                 fill
                 className="object-cover"
