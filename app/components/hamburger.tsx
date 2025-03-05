@@ -111,14 +111,15 @@ export default function HamburgerMenu() {
 
             <div onClick={() => setIsOpen(false)}>
               <ClientLink
-                signedText="Odjavi se"
+                signedText="Kontrolna tabla"
                 notSignedText="Rezervisi putovanje"
+                signedUrl="/dashboard"
                 notSignedUrl="/destinations"
                 radius="full"
                 padding="py-2 px-5 mt-2"
-                signedIcon="exit_to_app"
+                signedIcon="dashboard"
                 notSignedIcon="call_made"
-                action="signout"
+                linkVisibility="flex"
               />
             </div>
           </div>

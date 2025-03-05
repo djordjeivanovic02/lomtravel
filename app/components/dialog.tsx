@@ -1,20 +1,11 @@
 "use client";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { DialogActions } from "../interfaces/dialogAction";
+import * as Dialog from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import Image from "next/image";
+import { DialogActions } from "../interfaces/dialogAction";
 
 type Props = {
   children: React.ReactNode;
@@ -23,7 +14,7 @@ type Props = {
   actions: DialogActions[];
 };
 
-export default function Dialog({
+export default function CustomDialog({
   children,
   title,
   description,
@@ -37,53 +28,72 @@ export default function Dialog({
     try {
       await action();
       setIsOpen(false);
+      toast.success("Uspešno obrisano putovanje");
     } catch (error) {
-      toast.error(
-        "Doslo je do greske prilikom brisanja putovanja. Pokusajte kasnije"
-      );
+      if (error instanceof Error)
+        toast.error(
+          "Došlo je do greške prilikom brisanja putovanja. Pokušajte kasnije."
+        );
     } finally {
       setLoadingIndex(null);
-      toast.success("Uspesno obrisano putovanje");
     }
   };
+
   return (
-    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialogTrigger onClick={() => setIsOpen(true)}>
-        {children}
-      </AlertDialogTrigger>
-      <AlertDialogContent className="rounded-xl max-w-96">
-        <AlertDialogHeader>
-          <AlertDialogTitle className="font-roboto text-base font-semibold">
-            {title}
-          </AlertDialogTitle>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>
+        <button onClick={() => setIsOpen(true)}>{children}</button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
+        <Dialog.Content className="fixed z-50 top-1/2 left-1/2 w-96 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex justify-between items-center border-b pb-2">
+            <Dialog.Title className="text-lg font-semibold">
+              {title}
+            </Dialog.Title>
+            <Dialog.Close asChild>
+              <button className="text-gray-500 hover:text-gray-700">
+                <X size={20} />
+              </button>
+            </Dialog.Close>
+          </div>
           {description && (
-            <AlertDialogDescription>{description}</AlertDialogDescription>
+            <Dialog.Description className="text-gray-600 mt-2">
+              {description}
+            </Dialog.Description>
           )}
-        </AlertDialogHeader>
-        <AlertDialogFooter className="justify-center">
-          <AlertDialogCancel disabled={loadingIndex !== null} onClick={() => setIsOpen(false)}>Zatvori</AlertDialogCancel>
-          {actions
-            ? actions.map((act, index) => (
-                <AlertDialogAction
-                  key={act.title}
-                  style={{ backgroundColor: act.color }}
-                  onClick={() => handleClick(act.action, index)}
-                >
-                  {loadingIndex === index ? (
-                    <Image
-                      src="gifs/loading.svg"
-                      width={24}
-                      height={24}
-                      alt="Loading"
-                    />
-                  ) : (
-                    act.title
-                  )}
-                </AlertDialogAction>
-              ))
-            : ""}
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          <div className="flex justify-end gap-3 mt-4">
+            <Dialog.Close asChild>
+              <button
+                disabled={loadingIndex !== null}
+                className="px-4 py-2 bg-gray-300 rounded"
+              >
+                Zatvori
+              </button>
+            </Dialog.Close>
+            {actions.map((act, index) => (
+              <button
+                key={act.title}
+                style={{ backgroundColor: act.color }}
+                className="px-4 py-2 text-white rounded"
+                onClick={() => handleClick(act.action, index)}
+                disabled={loadingIndex === index}
+              >
+                {loadingIndex === index ? (
+                  <Image
+                    src="gifs/loading.svg"
+                    width={24}
+                    height={24}
+                    alt="Loading"
+                  />
+                ) : (
+                  act.title
+                )}
+              </button>
+            ))}
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
