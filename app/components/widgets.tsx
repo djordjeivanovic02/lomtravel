@@ -1,82 +1,74 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import useSWR from "swr";
 import { Travel } from "../interfaces/travel";
 import CustomButton from "./button";
 import Loader from "./loader";
 import SearchInput from "./searchInput";
 import VacationOffer from "./vacationOffer";
 
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok)
+    toast.error("Greška pri učitavanju putovanja, pokušajte kasnije");
+  return res.json();
+};
+
 export default function Widgets() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
   const place = searchParams.get("place") || "";
   const date = searchParams.get("date") || "";
-  console.log(place);
+  const initialSearch = searchParams.get("search") || "";
 
-  const [travels, setTravels] = useState<Travel[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
+  const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const [maxCount, setMaxCount] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [allTravels, setAllTravels] = useState<Travel[]>([]);
+  const limit = 1;
 
-  const limit = 2;
-
-  const fetchTravels = async (
-    page: number,
-    search: string,
-    place: string,
-    date: string
-  ) => {
-    try {
-      const res = await fetch(
-        `http://localhost:3000/api/travel?page=${page}&limit=${limit}&search=${encodeURIComponent(
-          search
-        )}&place=${encodeURIComponent(place)}&date=${encodeURIComponent(date)}`
-      );
-
-      if (!res.ok) throw new Error("Failed to fetch");
-
-      const { data, totalCount } = await res.json();
-
-      if (page === 1) {
-        setTravels(data);
-        setCurrentPage(1);
-        setMaxCount(totalCount);
-
-        if (limit >= totalCount) {
-          setHasMore(false);
-        }
-      } else {
-        setTravels((prev) => [...prev, ...data]);
-
-        setHasMore(travels.length + data.length < maxCount);
-      }
-    } catch (error) {
-      toast.error(`Error loading data: ${error}`);
-    } finally {
-      setLoading(false);
-      setButtonLoading(false);
-    }
-  };
+  const { data, isLoading } = useSWR(
+    `http://localhost:3000/api/travel?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(
+      searchTerm
+    )}&place=${encodeURIComponent(place)}&date=${encodeURIComponent(date)}`,
+    fetcher
+  );
 
   useEffect(() => {
-    setLoading(true);
-    fetchTravels(1, searchTerm, place, date);
-  }, [searchTerm]);
+    if (data?.data) {
+      setAllTravels((prev) =>
+        currentPage === 1 ? data.data : [...prev, ...data.data]
+      );
+      setButtonLoading(false);
+    }
+    if (data?.totalCount && currentPage === 1) {
+      setMaxCount(data.totalCount);
+    }
+  }, [data, currentPage]);
+
+  const hasMore = allTravels.length < maxCount;
 
   const handleSearch = (value: string) => {
-    setHasMore(true);
     setSearchTerm(value);
+    setCurrentPage(1);
+    setAllTravels([]);
+
+    const newParams = new URLSearchParams();
+    if (value) newParams.set("search", value);
+    if (place) newParams.set("place", place);
+    if (date) newParams.set("date", date);
+
+    router.replace(`?${newParams.toString()}`, { scroll: false });
   };
 
   const loadMore = () => {
-    if (hasMore && !loading) {
+    if (hasMore && !isLoading) {
       setButtonLoading(true);
-      fetchTravels(currentPage + 1, searchTerm, place, date);
-      setCurrentPage(currentPage + 1);
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
@@ -89,29 +81,25 @@ export default function Widgets() {
       </div>
 
       <div className="flex flex-wrap justify-center gap-8 mb-10">
-        {loading ? (
+        {isLoading && currentPage === 1 ? (
           <div className="h-96 relative">
             <Loader />
           </div>
+        ) : allTravels.length === 0 ? (
+          <p className="text-center w-full text-xl font-bold text-text">
+            Nema rezultata
+          </p>
         ) : (
-          <>
-            {travels.length === 0 ? (
-              <p className="text-center w-full text-xl font-bold text-text">
-                Nema rezultata
-              </p>
-            ) : (
-              travels.map((destination, index) => (
-                <VacationOffer
-                  key={`${destination.title}-${index}`}
-                  imageUrl={destination.images?.[0] ?? ""}
-                  location={destination.location}
-                  title={destination.title}
-                  duration={destination.duration}
-                  price={destination.price}
-                />
-              ))
-            )}
-          </>
+          allTravels.map((destination, index) => (
+            <VacationOffer
+              key={`${destination.title}-${index}`}
+              imageUrl={destination.images?.[0] ?? ""}
+              location={destination.location}
+              title={destination.title}
+              duration={destination.duration}
+              price={destination.price}
+            />
+          ))
         )}
       </div>
 
@@ -119,7 +107,7 @@ export default function Widgets() {
         {hasMore && (
           <div onClick={loadMore}>
             <CustomButton
-              text="Prikazi jos"
+              text="Prikaži još"
               color="main"
               icon="keyboard_arrow_down"
               radius="full"
