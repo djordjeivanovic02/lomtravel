@@ -11,8 +11,8 @@ export default async function Dashboard() {
 
   return (
     <section className="AdminDashboard w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
-      <div className="container bg-cover bg-center flex justify-center ">
-        <div className="pt-32">
+      <div className="container bg-cover bg-center flex w-full ">
+        <div className="pt-32 w-full">
           <div className="mb-10">
             <NavigationLinks
               prevText="Početna"
