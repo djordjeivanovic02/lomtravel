@@ -1,14 +1,15 @@
-"use client"; // Klijentska komponenta
+"use client";
 
 import { useState } from "react";
 import CustomButton from "./button";
 
-export default function SearchInput({
-  onSearch,
-}: {
+type Props = {
   onSearch: (value: string) => void;
-}) {
-  const [searchValue, setSearchValue] = useState("");
+  defaultValue: string;
+};
+
+export default function SearchInput({ onSearch, defaultValue }: Props) {
+  const [searchValue, setSearchValue] = useState(defaultValue);
 
   return (
     <div className="relative w-full max-w-[600px]">

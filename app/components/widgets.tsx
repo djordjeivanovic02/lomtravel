@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 import { Travel } from "../interfaces/travel";
 import CustomButton from "./button";
 import Loader from "./loader";
@@ -24,38 +24,30 @@ export default function Widgets() {
   const date = searchParams.get("date") || "";
   const initialSearch = searchParams.get("search") || "";
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
-  const [maxCount, setMaxCount] = useState<number>(1);
-  const [allTravels, setAllTravels] = useState<Travel[]>([]);
   const limit = 1;
 
-  const { data, isLoading } = useSWR(
-    `http://localhost:3000/api/travel?page=${currentPage}&limit=${limit}&search=${encodeURIComponent(
+  const getKey = (
+    pageIndex: number,
+    previousPageData: { data: Travel[]; totalCount: number }
+  ) => {
+    if (previousPageData && !previousPageData.data.length) return null;
+    return `http://localhost:3000/api/travel?page=${
+      pageIndex + 1
+    }&limit=${limit}&search=${encodeURIComponent(
       searchTerm
-    )}&place=${encodeURIComponent(place)}&date=${encodeURIComponent(date)}`,
-    fetcher
-  );
+    )}&place=${encodeURIComponent(place)}&date=${encodeURIComponent(date)}`;
+  };
 
-  useEffect(() => {
-    if (data?.data) {
-      setAllTravels((prev) =>
-        currentPage === 1 ? data.data : [...prev, ...data.data]
-      );
-      setButtonLoading(false);
-    }
-    if (data?.totalCount && currentPage === 1) {
-      setMaxCount(data.totalCount);
-    }
-  }, [data, currentPage]);
+  const { data, isLoading, size, setSize } = useSWRInfinite(getKey, fetcher);
 
+  const allTravels = data ? data.flatMap((page) => page.data) : [];
+  const maxCount = data?.[0]?.totalCount || 0;
   const hasMore = allTravels.length < maxCount;
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
-    setCurrentPage(1);
-    setAllTravels([]);
 
     const newParams = new URLSearchParams();
     if (value) newParams.set("search", value);
@@ -63,12 +55,20 @@ export default function Widgets() {
     if (date) newParams.set("date", date);
 
     router.replace(`?${newParams.toString()}`, { scroll: false });
+
+    setSize(1);
   };
 
+  useEffect(() => {
+    if (data) {
+      setButtonLoading(false);
+    }
+  }, [data]);
+
   const loadMore = () => {
+    setButtonLoading(true);
     if (hasMore && !isLoading) {
-      setButtonLoading(true);
-      setCurrentPage((prev) => prev + 1);
+      setSize(size + 1);
     }
   };
 
@@ -76,12 +76,12 @@ export default function Widgets() {
     <>
       <div className="w-full mb-14 mt-10">
         <div className="flex justify-center relative w-full">
-          <SearchInput onSearch={handleSearch} />
+          <SearchInput onSearch={handleSearch} defaultValue={initialSearch} />
         </div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-8 mb-10">
-        {isLoading && currentPage === 1 ? (
+        {isLoading && size === 1 ? (
           <div className="h-96 relative">
             <Loader />
           </div>
