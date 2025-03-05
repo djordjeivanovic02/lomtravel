@@ -1,6 +1,5 @@
 "use server";
 import { ReservationUser } from "@/app/interfaces/reservationUser";
-import { user } from "@heroui/react";
 import nodemailer from "nodemailer";
 
 type Props = {
@@ -59,9 +58,12 @@ export async function sendMail({
               <tr>
               <td style="padding: 8px; border: 1px solid #ddd;">Putnici</td>
                 <td style="padding: 8px; border: 1px solid #ddd;">
-                    ${users.map(
-                      (element) => `<p>${element.name} ${element.lastname}</p>`
-                    ).join("")}
+                    ${users
+                      .map(
+                        (element) =>
+                          `<p>${element.name} ${element.lastname}</p>`
+                      )
+                      .join("")}
                 </td>
               </tr>
               <tr>
@@ -83,6 +85,6 @@ export async function sendMail({
     });
     return "Success";
   } catch (error) {
-    return "Error";
+    if (error instanceof Error) return "Error";
   }
 }

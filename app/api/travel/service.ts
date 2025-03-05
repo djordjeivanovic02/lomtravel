@@ -124,6 +124,27 @@ export const getTravelImages = async (id: number) => {
   return imageUrls;
 };
 
+export const getLocationsAndDates = async () => {
+  const { data, error } = await supabase
+    .from("travels")
+    .select("location, date");
+
+  if (error) throw new Error(error.message);
+
+  const locationMap: Record<string, string[]> = {};
+
+  data.forEach(({ location, date }) => {
+    if (!locationMap[location]) {
+      locationMap[location] = [];
+    }
+    if (!locationMap[location].includes(date)) {
+      locationMap[location].push(date);
+    }
+  });
+
+  return locationMap;
+};
+
 export const createTravel = async (
   travel: Travel,
   departures: Departure[],

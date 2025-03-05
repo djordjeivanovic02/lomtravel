@@ -6,7 +6,6 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import CustomIcon from "./icon";
-import { useState } from "react";
 
 type Props = {
   icon: string;
@@ -51,8 +50,10 @@ export default function HeroSectionItem({
       >
         {items.map((element, index) => (
           <DropdownItem
-            key={element + '_' + index}
-            className={`w-full ${index !== items.length - 1 ? 'border-b' : ''} roboto text-base py-4`}
+            key={element + "_" + index}
+            className={`w-full ${
+              index !== items.length - 1 ? "border-b" : ""
+            } roboto text-base py-4`}
             onPress={() => action && action(element)}
           >
             <p className="px-6">{element}</p>
