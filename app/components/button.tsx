@@ -9,7 +9,9 @@ type Props = {
   icon?: string;
   padding?: string;
   loading?: boolean;
+  className?: string;
   action?: () => void;
+  disabled?: boolean;
 };
 
 export default function CustomButton({
@@ -20,13 +22,17 @@ export default function CustomButton({
   icon = "",
   padding = "",
   loading = false,
+  className = "",
   action,
+  disabled = false,
 }: Props) {
   return (
     <button
       type={type}
-      disabled={loading}
-      className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding} relative`}
+      disabled={loading || disabled}
+      className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding} relative ${className} ${
+        disabled ? "bg-lightText" : ""
+      }`}
       onClick={action ?? (() => void {})}
     >
       <div

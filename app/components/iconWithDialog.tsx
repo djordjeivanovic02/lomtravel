@@ -17,7 +17,7 @@ export default function IconWithDialog({ travelId }: Props) {
       color: "#f38255",
       textColor: "#ffffff",
       action: async () => {
-        await fetch(`http://localhost:3000/api/travel?id=${travelId}`, {
+        await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${travelId}`, {
           method: "DELETE",
         });
 

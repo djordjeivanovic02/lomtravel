@@ -5,7 +5,7 @@ import VacattionOffer from "@/app/components/vacationOffer";
 import { Travel } from "@/app/interfaces/travel";
 
 export default async function Destionations() {
-  const res = await fetch(process.env.BASE_URL + "/api/travel");
+  const res = await fetch(process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel");
   const data: Travel[] = await res.json();
 
   return (

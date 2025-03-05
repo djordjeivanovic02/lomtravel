@@ -9,6 +9,8 @@ type Props = {
   price: number;
   departures: Departure[];
   maxReservations: number;
+  date: Date;
+  destination: string;
 };
 
 type SelectedCity = {
@@ -20,6 +22,8 @@ export default function DestinationForm({
   price,
   departures,
   maxReservations,
+  date,
+  destination
 }: Props) {
   const [city, setCity] = useState<string>("");
   const [time, setTime] = useState<SelectedCity>({ time: "", price: 0 });
@@ -105,8 +109,14 @@ export default function DestinationForm({
         <span className="font-bold">{total}€</span>
       </div>
       <ReserveDialog
+        totalPrice={total}
         title="Unesite podatke za rezervaciju"
         passengers={counter}
+        city={city}
+        destination={destination}
+        date={date}
+        time={time}
+        disabled={city === "" || time.time === ""}
       />
     </div>
   );

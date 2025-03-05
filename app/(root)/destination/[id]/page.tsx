@@ -11,7 +11,7 @@ export default async function Destination({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const res = await fetch(process.env.BASE_URL + "/api/travel?id=" + id);
+  const res = await fetch(process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel?id=" + id);
   const data: Travel = await res.json();
   const date = new Date(data.date ?? "");
   const options = { day: "numeric", month: "long", year: "numeric" } as const;
@@ -41,7 +41,7 @@ export default async function Destination({
             <DestinationTag
               icon="schedule"
               title="Trajanje putovanja"
-              desc={data.duration?.toString() ?? "0"}
+              desc={data.duration?.toString() ? data.duration!.toString() + " dan-a": "0"}
             />
             <DestinationTag
               icon="group"
@@ -67,6 +67,8 @@ export default async function Destination({
             price={data.price || 0}
             departures={data.departures ?? []}
             maxReservations={data.number_of_seats ?? 0}
+            date={data.date ?? new Date}
+            destination={data.location ?? ""}
           />
         </div>
       </div>
