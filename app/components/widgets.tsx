@@ -33,7 +33,7 @@ export default function Widgets() {
     previousPageData: { data: Travel[]; totalCount: number }
   ) => {
     if (previousPageData && !previousPageData.data.length) return null;
-    return `http://localhost:3000/api/travel?page=${
+    return `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?page=${
       pageIndex + 1
     }&limit=${limit}&search=${encodeURIComponent(
       searchTerm
@@ -93,6 +93,7 @@ export default function Widgets() {
           allTravels.map((destination, index) => (
             <VacationOffer
               key={`${destination.title}-${index}`}
+              id={destination.id}
               imageUrl={destination.images?.[0] ?? ""}
               location={destination.location}
               title={destination.title}
