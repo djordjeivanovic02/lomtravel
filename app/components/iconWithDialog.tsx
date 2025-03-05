@@ -34,6 +34,7 @@ export default function IconWithDialog({ travelId }: Props) {
       <Dialog
         title="Da li ste sigurni da zelite da trajno obrisete ovu destinaciju?"
         actions={buttonActions}
+        description="Ova akcija je trajna i ne moze se ponistiti."
       >
         <div
           className="bg-red rounded-md p-1 flex justify-center items-center cursor-pointer"
