@@ -20,11 +20,12 @@ export const metadata: Metadata = {
     "jednodnevna putovanja Srbija, jednodnevni izleti, jednodnevna tura, turističke destinacije Srbija, vikend putovanja Srbija, putovanja za vikend, izleti u prirodu Srbija, kulturni izleti Srbija, popularne destinacije Srbija, jednodnevne ture Beograd, avanturistički izleti Srbija, organizovani izleti Srbija, porodična putovanja Srbija, prirodne lepote Srbije, jednodnevni izleti po Srbiji, putovanja sa vodičem, agencija za putovanja Srbija, planiranje putovanja Srbija, putovanje u Srbiji za 1 dan, destinacije za izlete u Srbiji",
 };
 export default async function Dashboard() {
-  const res = await fetch(process.env.BASE_URL + "/api/travel");
-
   let data: Travel[] = [];
-  if (res.status === 200) {
+  try {
+    const res = await fetch(process.env.BASE_URL + "/api/travel");
     data = await res.json();
+  } catch (error) {
+    console.error("Error fetching travels:", error);
   }
 
   return (
