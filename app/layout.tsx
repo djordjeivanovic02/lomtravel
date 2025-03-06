@@ -8,7 +8,6 @@ import Header from "./components/header";
 import Provider from "./context/Provider";
 import "./globals.css";
 import "./globalsicon.css";
-
 export const metadata: Metadata = {
   title: "LomTravel",
   description:
