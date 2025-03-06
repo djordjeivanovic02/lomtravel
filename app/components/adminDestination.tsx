@@ -35,9 +35,11 @@ export default function AdminDestination({
             <h1 className="text-xs font-roboto text-lightText">{location}</h1>
           </div>
           <div className="w-full overflow-hidden">
-            <h1 className="text-base font-sans font-semibold text-text line-clamp-3 overflow-hidden">
-              {title}
-            </h1>
+            <Link href={`/destination/${id}`}>
+              <h1 className="text-base font-sans font-semibold text-text line-clamp-3 overflow-hidden">
+                {title}
+              </h1>
+            </Link>
           </div>
         </div>
       </div>

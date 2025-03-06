@@ -43,7 +43,9 @@ export default function Edit() {
     const fetchTravel = async () => {
       try {
         setLoadingPage(true);
-        const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${id}`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${id}`
+        );
         if (!res.ok) {
           throw new Error("Failed to fetch travel data");
         }
@@ -97,7 +99,11 @@ export default function Edit() {
 
     if (changedUrls !== undefined) {
       const removedUrls = imageUrls.filter((url) => !changedUrls.includes(url));
-      setDeletedImages(removedUrls);
+      setDeletedImages((prevDeletedImages) => {
+        const updatedDeletedImages = [...prevDeletedImages, ...removedUrls];
+        // console.log(updatedDeletedImages);
+        return updatedDeletedImages;
+      });
     }
   };
 
@@ -109,7 +115,8 @@ export default function Edit() {
         JSON.stringify(initialTravel) === JSON.stringify(travel) &&
         JSON.stringify(initialDepartures) === JSON.stringify(departures) &&
         JSON.stringify(initialImagesUrls) === JSON.stringify(imageUrls) &&
-        images.length === 0
+        images.length === 0 &&
+        deletedImages.length === 0
       ) {
         return;
       }
@@ -166,14 +173,17 @@ export default function Edit() {
         formData.append("deletedImages[]", JSON.stringify(deletedImages));
       }
 
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
+      // formData.forEach((value, key) => {
+      //   console.log(key, value);
+      // });
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`, {
-        method: "PUT",
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
 
       if (res.ok) {
         toast.success("Putovanje uspešno ažurirano!");
