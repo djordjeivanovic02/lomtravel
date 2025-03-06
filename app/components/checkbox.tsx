@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -14,33 +14,33 @@ export default function Checkbox({ id, isPopular }: Props) {
     setChecked(isPopular === 1);
   }, [isPopular]);
 
-  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newChecked = event.target.checked;
-    setChecked(newChecked);
-
+  async function updateStatus(newChecked: boolean) {
     try {
       const formData = new FormData();
       formData.append("id", id.toString());
       formData.append("status", newChecked ? "1" : "0");
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+      const response = await fetch(`/api/travel`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      const data = await response.json();
 
       if (!response.ok) {
-        toast.error("Greska pri dodavanju u popularne.");
-      } else {
-        if (newChecked) toast.success("Putovanje uspesno dodato u popularne");
-        else toast.success("Putovanje uspesno uklonjeno iz popularnih");
+        throw new Error(data.error || "Greška pri ažuriranju.");
       }
+
+      toast.success(
+        newChecked
+          ? "Putovanje uspešno dodato u popularne."
+          : "Putovanje uspešno uklonjeno iz popularnih."
+      );
     } catch (error) {
-      console.error("Greska", error);
+      if (error instanceof Error) toast.error(error.message);
+      setChecked(!newChecked);
     }
-  };
+  }
 
   return (
     <div className="flex items-center text-text">
@@ -50,7 +50,11 @@ export default function Checkbox({ id, isPopular }: Props) {
         className="w-[31px] h-[31px] accent-green-600"
         title="Popularno"
         checked={checked}
-        onChange={handleChange}
+        onChange={(e) => {
+          const newChecked = e.target.checked;
+          setChecked(newChecked);
+          updateStatus(newChecked);
+        }}
       />
     </div>
   );

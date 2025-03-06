@@ -4,7 +4,10 @@ import { supabase } from "@/lib/supabase";
 import { createDeparture, deleteDeparture } from "../departure/service";
 
 export const getAllTravels = async () => {
-  const { data, error } = await supabase.from("travels").select("*");
+  const { data, error } = await supabase
+    .from("travels")
+    .select("*")
+    .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
 
   const travelsWithImages = await Promise.all(
@@ -75,7 +78,7 @@ export const popularTravels = async () => {
   );
 
   return travelsWithImages;
-}
+};
 
 export const searchTravels = async (
   page: number,
@@ -237,6 +240,21 @@ export const updateTravelPopularity = async (
 ) => {
   if (![0, 1].includes(is_popular)) {
     throw new Error("Status must be either 0 or 1");
+  }
+
+  if (is_popular === 1) {
+    const { count, error: countError } = await supabase
+      .from("travels")
+      .select("id", { count: "exact", head: true })
+      .eq("is_popular", 1);
+
+    if (countError) {
+      throw new Error(countError.message);
+    }
+
+    if (count && count >= 6) {
+      throw new Error("Ne može biti više od 6 popularnih putovanja.");
+    }
   }
 
   const { error } = await supabase
