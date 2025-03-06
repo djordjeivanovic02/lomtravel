@@ -1,6 +1,5 @@
 import {
   AlertDialog,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
@@ -10,12 +9,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import CustomButton from "./button";
 import Input from "./input";
-import {
-  AlertDialogAction,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-} from "@radix-ui/react-alert-dialog";
-import { Button } from "@/components/ui/button";
+import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import CustomIcon from "./icon";
 import { sendMail } from "../api/mail/mail";
 import { ReservationUser } from "../interfaces/reservationUser";
@@ -56,7 +50,6 @@ export default function ReserveDialog({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const formData = new FormData(e.currentTarget);
 
       const form = e.currentTarget;
       const email = form.email.value;
@@ -106,6 +99,7 @@ export default function ReserveDialog({
       }
       setIsOpen(false);
     } catch (error) {
+      console.log(error);
       toast.error(
         "Doslo je do greske prilikom rezervacije. Molimo pokusajte kasnije"
       );

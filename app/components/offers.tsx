@@ -81,7 +81,7 @@ export default function Offers() {
                   <VacattionOffer
                     imageUrl="/images/church.png"
                     location="Kopaonik, Srbija"
-                    duration="1 dan"
+                    duration={1}
                     title="Poseti prestonicu kulture jednodnevno putovanje"
                     price={34}
                   />

@@ -6,7 +6,6 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import CustomIcon from "./icon";
-import { useState } from "react";
 
 type Props = {
   icon: string;

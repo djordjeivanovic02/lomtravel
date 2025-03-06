@@ -1,6 +1,5 @@
 "use server";
 import { ReservationUser } from "@/app/interfaces/reservationUser";
-import { user } from "@heroui/react";
 import nodemailer from "nodemailer";
 
 type Props = {
@@ -83,6 +82,7 @@ export async function sendMail({
     });
     return "Success";
   } catch (error) {
+    console.log(error);
     return "Error";
   }
 }

@@ -28,6 +28,7 @@ export default function IconWithDialog({ travelId }: Props) {
   const [dialog, setDialog] = useState(false);
   const handleDialog = (value: boolean) => {
     setDialog(value);
+    console.log(dialog);
   };
   return (
     <>
