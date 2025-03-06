@@ -24,7 +24,7 @@ export default function AdminDestination({
         <div className="w-[85px] h-[85px] relative">
           <Image
             src={image}
-            alt="login_image"
+            alt="destination_image"
             layout="fill"
             objectFit="cover"
           />
@@ -44,7 +44,7 @@ export default function AdminDestination({
         </div>
       </div>
       <div className="flex flex-col items-end gap-1">
-        <div className="bg-main rounded-md p-1 cursor-pointer w-fit">
+        <div className="bg-main rounded-[3px] p-1 cursor-pointer w-fit">
           <Link href={"/edit/" + id} className="flex justify-center">
             <CustomIcon name="edit" size={24} />
           </Link>

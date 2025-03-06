@@ -242,6 +242,21 @@ export const updateTravelPopularity = async (
     throw new Error("Status must be either 0 or 1");
   }
 
+  if (is_popular === 1) {
+    const { count, error: countError } = await supabase
+      .from("travels")
+      .select("id", { count: "exact", head: true })
+      .eq("is_popular", 1);
+
+    if (countError) {
+      throw new Error(countError.message);
+    }
+
+    if (count && count >= 6) {
+      throw new Error("Ne može biti više od 6 popularnih putovanja.");
+    }
+  }
+
   const { error } = await supabase
     .from("travels")
     .update({ is_popular })

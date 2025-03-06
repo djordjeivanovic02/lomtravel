@@ -17,9 +17,12 @@ export default function IconWithDialog({ travelId }: Props) {
       color: "#f38255",
       textColor: "#ffffff",
       action: async () => {
-        await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${travelId}`, {
-          method: "DELETE",
-        });
+        await fetch(
+          `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${travelId}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         router.refresh();
       },
@@ -38,7 +41,7 @@ export default function IconWithDialog({ travelId }: Props) {
         description="Ova akcija je trajna i ne moze se ponistiti."
       >
         <div
-          className="bg-red rounded-md p-1 flex justify-center items-center cursor-pointer"
+          className="bg-red rounded-[3px] p-1 flex justify-center items-center cursor-pointer"
           onClick={() => handleDialog(true)}
         >
           <CustomIcon name="delete" size={24} />
