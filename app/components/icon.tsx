@@ -7,7 +7,7 @@ type Props = {
 export default function CustomIcon({
   name,
   size = 18,
-  color = "white"
+  color = "white",
 }: Props) {
   return (
     <span

@@ -22,7 +22,7 @@ export default function DestinationForm({
   departures,
   maxReservations,
   date,
-  destination
+  destination,
 }: Props) {
   const [city, setCity] = useState<string>("");
   const [time, setTime] = useState<SelectedCity>({ time: "", price: 0 });
@@ -30,8 +30,9 @@ export default function DestinationForm({
   const [total, setTotal] = useState(price);
 
   useEffect(() => {
-    setTotal(price * counter + (time?.price ?? 0));
+    setTotal(price * counter + (time?.price ?? 0) * counter);
   }, [counter, time, price]);
+
 
   const handleCity = (value: string) => {
     setCity(value);

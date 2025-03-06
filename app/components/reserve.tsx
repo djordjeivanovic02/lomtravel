@@ -1,18 +1,13 @@
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+"use client";
+
+import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import CustomButton from "./button";
-import Input from "./input";
-import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import CustomIcon from "./icon";
 import { sendMail } from "../api/mail/mail";
 import { ReservationUser } from "../interfaces/reservationUser";
+import CustomButton from "./button";
+import CustomIcon from "./icon";
+import Input from "./input";
 
 type SelectedCity = {
   time: string;
@@ -48,111 +43,104 @@ export default function ReserveDialog({
   );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
+    e.preventDefault();
 
+    try {
       const form = e.currentTarget;
-      const email = form.email.value;
-      const phone = form.phone.value;
+      const formData = new FormData(form);
+      const email = formData.get("email") as string;
+      const phone = formData.get("phone") as string;
       const users: ReservationUser[] = [];
 
       for (let i = 0; i < passengers; i++) {
         users.push({
-          name: form[`name_${i}`].value,
-          lastname: form[`lastname_${i}`].value,
+          name: formData.get(`name_${i}`) as string,
+          lastname: formData.get(`lastname_${i}`) as string,
         });
       }
 
-      if (!email) {
-        toast.error("Email je obavezno polje");
-        return;
-      }
-      if (!phone) {
-        toast.error("Broj Telefona je obavezno polje");
-        return;
-      }
-      if (
-        users.filter((user) => user.name === "" || user.lastname === "")
-          .length !== 0
-      ) {
-        toast.error("Morate uneti podatke o svim putnicima");
-        return;
-      }
+      if (!email) return toast.error("Email je obavezno polje");
+      if (!phone) return toast.error("Broj Telefona je obavezno polje");
+      if (users.some((user) => !user.name || !user.lastname))
+        return toast.error("Morate uneti podatke o svim putnicima");
+
       setLoading(true);
 
       const res = await sendMail({
-        email: email,
+        email,
         phoneNumber: phone,
-        users: users,
-        destination: destination,
+        users,
+        destination,
         date: formattedDate,
         arrivalTime: time.time,
         arrivalCity: city,
       });
 
       if (res === "Success") {
-        toast.success("Uspesna rezervacija");
+        toast.success("Uspešna rezervacija");
+        setIsOpen(false);
       } else {
         toast.error(
-          "Doslo je do greske prilikom rezervacije. Molimo pokusajte kasnije"
+          "Došlo je do greške prilikom rezervacije. Pokušajte kasnije"
         );
       }
-      setIsOpen(false);
     } catch (error) {
-      console.log(error);
-      toast.error(
-        "Doslo je do greske prilikom rezervacije. Molimo pokusajte kasnije"
-      );
+      if (error instanceof Error)
+        toast.error(
+          "Došlo je do greške prilikom rezervacije. Pokušajte kasnije"
+        );
     } finally {
       setLoading(false);
     }
   };
+
   return (
-    <AlertDialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-      <AlertDialogTrigger asChild>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>
         <CustomButton
-          text="Rezervisi sada"
+          text="Rezerviši sada"
           icon="call_made"
           radius="lg"
           action={() => setIsOpen(true)}
           disabled={disabled}
         />
-      </AlertDialogTrigger>
-      <AlertDialogContent
-        className="rounded-xl max-w-4xl p-10 z-[52]"
-        style={{
-          maxHeight: "1000px",
-          overflow: "auto",
-          marginLeft: "20px",
-          marginRight: "20px",
-        }}
-      >
-        <AlertDialogHeader>
-          <AlertDialogTitle className="font-roboto text-3xl font-semibold text-center">
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 z-50" />
+        <Dialog.Content
+          className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl max-w-4xl p-10 bg-white shadow-xl z-50"
+          style={{ maxHeight: "98%", overflow: "auto" }}
+        >
+          <Dialog.Title className="font-roboto text-3xl font-semibold text-center">
             {title}
-          </AlertDialogTitle>
-          <CustomIcon name="close" color="black" />
-        </AlertDialogHeader>
-        <form onSubmit={handleSubmit}>
-          <div className="w-full flex flex-col md:flex-row gap-6 mt-5">
-            <Input
-              labelText="Email"
-              placeholderValue="Unesite Vasu email adresu"
-              inputType="text"
-              name="email"
-              border="border"
-            />
-            <Input
-              labelText="Broj Telefona"
-              placeholderValue="Unesite broj telefona"
-              inputType="text"
-              name="phone"
-              border="border"
-            />
-          </div>
-          <div className="w-full">
-            {Array.from({ length: passengers }).map((_, index) => {
-              return (
+          </Dialog.Title>
+          <Dialog.Close asChild>
+            <button className="absolute top-4 right-4">
+              <CustomIcon name="close" color="black" />
+            </button>
+          </Dialog.Close>
+
+          <form onSubmit={handleSubmit} className="mt-5">
+            <div className="w-full flex flex-col md:flex-row gap-6">
+              <Input
+                labelText="Email"
+                placeholderValue="Unesite Vašu email adresu"
+                inputType="text"
+                name="email"
+                border="border"
+              />
+              <Input
+                labelText="Broj Telefona"
+                placeholderValue="Unesite broj telefona"
+                inputType="text"
+                name="phone"
+                border="border"
+              />
+            </div>
+
+            <div className="w-full mt-5">
+              {Array.from({ length: passengers }).map((_, index) => (
                 <fieldset
                   key={index}
                   className="border border-border p-4 w-full font-roboto mb-4 rounded-xl"
@@ -175,23 +163,24 @@ export default function ReserveDialog({
                     />
                   </div>
                 </fieldset>
-              );
-            })}
-            <p className="text-xl font-roboto text-end">
-              Cena aranzmana:{" "}
-              <span className="font-bold text-2xl">{totalPrice}€</span>
-            </p>
-          </div>
-          <AlertDialogFooter className="justify-center">
-            <CustomButton
-              loading={loading}
-              text="Rezervisi"
-              className="rounded-full py-3 font-roboto font-bold hover:bg-title duration-300"
-              type="submit"
-            />
-          </AlertDialogFooter>
-        </form>
-      </AlertDialogContent>
-    </AlertDialog>
+              ))}
+              <p className="text-xl font-roboto text-end">
+                Cena aranžmana:{" "}
+                <span className="font-bold text-2xl">{totalPrice}€</span>
+              </p>
+            </div>
+
+            <div className="flex justify-center mt-5">
+              <CustomButton
+                loading={loading}
+                text="Rezerviši"
+                className="rounded-full py-3 font-roboto font-bold hover:bg-title duration-300"
+                type="submit"
+              />
+            </div>
+          </form>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

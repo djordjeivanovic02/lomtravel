@@ -6,6 +6,7 @@ import {
   deleteTravel,
   editTravel,
   getAllTravels,
+  getLocationsAndDates,
   getTravel,
   searchTravels,
 } from "./service";
@@ -19,6 +20,12 @@ export async function GET(req: Request) {
     const limit = Number(searchParams.get("limit"));
     const place = searchParams.get("place") || "";
     const date = searchParams.get("date") || "";
+    const type = searchParams.get("type");
+
+    if (type === "locations") {
+      const locations = await getLocationsAndDates();
+      return NextResponse.json(locations, { status: 200 });
+    }
 
     if (id) {
       const travel = await getTravel(Number(id));
