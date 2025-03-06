@@ -39,6 +39,44 @@ export const getTravel = async (id: number) => {
   return { ...data, images, departures };
 };
 
+export const newestTravels = async () => {
+  const { data, error } = await supabase
+    .from("travels")
+    .select("*")
+    .limit(4)
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+
+  const travelsWithImages = await Promise.all(
+    data.map(async (travel) => {
+      const images = await getTravelImages(travel.id);
+      return { ...travel, images };
+    })
+  );
+
+  return travelsWithImages;
+};
+
+export const popularTravels = async () => {
+  const { data, error } = await supabase
+    .from("travels")
+    .select("*")
+    .limit(6)
+    .eq("is_popular", 1);
+
+  if (error) throw new Error(error.message);
+
+  const travelsWithImages = await Promise.all(
+    data.map(async (travel) => {
+      const images = await getTravelImages(travel.id);
+      return { ...travel, images };
+    })
+  );
+
+  return travelsWithImages;
+}
+
 export const searchTravels = async (
   page: number,
   limit: number,

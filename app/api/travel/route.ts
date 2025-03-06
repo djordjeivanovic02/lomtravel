@@ -8,6 +8,8 @@ import {
   getAllTravels,
   getLocationsAndDates,
   getTravel,
+  newestTravels,
+  popularTravels,
   searchTravels,
   updateTravelPopularity,
 } from "./service";
@@ -27,7 +29,14 @@ export async function GET(req: Request) {
       const locations = await getLocationsAndDates();
       return NextResponse.json(locations, { status: 200 });
     }
-
+    if(type === "newest"){
+      const destinations = await newestTravels();
+      return NextResponse.json(destinations, {status: 200});
+    }
+    if(type === "popular"){
+      const destinations = await popularTravels();
+      return NextResponse.json(destinations, {status: 200});
+    }
     if (id) {
       const travel = await getTravel(Number(id));
 
