@@ -12,7 +12,7 @@ export default function TopDestinations() {
     const fetchedData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`
+          `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel?type=newest`
         );
         if (!res.ok) {
           throw new Error("Došlo je do greške!");
