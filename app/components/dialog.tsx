@@ -46,7 +46,10 @@ export default function CustomDialog({
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
-        <Dialog.Content className="fixed z-50 top-1/2 left-1/2 w-96 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg" style={{width: "90%"}}>
+        <Dialog.Content
+          className="fixed z-50 top-1/2 left-1/2 w-96 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg"
+          style={{ width: "90%" }}
+        >
           <div className="flex justify-between items-center border-b pb-2">
             <Dialog.Title className="text-lg font-semibold">
               {title}

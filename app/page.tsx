@@ -28,7 +28,7 @@ export default function Index() {
 
       <section
         id="CurrentOffers"
-        className="CurrentOffers w-full mt-24 md:mt-60 bg-[url('/images/red_lines.svg')]  bg-no-repeat bg-cover relative z-20"
+        className="CurrentOffers w-full mt-24 md:mt-48 bg-[url('/images/red_lines.svg')]  bg-no-repeat bg-cover relative z-20"
       >
         <OurDestinations />
       </section>

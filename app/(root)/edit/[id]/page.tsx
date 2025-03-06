@@ -39,7 +39,6 @@ export default function Edit() {
     description: "",
   });
 
-  console.log("ENV:", process.env.NEXT_PUBLIC_OUR_EMAIL);
   useEffect(() => {
     const fetchTravel = async () => {
       try {

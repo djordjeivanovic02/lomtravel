@@ -18,7 +18,7 @@ export default function WideWidget({ image, title, description }: Props) {
         </div>
       </div>
       <div className="px-5 mt-5">
-        <h1 className="text-3xl text-title font-bold">{title}</h1>
+        <h1 className="font-bold text-2xl text-title cursor-pointer line-clamp-2 min-h-[56px]">{title}...</h1>
         <p className="font-roboto text-base text-lightText">{description}</p>
       </div>
     </div>
