@@ -24,6 +24,11 @@ export default function HeroSectionItem({
   border = true,
   action,
 }: Props) {
+  const isValidDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime());
+  };
+
   return (
     <Dropdown className="w-72 md:w-64 rounded-md ml-16 mt-2">
       <DropdownTrigger className="h-auto">
@@ -48,17 +53,41 @@ export default function HeroSectionItem({
         aria-label="Static Actions"
         className="w-full bg-white outline-none rounded-md border my-0"
       >
-        {items.map((element, index) => (
-          <DropdownItem
-            key={element + "_" + index}
-            className={`w-full ${
-              index !== items.length - 1 ? "border-b" : ""
-            } roboto text-base py-4`}
-            onPress={() => action && action(element)}
-          >
-            <p className="px-6">{element}</p>
-          </DropdownItem>
-        ))}
+        {items.map((element, index) => {
+          if (!isValidDate(element)) {
+            return (
+              <DropdownItem
+                key={element + "_" + index}
+                className={`w-full ${
+                  index !== items.length - 1 ? "border-b" : ""
+                } roboto text-base py-4`}
+                onPress={() => action && action(element)}
+                value={element}
+              >
+                <p className="px-6">{element}</p>
+              </DropdownItem>
+            );
+          }
+
+          const formattedDate = new Intl.DateTimeFormat("sr-Latn-RS", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }).format(new Date(element));
+
+          return (
+            <DropdownItem
+              key={element + "_" + index}
+              className={`w-full ${
+                index !== items.length - 1 ? "border-b" : ""
+              } roboto text-base py-4`}
+              onPress={() => action && action(element)}
+              value={element}
+            >
+              <p className="px-6">{formattedDate}</p>
+            </DropdownItem>
+          );
+        })}
       </DropdownMenu>
     </Dropdown>
   );
