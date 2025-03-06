@@ -9,12 +9,21 @@ export default function Offers() {
   const [travels, setTravels] = useState<Travel[]>([]);
 
   useEffect(() => {
-    const fetchedData = async () => {
-      const scrollContainer = scrollContainerRef.current;
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      checkScrollPosition();
+      scrollContainer.addEventListener("scroll", checkScrollPosition);
+    }
+
+    return () => {
       if (scrollContainer) {
-        checkScrollPosition();
-        scrollContainer.addEventListener("scroll", checkScrollPosition);
+        scrollContainer.removeEventListener("scroll", checkScrollPosition);
       }
+    };
+  }, [travels]);
+
+  useEffect(() => {
+    const fetchedData = async () => {
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?type=popular`
@@ -29,15 +38,9 @@ export default function Offers() {
       } catch (error) {
         console.log(error);
       }
-      return () => {
-        if (scrollContainer) {
-          scrollContainer.removeEventListener("scroll", checkScrollPosition);
-        }
-      };
     };
     fetchedData();
-  }, [travels]);
-
+  }, []);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
@@ -53,8 +56,7 @@ export default function Offers() {
     }
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const handleScrollRight = () => {
     if (scrollContainerRef.current) {

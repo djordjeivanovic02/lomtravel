@@ -8,7 +8,7 @@ import { Suspense } from "react";
 export default function Index() {
   return (
     <div className="w-full relative overflow-hidden">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <SmoothScrollHandler />
       </Suspense>
       <section
