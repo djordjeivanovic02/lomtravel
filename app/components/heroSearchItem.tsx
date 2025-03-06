@@ -31,10 +31,10 @@ export default function HeroSectionItem({
 
   return (
     <Dropdown className="w-72 md:w-64 rounded-md ml-16 mt-2">
-      <DropdownTrigger className="h-auto">
+      <DropdownTrigger className="h-auto justify-start ">
         <Button
           variant="bordered"
-          className={`outline-none w-full md:w-auto py-2 md:py-0 px-5 md:px-0 md:border-b md:border-none ${
+          className={`outline-none w-full lg:w-52 py-2 md:py-0 px-5 md:px-0 md:border-b md:border-none ${
             border ? "border-b md:border-none pb-3 md:pb-0" : ""
           }`}
         >

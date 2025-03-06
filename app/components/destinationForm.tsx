@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import HeroSectionItem from "./heroSearchItem";
 import { Departure } from "../interfaces/departure";
 import ReserveDialog from "./reserve";
+import { motion } from "framer-motion";
 
 type Props = {
   price: number;
@@ -33,7 +34,6 @@ export default function DestinationForm({
     setTotal(price * counter + (time?.price ?? 0) * counter);
   }, [counter, time, price]);
 
-
   const handleCity = (value: string) => {
     setCity(value);
   };
@@ -57,7 +57,13 @@ export default function DestinationForm({
   };
 
   return (
-    <div className="md:w-72 w-full flex flex-col gap-3 text-roboto p-4 shadow-[0_4px_10px_rgba(0,0,0,0.3)] rounded-xl">
+    <motion.div
+      initial={{ opacity: 0, x: 100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: 1 }}
+      className="md:w-72 w-full flex flex-col gap-3 text-roboto p-4 shadow-[0_4px_10px_rgba(0,0,0,0.3)] rounded-xl"
+    >
       <p>
         Cena od <span className="font-bold text-xl">€{price}</span>
       </p>
@@ -118,6 +124,6 @@ export default function DestinationForm({
         time={time}
         disabled={city === "" || time.time === ""}
       />
-    </div>
+    </motion.div>
   );
 }

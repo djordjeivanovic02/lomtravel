@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import CustomButton from "./button";
 import Slider from "./slider";
+import { motion } from "framer-motion";
 
 type Props = {
   images: string[];
@@ -21,46 +22,70 @@ export default function DestinationImages({ images }: Props) {
     <>
       <div className="w-full flex flex-col md:flex-row h-[570px] gap-2">
         <div className="w-full md:w-3/5 h-3/5 md:h-full relative">
+          <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="w-full h-full relative overflow-hidden rounded-2xl md:rounded-r-none md:rounded-bl-xl"
+          >
           <div className="absolute text-center top-5 left-5 bg-white rounded-lg py-2 px-4 z-10">
             <p className="text-2xl font-bold">24</p>
             <p className="font-roboto text-lightText">JAN</p>
           </div>
-          <div className="w-full h-full relative overflow-hidden rounded-2xl md:rounded-r-none md:rounded-bl-xl">
             <Image
-              src={images[0] ?? ''}
+              src={images[0] ?? ""}
               alt="Glavna slika"
               fill
               priority
               className="object-cover"
               onClick={() => openSlider(0)}
             />
-          </div>
+          </motion.div>
         </div>
 
         <div className="w-full md:w-2/5 h-2/5 md:h-full flex md:flex-col gap-2">
-          <div className="relative w-1/2 md:w-full md:h-1/2 overflow-hidden rounded-tl-xl rounded-bl-xl md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl">
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.75 }}
+            className="relative w-1/2 md:w-full md:h-1/2 overflow-hidden rounded-tl-xl rounded-bl-xl md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl"
+          >
             <Image
-              src={images[1] ?? ''}
+              src={images[1] ?? ""}
               alt="Slika 2"
               fill
               className="object-cover"
               onClick={() => openSlider(1)}
             />
-          </div>
+          </motion.div>
 
           <div className="w-1/2 md:w-auto h-full md:h-1/2 flex gap-2">
-            <div className="relative w-full md:w-1/2 overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5, delay: 1 }}
+              className="relative w-full md:w-1/2 overflow-hidden"
+            >
               <Image
-                src={images[2] ?? ''}
+                src={images[2] ?? ""}
                 alt="Slika 3"
                 fill
                 className="md:rounded-none rounded-br-xl rounded-tr-xl object-cover"
                 onClick={() => openSlider(2)}
               />
-            </div>
-            <div className="hidden md:block relative w-1/2 overflow-hidden rounded-br-xl">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.5,delay: 1.25 }}
+              className="hidden md:block relative w-1/2 overflow-hidden rounded-br-xl"
+            >
               <Image
-                src={images[3] ?? ''}
+                src={images[3] ?? ""}
                 alt="Slika 4"
                 fill
                 className="object-cover"
@@ -76,7 +101,7 @@ export default function DestinationImages({ images }: Props) {
                   radius="full"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

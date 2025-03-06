@@ -1,32 +1,32 @@
-"use client"
+"use client";
 import Image from "next/image";
 import WideWidget from "./wideWidget";
 import { motion } from "framer-motion";
-
-const wideData = [
-  {
-    image: "/images/img1.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-  {
-    image: "/images/img2.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-  {
-    image: "/images/img3.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-  {
-    image: "/images/img4.png",
-    title: "Kanjon Moraca",
-    description: "Istrazi prirodu i opusti se",
-  },
-];
+import { useEffect, useState } from "react";
+import { Travel } from "../interfaces/travel";
 
 export default function TopDestinations() {
+  const [travels, setTravels] = useState<Travel[]>([]);
+
+  useEffect(() => {
+    const fetchedData = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`
+        );
+        if (!res.ok) {
+          throw new Error("Došlo je do greške!");
+        }
+        const data = await res.json();
+        setTravels(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchedData();
+  }, []);
+
   return (
     <div>
       <motion.div
@@ -48,14 +48,14 @@ export default function TopDestinations() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1 }}
           >
             <h3 className="font-handwritten text-xl md:text-2xl text-main">
               Top Destinacije
             </h3>
             <h2 className="font-bold text text-4xl md:text-6xl text-title max-w-xl my-5">
-              Neke Od Nasih Sjajnih{" "}
+              Neke Od Nasih Najnovijih{" "}
               <span className="font-light">Destinacija</span>
             </h2>
             <Image
@@ -68,7 +68,7 @@ export default function TopDestinations() {
           <motion.p
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1 }}
             className="font-roboto text-sm md:text-base max-w-xl text-lightText mt-5 lg:mt-0"
           >
@@ -87,15 +87,15 @@ export default function TopDestinations() {
         transition={{ duration: 0.5 }}
         className="w-full flex flex-col lg:flex-row mt-16 lg:mt-20 justify-between relative z-20 overflow-hidden"
       >
-        {wideData.map((data, index) => (
+        {travels.map((data, index) => (
           <div
             key={index}
             className="w-full lg:w-[24.6%] group lg:hover:w-[35%] transition-all duration-500 mt-7 lg:mt-0"
           >
             <WideWidget
-              image={data.image}
-              title={data.title}
-              description={data.description}
+              image={data.images ? data.images![0] : ""}
+              title={data.title ?? ""}
+              description={""}
             />
           </div>
         ))}

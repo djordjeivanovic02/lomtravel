@@ -16,14 +16,15 @@ export default function DestinationTabs({ description, departures }: Props) {
     switch (activeTab) {
       case "description":
         return (
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
+            className="whitespace-pre-line"
           >
             {description}
-          </motion.p>
+          </motion.div>
         );
       case "departures":
         return (
@@ -33,7 +34,7 @@ export default function DestinationTabs({ description, departures }: Props) {
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
           >
-            <DeparturesTable departures={departures}/>
+            <DeparturesTable departures={departures} />
           </motion.div>
         );
       case "notes":
@@ -53,7 +54,12 @@ export default function DestinationTabs({ description, departures }: Props) {
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+    >
       <div className="flex gap-4 text-title">
         {["description", "departures", "notes"].map((tab) => (
           <motion.button
@@ -86,6 +92,6 @@ export default function DestinationTabs({ description, departures }: Props) {
           {renderContent()}
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
