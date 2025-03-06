@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import useSWRInfinite from "swr/infinite";
 import { Travel } from "../interfaces/travel";
 import CustomButton from "./button";
+import CustomIcon from "./icon";
 import Loader from "./loader";
 import SearchInput from "./searchInput";
 import VacationOffer from "./vacationOffer";
@@ -59,6 +60,20 @@ export default function Widgets() {
     setSize(1);
   };
 
+  const handleRemoveFilter = (filter: "place" | "date") => {
+    const newParams = new URLSearchParams();
+    if (searchTerm) newParams.set("search", searchTerm);
+
+    if (filter === "place") {
+      if (date) newParams.set("date", date);
+    } else if (filter === "date") {
+      if (place) newParams.set("place", place);
+    }
+
+    router.replace(`?${newParams.toString()}`, { scroll: false });
+    setSize(1);
+  };
+
   useEffect(() => {
     if (data) {
       setButtonLoading(false);
@@ -77,6 +92,34 @@ export default function Widgets() {
       <div className="w-full mb-14 mt-10">
         <div className="flex justify-center relative w-full">
           <SearchInput onSearch={handleSearch} defaultValue={initialSearch} />
+        </div>
+        <div className=" mt-2 flex justify-center">
+          <div className="flex gap-4 w-full max-w-[600px]">
+            {place && (
+              <div className="flex items-center bg-gray-100 gap-1 px-4 py-2 justify-center rounded-full text-text text-sm">
+                <span>{place}</span>
+
+                <span
+                  className="flex items-center cursor-pointer"
+                  onClick={() => handleRemoveFilter("place")}
+                >
+                  <CustomIcon name="close" size={18} color="#717171" />
+                </span>
+              </div>
+            )}
+
+            {date && (
+              <div className="flex items-center bg-gray-100  gap-1 px-4 py-2 justify-center rounded-full text-text text-sm">
+                <span>{date}</span>
+                <span
+                  className="flex items-center cursor-pointer"
+                  onClick={() => handleRemoveFilter("date")}
+                >
+                  <CustomIcon name="close" size={18} color="#717171" />
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
