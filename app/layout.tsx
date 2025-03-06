@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import { dmSans } from "@/lib/fonts";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
@@ -31,6 +32,13 @@ export default function RootLayout({
   return (
     <>
       <html lang="en" data-lt-installed="true">
+        <head>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+          />
+        </head>
+
         <body className={`${dmSans.variable} antialiased`}>
           <NextTopLoader color="#f38255" showSpinner={false} />
 
