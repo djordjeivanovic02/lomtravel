@@ -18,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ) {
           return { id: "1", name: credentials.username as string };
         } else {
-          console.log("tu sam");
+          // console.log("tu sam");
 
           return null;
         }
