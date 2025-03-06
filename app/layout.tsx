@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <>
       <html lang="en" data-lt-installed="true">
-        <body className={`${dmSans.variable} antialiased`}>
+        <body className={`${dmSans.variable} antialiased overflow-x-hidden`}>
           <NextTopLoader color="#f38255" showSpinner={false} />
 
           <Provider>
