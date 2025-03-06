@@ -29,18 +29,20 @@ export default function DestinationImages({ images }: Props) {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="w-full h-full relative overflow-hidden rounded-2xl md:rounded-r-none md:rounded-bl-xl"
           >
-          <div className="absolute text-center top-5 left-5 bg-white rounded-lg py-2 px-4 z-10">
-            <p className="text-2xl font-bold">24</p>
-            <p className="font-roboto text-lightText">JAN</p>
-          </div>
-            <Image
-              src={images[0] ?? ""}
-              alt="Glavna slika"
-              fill
-              priority
-              className="object-cover"
-              onClick={() => openSlider(0)}
-            />
+            <div className="absolute text-center top-5 left-5 bg-white rounded-lg py-2 px-4 z-10">
+              <p className="text-2xl font-bold">24</p>
+              <p className="font-roboto text-lightText">JAN</p>
+            </div>
+            {images[0] && (
+              <Image
+                src={images[0] ?? null}
+                alt="Glavna slika"
+                fill
+                priority
+                className="object-cover"
+                onClick={() => openSlider(0)}
+              />
+            )}
           </motion.div>
         </div>
 
@@ -52,13 +54,15 @@ export default function DestinationImages({ images }: Props) {
             transition={{ duration: 0.5, delay: 0.75 }}
             className="relative w-1/2 md:w-full md:h-1/2 overflow-hidden rounded-tl-xl rounded-bl-xl md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl"
           >
-            <Image
-              src={images[1] ?? ""}
-              alt="Slika 2"
-              fill
-              className="object-cover"
-              onClick={() => openSlider(1)}
-            />
+            {images[1] && (
+              <Image
+                src={images[1] ?? null}
+                alt="Slika 2"
+                fill
+                className="object-cover"
+                onClick={() => openSlider(1)}
+              />
+            )}
           </motion.div>
 
           <div className="w-1/2 md:w-auto h-full md:h-1/2 flex gap-2">
@@ -69,28 +73,32 @@ export default function DestinationImages({ images }: Props) {
               transition={{ duration: 0.5, delay: 1 }}
               className="relative w-full md:w-1/2 overflow-hidden"
             >
-              <Image
-                src={images[2] ?? ""}
-                alt="Slika 3"
-                fill
-                className="md:rounded-none rounded-br-xl rounded-tr-xl object-cover"
-                onClick={() => openSlider(2)}
-              />
+              {images[2] && (
+                <Image
+                  src={images[2] ?? null}
+                  alt="Slika 3"
+                  fill
+                  className="md:rounded-none rounded-br-xl rounded-tr-xl object-cover"
+                  onClick={() => openSlider(2)}
+                />
+              )}
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.5,delay: 1.25 }}
+              transition={{ duration: 0.5, delay: 1.25 }}
               className="hidden md:block relative w-1/2 overflow-hidden rounded-br-xl"
             >
-              <Image
-                src={images[3] ?? ""}
-                alt="Slika 4"
-                fill
-                className="object-cover"
-                onClick={() => openSlider(3)}
-              />
+              {images[3] && (
+                <Image
+                  src={images[3] ?? null}
+                  alt="Slika 4"
+                  fill
+                  className="object-cover"
+                  onClick={() => openSlider(3)}
+                />
+              )}
               <div
                 className="absolute bottom-4 right-4 w-[80%]"
                 onClick={() => setIsOpen(true)}

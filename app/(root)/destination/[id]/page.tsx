@@ -4,6 +4,34 @@ import DestinationImages from "@/app/components/destinationImages";
 import DestinationTabs from "@/app/components/destinationTabs";
 import DestinationTag from "@/app/components/destinationTag";
 import { Travel } from "@/app/interfaces/travel";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { id } = params;
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel?id=" + id
+  );
+  const data: Travel = await res.json();
+
+  return {
+    title: `${data.title ?? "Destinacija"} | LomTravel`,
+    description:
+      data.description ??
+      "Otkrijte sve detalje o ovom nezaboravnom jednodnevnom putovanju, uključujući datum, trajanje, broj mesta i specijalne ponude.",
+    keywords: `jednodnevni izlet ${data.location}, ${data.location ?? "Destinacija"}, ${data.title ?? "Putovanje"}, jednodnevno putovanje, turistička ponuda, organizovani izleti, Srbija, tura, rezervacija`,
+    openGraph: {
+      url: `https://www.lomtravel.com/destination/${data.id}`,
+      title: `${data.title ?? "Destinacija"} | LomTravel`,
+      description: data.description ?? "Detalji o ovom putovanju.",
+      images: [{ url: data.images?.[0] ?? "https://www.lomtravel.com/images/logo.svg" }],
+    },
+  };
+}
+
 
 export default async function Destination({
   params,

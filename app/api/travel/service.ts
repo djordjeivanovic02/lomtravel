@@ -4,7 +4,10 @@ import { supabase } from "@/lib/supabase";
 import { createDeparture, deleteDeparture } from "../departure/service";
 
 export const getAllTravels = async () => {
-  const { data, error } = await supabase.from("travels").select("*");
+  const { data, error } = await supabase
+    .from("travels")
+    .select("*")
+    .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
 
   const travelsWithImages = await Promise.all(
@@ -75,7 +78,7 @@ export const popularTravels = async () => {
   );
 
   return travelsWithImages;
-}
+};
 
 export const searchTravels = async (
   page: number,

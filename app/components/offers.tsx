@@ -3,8 +3,42 @@ import { useRef, useState, useEffect } from "react";
 import CustomIcon from "./icon";
 import VacattionOffer from "./vacationOffer";
 import { motion } from "framer-motion";
+import { Travel } from "../interfaces/travel";
 
 export default function Offers() {
+  const [travels, setTravels] = useState<Travel[]>([]);
+
+  useEffect(() => {
+    const fetchedData = async () => {
+      const scrollContainer = scrollContainerRef.current;
+      if (scrollContainer) {
+        checkScrollPosition();
+        scrollContainer.addEventListener("scroll", checkScrollPosition);
+      }
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?type=popular`
+        );
+        if (!res.ok) {
+          throw new Error(
+            "Doslo je do greske prilikom pribavljanja aktuelnih destinacija"
+          );
+        }
+        const data = await res.json();
+        setTravels(data);
+      } catch (error) {
+        console.log(error);
+      }
+      return () => {
+        if (scrollContainer) {
+          scrollContainer.removeEventListener("scroll", checkScrollPosition);
+        }
+      };
+    };
+    fetchedData();
+  }, [travels]);
+
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
@@ -20,16 +54,6 @@ export default function Offers() {
   };
 
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      // checkScrollPosition();
-      scrollContainer.addEventListener("scroll", checkScrollPosition);
-    }
-    return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener("scroll", checkScrollPosition);
-      }
-    };
   }, []);
 
   const handleScrollRight = () => {
@@ -47,7 +71,7 @@ export default function Offers() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }} 
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 1 }}
       transition={{ duration: 0.5 }}
       onViewportEnter={() => setSliderInView(true)}
@@ -65,29 +89,30 @@ export default function Offers() {
         className="flex overflow-x-auto space-x-8 hide-scrollbar px-5 md:px-0"
         ref={scrollContainerRef}
       >
-        {Array(5)
-          .fill(null)
-          .map(
-            (_, index) =>
-              sliderInView && (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="flex-shrink-0"
-                >
-                  <VacattionOffer
-                    imageUrl="/images/church.png"
-                    location="Kopaonik, Srbija"
-                    duration={1}
-                    title="Poseti prestonicu kulture jednodnevno putovanje"
-                    price={34}
-                  />
-                </motion.div>
-              )
-          )}
+        {travels.map(
+          (travel, index) =>
+            sliderInView && (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="flex-shrink-0"
+              >
+                <VacattionOffer
+                  id={travel.id ?? -1}
+                  imageUrl={
+                    travel.images && travel.images[0] ? travel.images[0] : ""
+                  }
+                  location={travel.location}
+                  duration={travel.duration}
+                  title={travel.title}
+                  price={travel.price}
+                />
+              </motion.div>
+            )
+        )}
       </div>
       <div
         className={`p-2 rounded-full border-2 ml-4 items-center justify-center hover:bg-[#ddd] hidden cursor-pointer bg-white lg:flex duration-300 ${
