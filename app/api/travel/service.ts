@@ -193,6 +193,26 @@ export const createTravel = async (
   return { travelData, imagesUrls };
 };
 
+export const updateTravelPopularity = async (
+  id: number,
+  is_popular: number
+) => {
+  if (![0, 1].includes(is_popular)) {
+    throw new Error("Status must be either 0 or 1");
+  }
+
+  const { error } = await supabase
+    .from("travels")
+    .update({ is_popular })
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return { id, is_popular };
+};
+
 export const editTravel = async (
   travel: Travel,
   departures: Departure[],

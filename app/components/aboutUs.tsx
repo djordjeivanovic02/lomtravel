@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import AnimatedCoutner from "./animatedCounter";
 
 export default function AboutUs() {
@@ -9,7 +9,7 @@ export default function AboutUs() {
       <motion.div
         initial={{ opacity: 0, x: 100 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1 }}
       >
         <Image
@@ -24,7 +24,7 @@ export default function AboutUs() {
         <motion.div
           initial={{ opacity: 0, x: -200 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 1 }}
           className="w-full h-[250px]  md:h-[400px] lg:h-[250px] lg:max-w-xl relative"
         >
@@ -38,7 +38,7 @@ export default function AboutUs() {
         <motion.div
           initial={{ opacity: 0, x: 200 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 1 }}
         >
           <h3 className="font-handwritten text-xl md:text-2xl text-main">
@@ -80,7 +80,7 @@ export default function AboutUs() {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1 }}
         className="container w-full items-start justify-center gap-14 mt-8 hidden lg:flex"
       >
@@ -111,7 +111,7 @@ export default function AboutUs() {
             eaque ipsa quae ab illo inventore veritatis.
           </p>
           <div className="mt-10 flex gap-16">
-            <AnimatedCoutner text="Destinacija" from={0} to={50}/>
+            <AnimatedCoutner text="Destinacija" from={0} to={50} />
             <AnimatedCoutner text="Zadovoljnih korisnika" from={0} to={15000} />
           </div>
         </div>
