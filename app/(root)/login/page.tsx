@@ -26,7 +26,7 @@ export default function Login() {
       </div>
 
       <div className="w-full flex-1 min-h-screen flex justify-center md:justify-start relative bg-[url('/images/login_background.svg')] bg-no-repeat bg-contain bg-top md:bg-right-top">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense>
           <LoginForm />
         </Suspense>
       </div>

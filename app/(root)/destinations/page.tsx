@@ -27,7 +27,7 @@ export default async function Destinations() {
           prevLink="/"
           currentText="Destinacije"
         />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense >
           <Widgets />
         </Suspense>
       </div>
