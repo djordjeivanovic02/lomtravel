@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 type Props = {
   id: number;

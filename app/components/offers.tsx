@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 import VacattionOffer from "./vacationOffer";
 import { motion } from "framer-motion";
 import { Travel } from "../interfaces/travel";

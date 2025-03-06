@@ -1,7 +1,7 @@
 import { convertBlobUrlToFile } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 type Props = {
   onImagesChange: (files?: File[], urls?: string[]) => void;

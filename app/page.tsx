@@ -3,11 +3,14 @@ import OurDestinations from "./components/ourDestinations";
 import TopDestinations from "./components/topDestinations";
 import SmoothScrollHandler from "./hooks/smoothScrollHandler";
 import AboutUs from "./components/aboutUs";
+import { Suspense } from "react";
 
 export default function Index() {
   return (
     <div className="w-full relative overflow-hidden">
-      <SmoothScrollHandler />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SmoothScrollHandler />
+      </Suspense>
       <section
         className="HeroSection w-full h-[735px]  bg-center 
              lg:bg-[url('/images/hero.svg')] bg-cover
@@ -41,7 +44,7 @@ export default function Index() {
         id="AboutUs"
         className="AboutUs w-full mt-24 md:mt-60 pb-24 md:pb-72 bg-[url('/images/grid.svg')] bg-bottom bg-cover relative"
       >
-        <AboutUs/>
+        <AboutUs />
       </section>
     </div>
   );

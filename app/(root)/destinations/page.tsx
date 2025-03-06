@@ -1,6 +1,7 @@
 import NavigationLinks from "@/app/components/navigationLinks";
 import Widgets from "@/app/components/widgets";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Sve Destinacije | LomTravel",
@@ -26,7 +27,9 @@ export default async function Destinations() {
           prevLink="/"
           currentText="Destinacije"
         />
-        <Widgets />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Widgets />
+        </Suspense>
       </div>
     </section>
   );

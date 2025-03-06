@@ -1,5 +1,5 @@
 "use client";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";

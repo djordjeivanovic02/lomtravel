@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FooterLink from "./footerLink";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 export default function Footer() {
   return (

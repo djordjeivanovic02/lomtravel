@@ -9,11 +9,11 @@ import { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const { id } = params;
+  const { id } = await params;
   const res = await fetch(
-    process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel?id=" + id
+    process.env.BASE_URL + "/api/travel?id=" + id
   );
   const data: Travel = await res.json();
 
@@ -40,7 +40,7 @@ export default async function Destination({
 }) {
   const { id } = await params;
   const res = await fetch(
-    process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel?id=" + id
+    process.env.BASE_URL + "/api/travel?id=" + id
   );
   const data: Travel = await res.json();
   const date = new Date(data.date ?? "");
