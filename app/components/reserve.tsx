@@ -110,7 +110,7 @@ export default function ReserveDialog({
         <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 z-50" />
         <Dialog.Content
           className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-xl max-w-4xl p-10 bg-white shadow-xl z-50"
-          style={{ maxHeight: "98%", overflow: "auto" }}
+          style={{ maxHeight: "98%", overflow: "auto", width: "90%" }}
         >
           <Dialog.Title className="font-roboto text-3xl font-semibold text-center">
             {title}
@@ -179,6 +179,9 @@ export default function ReserveDialog({
               />
             </div>
           </form>
+          <Dialog.DialogDescription className="text-center mt-2 text-lightText">
+            Nakon rezervacije bicete kontaktirani putem unete e-mail adrese.
+          </Dialog.DialogDescription>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

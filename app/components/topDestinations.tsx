@@ -48,7 +48,7 @@ export default function TopDestinations() {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1 }}
           >
             <h3 className="font-handwritten text-xl md:text-2xl text-main">
@@ -68,7 +68,7 @@ export default function TopDestinations() {
           <motion.p
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 1 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1 }}
             className="font-roboto text-sm md:text-base max-w-xl text-lightText mt-5 lg:mt-0"
           >

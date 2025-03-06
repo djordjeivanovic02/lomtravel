@@ -87,6 +87,12 @@ export default function Widgets() {
     }
   };
 
+  const formattedDate = new Intl.DateTimeFormat("sr-Latn-RS", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <>
       <div className="w-full mb-14 mt-10">
@@ -103,14 +109,14 @@ export default function Widgets() {
                   className="flex items-center cursor-pointer"
                   onClick={() => handleRemoveFilter("place")}
                 >
-                  <CustomIcon name="close" size={18} color="#717171" />
+                  <CustomIcon name="close" size={18} color="#717171"/>
                 </span>
               </div>
             )}
 
             {date && (
               <div className="flex items-center bg-gray-100  gap-1 px-4 py-2 justify-center rounded-full text-text text-sm">
-                <span>{date}</span>
+                <span>{formattedDate.format(new Date(date))}</span>
                 <span
                   className="flex items-center cursor-pointer"
                   onClick={() => handleRemoveFilter("date")}
@@ -157,6 +163,7 @@ export default function Widgets() {
               radius="full"
               padding="pl-6 pr-4"
               loading={buttonLoading}
+              className="hover:bg-title duration-300"
             />
           </div>
         )}

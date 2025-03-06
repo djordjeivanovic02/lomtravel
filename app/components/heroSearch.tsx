@@ -14,6 +14,7 @@ const fetchLocationsAndDates = async () => {
   return response.json();
 };
 
+
 export default function HeroSearch() {
   const [locations, setLocations] = useState<string[]>([]);
   const [dates, setDates] = useState<string[]>([]);
@@ -42,6 +43,12 @@ export default function HeroSearch() {
     setSelectedDate(date);
   };
 
+  const formattedDate = new Intl.DateTimeFormat("sr-Latn-RS", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <div className="md:px-5 md:py-4 bg-white drop-shadow-[0_0_20px_rgba(0,0,0,0.25)] md:w-auto w-full rounded-lg md:rounded-full flex flex-col md:flex-row items-center gap-2 md:gap-5 mt-12">
       <HeroSectionItem
@@ -54,7 +61,7 @@ export default function HeroSearch() {
       <HeroSectionItem
         icon="calendar_month"
         title="Datum"
-        desc={selectedDate || "Izaberi datum"}
+        desc={selectedDate ? formattedDate.format(new Date(selectedDate)) : "Izaberi datum"}
         items={dates}
         border={false}
         action={handleDateSelect}

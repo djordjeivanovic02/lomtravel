@@ -5,11 +5,11 @@ import AnimatedCoutner from "./animatedCounter";
 
 export default function AboutUs() {
   return (
-    <div>
+    <div className="w-full">
       <motion.div
-        initial={{ opacity: 0, x: 100 }}
+        initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1 }}
       >
         <Image
@@ -24,7 +24,7 @@ export default function AboutUs() {
         <motion.div
           initial={{ opacity: 0, x: -200 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 1 }}
           className="w-full h-[250px]  md:h-[400px] lg:h-[250px] lg:max-w-xl relative"
         >
@@ -38,7 +38,7 @@ export default function AboutUs() {
         <motion.div
           initial={{ opacity: 0, x: 200 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 1 }}
         >
           <h3 className="font-handwritten text-xl md:text-2xl text-main">
@@ -63,16 +63,8 @@ export default function AboutUs() {
               eaque ipsa quae ab illo inventore veritatis.
             </p>
             <div className="mt-10 flex gap-16">
-              <div>
-                <p className="font-handwritten text-5xl text-title">50+</p>
-                <p className="font-roboto text-lg text-title">Destinacija</p>
-              </div>
-              <div>
-                <p className="font-handwritten text-5xl text-title">15,000</p>
-                <p className="font-roboto text-lg text-title">
-                  Zadovoljnih Korisnika
-                </p>
-              </div>
+            <AnimatedCoutner text="Destinacija" from={0} to={50}/>
+            <AnimatedCoutner text="Zadovoljnih korisnika" from={0} to={15000} />
             </div>
           </div>
         </motion.div>
@@ -80,7 +72,7 @@ export default function AboutUs() {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1 }}
         className="container w-full items-start justify-center gap-14 mt-8 hidden lg:flex"
       >

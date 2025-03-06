@@ -31,7 +31,7 @@ export default function CustomButton({
       type={type}
       disabled={loading || disabled}
       className={`w-full flex items-center justify-center gap-2 bg-${color} text-white p-2 rounded-${radius} ${padding} relative ${className} ${
-        disabled ? "bg-lightText" : ""
+        disabled ? "bg-[#717171]" : ""
       }`}
       onClick={action ?? (() => void {})}
     >
