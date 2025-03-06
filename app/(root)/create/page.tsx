@@ -5,8 +5,24 @@ import Input from "@/app/components/input";
 import NavigationLinks from "@/app/components/navigationLinks";
 import SelectCity from "@/app/components/selectCity";
 import { Departure } from "@/app/interfaces/departure";
+import { Metadata } from "next";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+
+export const metadata: Metadata = {
+  title: "Kreiraj Putovanje | LomTravel",
+  description:
+    "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji. Posetite popularne destinacije, prirodne lepote i kulturne spomenike na nezaboravnim jednodnevnim izletima. Planirajte savršen vikend odmor ili jednodnevni izlet sa profesionalnom organizacijom, sigurnošću i personalizovanim uslugama. Rezervišite svoje idealno jednodnevno putovanje već danas i uživajte u vrhunskim destinacijama uz povoljne cene.",
+  openGraph: {
+    url: "https://www.lomtravel.com/create",
+    title: "Kreiraj Putovanje | LomTravel",
+    description:
+      "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji...",
+    images: [{ url: "https://www.lomtravel.com/images/logo.svg" }],
+  },
+  keywords:
+    "jednodnevna putovanja Srbija, jednodnevni izleti, jednodnevna tura, turističke destinacije Srbija, vikend putovanja Srbija, putovanja za vikend, izleti u prirodu Srbija, kulturni izleti Srbija, popularne destinacije Srbija, jednodnevne ture Beograd, avanturistički izleti Srbija, organizovani izleti Srbija, porodična putovanja Srbija, prirodne lepote Srbije, jednodnevni izleti po Srbiji, putovanja sa vodičem, agencija za putovanja Srbija, planiranje putovanja Srbija, putovanje u Srbiji za 1 dan, destinacije za izlete u Srbiji",
+};
 
 export default function Create() {
   const [images, setImages] = useState<File[]>([]);
@@ -59,8 +75,8 @@ export default function Create() {
         return;
       }
 
-      if (images.length === 0) {
-        toast.error("Morate dodati barem jednu sliku!");
+      if (images.length <= 3) {
+        toast.error("Morate dodati barem cetiri slike!");
         return;
       }
 
@@ -75,10 +91,13 @@ export default function Create() {
         formData.append("images[]", image);
       });
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (res.ok) {
         toast.success("Putovanje uspešno kreirano!");
@@ -97,107 +116,109 @@ export default function Create() {
   };
 
   return (
-    <section className="CreateSection w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
-      <form onSubmit={handleSubmit}>
-        <div className="container">
-          <div className="pt-32">
-            <div className="mb-10">
-              <NavigationLinks
-                prevText="Početna"
-                prevLink="/"
-                currentText="Kreiraj putovanje"
-              />
-            </div>
-            <div className="bg-form backdrop-blur-md rounded-3xl md:rounded-[40px]">
-              <div className="flex flex-col md:flex-row flex-wrap">
-                <div className="flex-1 md:p-9 p-9">
-                  <Input
-                    labelText="Naslov"
-                    placeholderValue="Unesite naslov putovanja"
-                    inputType="text"
-                    name="title"
-                  />
-                  <Input
-                    labelText="Destinacija"
-                    placeholderValue="Unesite ime destinacije"
-                    inputType="text"
-                    name="destination"
-                  />
-                  <div className="lg:flex gap-5">
-                    <div className="md:flex-1">
-                      <Input
-                        labelText="Datum"
-                        placeholderValue="Izaberite datum polaska"
-                        inputType="date"
-                        name="date"
-                      />
+    <>
+      <section className="CreateSection w-full bg-[url('/images/dashboard_bg.svg')] bg-no-repeat bg-center bg-cover pb-24">
+        <form onSubmit={handleSubmit}>
+          <div className="container">
+            <div className="pt-32">
+              <div className="mb-10">
+                <NavigationLinks
+                  prevText="Početna"
+                  prevLink="/"
+                  currentText="Kreiraj putovanje"
+                />
+              </div>
+              <div className="bg-form backdrop-blur-md rounded-3xl md:rounded-[40px]">
+                <div className="flex flex-col md:flex-row flex-wrap">
+                  <div className="flex-1 md:p-9 p-9">
+                    <Input
+                      labelText="Naslov"
+                      placeholderValue="Unesite naslov putovanja"
+                      inputType="text"
+                      name="title"
+                    />
+                    <Input
+                      labelText="Destinacija"
+                      placeholderValue="Unesite ime destinacije"
+                      inputType="text"
+                      name="destination"
+                    />
+                    <div className="lg:flex gap-5">
+                      <div className="md:flex-1">
+                        <Input
+                          labelText="Datum"
+                          placeholderValue="Izaberite datum polaska"
+                          inputType="date"
+                          name="date"
+                        />
+                      </div>
+                      <div className="md:flex-1">
+                        <Input
+                          labelText="Cena (€)"
+                          placeholderValue="Unesite cenu"
+                          inputType="number"
+                          name="price"
+                        />
+                      </div>
                     </div>
-                    <div className="md:flex-1">
-                      <Input
-                        labelText="Cena (€)"
-                        placeholderValue="Unesite cenu"
-                        inputType="number"
-                        name="price"
+                    <div>
+                      <SelectCity
+                        onDeparturesChange={handleDeparturesChange}
+                        resetTrigger={resetTrigger}
                       />
                     </div>
                   </div>
-                  <div>
-                    <SelectCity
-                      onDeparturesChange={handleDeparturesChange}
-                      resetTrigger={resetTrigger}
+                  <div className="flex-1 md:p-9 p-9">
+                    <div className="md:flex gap-5">
+                      <div className="md:flex-1">
+                        <Input
+                          labelText="Broj mesta"
+                          placeholderValue="Unesite broj mesta"
+                          inputType="number"
+                          name="seats"
+                        />
+                      </div>
+                      <div className="md:flex-1">
+                        <Input
+                          labelText="Trajanje putovanja"
+                          placeholderValue="Unesite trajanje u danima"
+                          inputType="number"
+                          name="duration"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="font-roboto my-3">Opis</p>
+                      <textarea
+                        className="w-full h-44 resize-none rounded-3xl py-3 px-6"
+                        placeholder="Unesite opis putovanja"
+                        name="description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <ImageUpload
+                  onImagesChange={handleImagesChange}
+                  resetTrigger={resetTrigger}
+                />
+                <div className="flex justify-end md:p-12 p-9">
+                  <div className="w-fit">
+                    <CustomButton
+                      text="Postavi putovanje"
+                      icon="check"
+                      padding="px-10 py-3"
+                      radius="xl"
+                      color="text"
+                      type="submit"
+                      loading={loading}
                     />
                   </div>
-                </div>
-                <div className="flex-1 md:p-9 p-9">
-                  <div className="md:flex gap-5">
-                    <div className="md:flex-1">
-                      <Input
-                        labelText="Broj mesta"
-                        placeholderValue="Unesite broj mesta"
-                        inputType="number"
-                        name="seats"
-                      />
-                    </div>
-                    <div className="md:flex-1">
-                      <Input
-                        labelText="Trajanje putovanja"
-                        placeholderValue="Unesite trajanje u danima"
-                        inputType="number"
-                        name="duration"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-roboto my-3">Opis</p>
-                    <textarea
-                      className="w-full h-44 resize-none rounded-3xl py-3 px-6"
-                      placeholder="Unesite opis putovanja"
-                      name="description"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-              <ImageUpload
-                onImagesChange={handleImagesChange}
-                resetTrigger={resetTrigger}
-              />
-              <div className="flex justify-end md:p-12 p-9">
-                <div className="w-fit">
-                  <CustomButton
-                    text="Postavi putovanje"
-                    icon="check"
-                    padding="px-10 py-3"
-                    radius="xl"
-                    color="text"
-                    type="submit"
-                    loading={loading}
-                  />
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-    </section>
+        </form>
+      </section>
+    </>
   );
 }

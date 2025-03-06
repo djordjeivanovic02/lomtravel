@@ -4,6 +4,7 @@ import WideWidget from "./wideWidget";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Travel } from "../interfaces/travel";
+import Link from "next/link";
 
 export default function TopDestinations() {
   const [travels, setTravels] = useState<Travel[]>([]);
@@ -88,7 +89,8 @@ export default function TopDestinations() {
         className="w-full flex flex-col lg:flex-row mt-16 lg:mt-20 justify-between relative z-20 overflow-hidden"
       >
         {travels.map((data, index) => (
-          <div
+          <Link
+            href={`destination/${data.id}`}
             key={index}
             className="w-full lg:w-[24.6%] group lg:hover:w-[35%] transition-all duration-500 mt-7 lg:mt-0"
           >
@@ -97,7 +99,7 @@ export default function TopDestinations() {
               title={data.title ?? ""}
               description={""}
             />
-          </div>
+          </Link>
         ))}
       </motion.div>
     </div>

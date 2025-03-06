@@ -27,7 +27,7 @@ export default function Widgets() {
 
   const [searchTerm, setSearchTerm] = useState<string>(initialSearch);
   const [buttonLoading, setButtonLoading] = useState<boolean>(false);
-  const limit = 1;
+  const limit = 8;
 
   const getKey = (
     pageIndex: number,
