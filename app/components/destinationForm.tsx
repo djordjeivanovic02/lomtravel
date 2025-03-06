@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Departure } from "../interfaces/departure";
 import HeroSectionItem from "./heroSearchItem";
+import { Departure } from "../interfaces/departure";
 import ReserveDialog from "./reserve";
 
 type Props = {
@@ -31,7 +31,8 @@ export default function DestinationForm({
 
   useEffect(() => {
     setTotal(price * counter + (time?.price ?? 0) * counter);
-  }, [counter, time]);
+  }, [counter, time, price]);
+
 
   const handleCity = (value: string) => {
     setCity(value);
