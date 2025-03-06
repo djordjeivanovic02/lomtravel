@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import AnimatedCoutner from "./animatedCounter";
 
 export default function AboutUs() {
@@ -103,7 +103,7 @@ export default function AboutUs() {
             eaque ipsa quae ab illo inventore veritatis.
           </p>
           <div className="mt-10 flex gap-16">
-            <AnimatedCoutner text="Destinacija" from={0} to={50}/>
+            <AnimatedCoutner text="Destinacija" from={0} to={50} />
             <AnimatedCoutner text="Zadovoljnih korisnika" from={0} to={15000} />
           </div>
         </div>

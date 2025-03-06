@@ -11,5 +11,6 @@ export interface Travel {
   duration?: number;
   description?: string;
   created_at?: Date;
-  departures?: Departure[]
+  departures?: Departure[];
+  is_popular?: number;
 }

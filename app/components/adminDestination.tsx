@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Checkbox from "./checkbox";
 import CustomIcon from "./icon";
 import IconWithDialog from "./iconWithDialog";
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
   location?: string;
   title?: string;
   image?: string;
+  isPopular?: number;
 };
 
 export default function AdminDestination({
@@ -14,6 +16,7 @@ export default function AdminDestination({
   location,
   title,
   image = "",
+  isPopular,
 }: Props) {
   return (
     <div className="w-full border-b-2 border-form flex items-center justify-between gap-3">
@@ -38,13 +41,16 @@ export default function AdminDestination({
           </div>
         </div>
       </div>
-      <div>
-        <div className="bg-main rounded-md p-1 cursor-pointer my-1">
+      <div className="flex flex-col items-end gap-1">
+        <div className="bg-main rounded-md p-1 cursor-pointer w-fit">
           <Link href={"/edit/" + id} className="flex justify-center">
             <CustomIcon name="edit" size={24} />
           </Link>
         </div>
-        <IconWithDialog travelId={id} />
+        <div className="w-fit h-[32px]">
+          <IconWithDialog travelId={id} />
+        </div>
+        <Checkbox id={id} isPopular={isPopular || 0} />
       </div>
     </div>
   );

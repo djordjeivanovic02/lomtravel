@@ -6,7 +6,7 @@ import { Travel } from "@/app/interfaces/travel";
 import Link from "next/link";
 
 export default async function Dashboard() {
-  const res = await fetch( process.env.NEXT_PUBLIC_ROOT_URL +  "/api/travel");
+  const res = await fetch(process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel");
   const data: Travel[] = await res.json();
 
   return (
@@ -48,6 +48,7 @@ export default async function Dashboard() {
                   location={travel.location}
                   title={travel.title}
                   image={travel.images?.[0] ?? ""}
+                  isPopular={travel.is_popular}
                 />
               ))}
             </div>
