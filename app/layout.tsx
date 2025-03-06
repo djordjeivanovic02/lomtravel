@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en" data-lt-installed="true">
+      <html lang="en" data-lt-installed="true" className="w-screen overflow-x-hidden">
         <head>
           <link
             rel="stylesheet"
