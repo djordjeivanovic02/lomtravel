@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import useSWRInfinite from "swr/infinite";
 import { Travel } from "../interfaces/travel";
 import CustomButton from "./button";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 import Loader from "./loader";
 import SearchInput from "./searchInput";
 import VacationOffer from "./vacationOffer";

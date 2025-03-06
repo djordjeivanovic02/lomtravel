@@ -3,7 +3,7 @@
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 type Props = {
   color?: string;

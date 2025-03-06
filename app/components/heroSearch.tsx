@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import HeroSectionItem from "./heroSearchItem";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 const fetchLocationsAndDates = async () => {
   const response = await fetch(

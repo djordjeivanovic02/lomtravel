@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Departure } from "../interfaces/departure";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 import Input from "./input";
 
 interface Props {

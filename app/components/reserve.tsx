@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { sendMail } from "../api/mail/mail";
 import { ReservationUser } from "../interfaces/reservationUser";
 import CustomButton from "./button";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 import Input from "./input";
 
 type SelectedCity = {

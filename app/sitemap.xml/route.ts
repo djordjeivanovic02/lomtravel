@@ -4,7 +4,10 @@ export async function GET() {
   const baseUrl = "https://www.lomtravel.com";
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`);
-  const destinations = await res.json();
+  let destinations = [];
+  if(res.status === 200){
+    destinations = await res.json();
+  }
 
   const destinationUrls = destinations.map(
     (destination: { id: string }) => `

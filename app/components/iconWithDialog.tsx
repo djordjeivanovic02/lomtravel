@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DialogActions } from "../interfaces/dialogAction";
 import Dialog from "./dialog";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 type Props = {
   travelId: number;

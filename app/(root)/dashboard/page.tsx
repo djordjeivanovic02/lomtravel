@@ -1,6 +1,6 @@
 import AdminDestination from "@/app/components/adminDestination";
 import ClientLink from "@/app/components/clientLink";
-import CustomIcon from "@/app/components/icon";
+import CustomIcon from "@/app/components/customicon";
 import NavigationLinks from "@/app/components/navigationLinks";
 import { Travel } from "@/app/interfaces/travel";
 import { Metadata } from "next";
@@ -20,8 +20,12 @@ export const metadata: Metadata = {
     "jednodnevna putovanja Srbija, jednodnevni izleti, jednodnevna tura, turističke destinacije Srbija, vikend putovanja Srbija, putovanja za vikend, izleti u prirodu Srbija, kulturni izleti Srbija, popularne destinacije Srbija, jednodnevne ture Beograd, avanturistički izleti Srbija, organizovani izleti Srbija, porodična putovanja Srbija, prirodne lepote Srbije, jednodnevni izleti po Srbiji, putovanja sa vodičem, agencija za putovanja Srbija, planiranje putovanja Srbija, putovanje u Srbiji za 1 dan, destinacije za izlete u Srbiji",
 };
 export default async function Dashboard() {
-  const res = await fetch(process.env.NEXT_PUBLIC_ROOT_URL + "/api/travel");
-  const data: Travel[] = await res.json();
+  const res = await fetch(process.env.BASE_URL + "/api/travel");
+
+  let data: Travel[] = [];
+  if (res.status === 200) {
+    data = await res.json();
+  }
 
   return (
     <>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ClientLink from "./clientLink";
 import HamburgerLink from "./hamburgerLink";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
