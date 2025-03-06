@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export default function Checkbox({ id, isPopular }: Props) {
+  const router = useRouter();
   const [checked, setChecked] = useState(isPopular === 1);
 
   useEffect(() => {
@@ -23,6 +25,7 @@ export default function Checkbox({ id, isPopular }: Props) {
       const response = await fetch(`/api/travel`, {
         method: "PUT",
         body: formData,
+        cache: "no-store",
       });
 
       const data = await response.json();
@@ -36,6 +39,8 @@ export default function Checkbox({ id, isPopular }: Props) {
           ? "Putovanje uspešno dodato u popularne."
           : "Putovanje uspešno uklonjeno iz popularnih."
       );
+
+      router.refresh();
     } catch (error) {
       if (error instanceof Error) toast.error(error.message);
       setChecked(!newChecked);
