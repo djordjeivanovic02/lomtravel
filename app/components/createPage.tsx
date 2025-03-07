@@ -152,7 +152,7 @@ export default function CreatePage() {
                       />
                     </div>
                   </div>
-                  <div className="flex-1 md:p-9 p-9">
+                  <div className="flex-1 md:p-9 p-6">
                     <div className="md:flex gap-5">
                       <div className="md:flex-1">
                         <Input
@@ -185,7 +185,7 @@ export default function CreatePage() {
                   onImagesChange={handleImagesChange}
                   resetTrigger={resetTrigger}
                 />
-                <div className="flex justify-end md:p-12 p-9">
+                <div className="flex justify-end md:p-12 p-6">
                   <div className="w-fit">
                     <CustomButton
                       text="Postavi putovanje"
