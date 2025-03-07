@@ -12,26 +12,29 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const res = await fetch(
-    process.env.BASE_URL + "/api/travel?id=" + id
-  );
+  const res = await fetch(process.env.BASE_URL + "/api/travel?id=" + id);
   const data: Travel = await res.json();
 
   return {
     title: `${data.title ?? "Destinacija"} | LomTravel`,
-    description:
-      data.description ??
-      "Otkrijte sve detalje o ovom nezaboravnom jednodnevnom putovanju, uključujući datum, trajanje, broj mesta i specijalne ponude.",
-    keywords: `jednodnevni izlet ${data.location}, ${data.location ?? "Destinacija"}, ${data.title ?? "Putovanje"}, jednodnevno putovanje, turistička ponuda, organizovani izleti, Srbija, tura, rezervacija`,
+    description: data.description!.slice(0, 160),
+    keywords: `jednodnevni izlet ${data.location}, ${
+      data.location ?? "Destinacija"
+    }, ${
+      data.title ?? "Putovanje"
+    }, jednodnevno putovanje, turistička ponuda, organizovani izleti, Srbija, tura, rezervacija`,
     openGraph: {
       url: `https://www.lomtravel.com/destination/${data.id}`,
       title: `${data.title ?? "Destinacija"} | LomTravel`,
       description: data.description ?? "Detalji o ovom putovanju.",
-      images: [{ url: data.images?.[0] ?? "https://www.lomtravel.com/images/logo.svg" }],
+      images: [
+        {
+          url: data.images?.[0] ?? "https://www.lomtravel.com/images/logo.svg",
+        },
+      ],
     },
   };
 }
-
 
 export default async function Destination({
   params,
@@ -39,9 +42,7 @@ export default async function Destination({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const res = await fetch(
-    process.env.BASE_URL + "/api/travel?id=" + id
-  );
+  const res = await fetch(process.env.BASE_URL + "/api/travel?id=" + id);
   const data: Travel = await res.json();
   const date = new Date(data.date ?? "");
   const options = { day: "numeric", month: "long", year: "numeric" } as const;

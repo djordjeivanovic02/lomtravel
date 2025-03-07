@@ -4,8 +4,6 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Prijavi se | LomTravel",
-  description:
-    "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji. Posetite popularne destinacije, prirodne lepote i kulturne spomenike na nezaboravnim jednodnevnim izletima. Planirajte savršen vikend odmor ili jednodnevni izlet sa profesionalnom organizacijom, sigurnošću i personalizovanim uslugama. Rezervišite svoje idealno jednodnevno putovanje već danas i uživajte u vrhunskim destinacijama uz povoljne cene.",
   openGraph: {
     url: "https://www.lomtravel.com/login",
     title: "Prijavi Se | LomTravel",

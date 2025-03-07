@@ -9,9 +9,9 @@ import Provider from "./context/Provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "LomTravel",
+  title: "Lom Travel | Turisticka agencija, putovanja, izleti",
   description:
-    "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji. Posetite popularne destinacije, prirodne lepote i kulturne spomenike na nezaboravnim jednodnevnim izletima. Planirajte savršen vikend odmor ili jednodnevni izlet sa profesionalnom organizacijom, sigurnošću i personalizovanim uslugama. Rezervišite svoje idealno jednodnevno putovanje već danas i uživajte u vrhunskim destinacijama uz povoljne cene.",
+    "Otkrijte najbolje jednodnevne izlete u Srbiji! Posetite prirodne lepote i kulturne spomenike uz profesionalnu organizaciju. Rezervišite već danas!",
   openGraph: {
     url: "https://www.lomtravel.com/",
     title: "LomTravel",
@@ -30,8 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en" data-lt-installed="true" className="w-screen overflow-x-hidden">
+      <html lang="sr" data-lt-installed="true" className="w-screen overflow-x-hidden">
         <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.lomtravel.com/images/logo.svg" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"

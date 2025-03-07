@@ -7,6 +7,7 @@ import { Travel } from "../interfaces/travel";
 
 export default function Offers() {
   const [travels, setTravels] = useState<Travel[]>([]);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -20,7 +21,7 @@ export default function Offers() {
         scrollContainer.removeEventListener("scroll", checkScrollPosition);
       }
     };
-  }, [travels]);
+  }, [animationCompleted]);
 
   useEffect(() => {
     const fetchedData = async () => {
@@ -44,19 +45,18 @@ export default function Offers() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
-  const [showRightButton, setShowRightButton] = useState(true);
+  const [showRightButton, setShowRightButton] = useState(false);
   const [sliderInView, setSliderInView] = useState(false);
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } =
         scrollContainerRef.current;
+        console.log(scrollLeft, scrollWidth, clientWidth);
       setShowLeftButton(scrollLeft > 0);
       setShowRightButton(scrollLeft < scrollWidth - clientWidth);
     }
   };
-
-  useEffect(() => {}, []);
 
   const handleScrollRight = () => {
     if (scrollContainerRef.current) {
@@ -96,10 +96,11 @@ export default function Offers() {
             sliderInView && (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: 100 }}
+                initial={{ opacity: 0, x: 0 }}
                 animate={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
+                onAnimationComplete={() => setAnimationCompleted(true)}
                 className="flex-shrink-0"
               >
                 <VacattionOffer
