@@ -22,7 +22,9 @@ export const metadata: Metadata = {
 export default async function Dashboard() {
   let data: Travel[] = [];
   try {
-    const res = await fetch(process.env.BASE_URL + "/api/travel");
+    const res = await fetch(process.env.BASE_URL + "/api/travel", {
+      cache: "no-store",
+    });
     data = await res.json();
   } catch (error) {
     console.error("Error fetching travels:", error);
