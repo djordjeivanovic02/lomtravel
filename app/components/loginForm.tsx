@@ -54,7 +54,7 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-[400px] h-fit md:mt-0 2xl:mt-20 bg-form backdrop-blur-md rounded-[40px] py-16 md:px-16 px-10 flex flex-col items-center"
+      className="w-full max-w-[400px] h-fit md:mt-0 2xl:mt-20 bg-form backdrop-blur-md rounded-[40px] py-16 md:px-16 px-6 flex flex-col items-center"
     >
       <div className="md:w-70 w-full">
         <Input
