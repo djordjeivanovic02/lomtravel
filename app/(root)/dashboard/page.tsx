@@ -7,8 +7,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
   title: "Kontrolna Tabla | LomTravel",
-  description:
-    "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji. Posetite popularne destinacije, prirodne lepote i kulturne spomenike na nezaboravnim jednodnevnim izletima. Planirajte savršen vikend odmor ili jednodnevni izlet sa profesionalnom organizacijom, sigurnošću i personalizovanim uslugama. Rezervišite svoje idealno jednodnevno putovanje već danas i uživajte u vrhunskim destinacijama uz povoljne cene.",
   openGraph: {
     url: "https://www.lomtravel.com/dashboard",
     title: "Kontrolna Tabla | LomTravel",
