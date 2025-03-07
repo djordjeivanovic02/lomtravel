@@ -8,7 +8,6 @@ const fetchLocationsAndDates = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel?type=locations`
   );
-  console.log(response);
 
   if (!response.ok) throw new Error("Failed to fetch locations");
   return response.json();

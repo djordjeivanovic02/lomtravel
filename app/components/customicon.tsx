@@ -13,7 +13,7 @@ export default function CustomIcon({
 }: Props) {
   return (
     <span
-      className={`material-symbols-outlined ${className}`}
+      className={`material-symbols-outlined ${className} select-none`}
       style={{ fontSize: `${size}px`, color }}
     >
       {name}
