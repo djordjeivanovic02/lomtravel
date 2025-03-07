@@ -114,7 +114,7 @@ export default function CreatePage() {
               </div>
               <div className="bg-form backdrop-blur-md rounded-3xl md:rounded-[40px]">
                 <div className="flex flex-col md:flex-row flex-wrap">
-                  <div className="flex-1 md:p-9 p-9">
+                  <div className="flex-1 md:p-9 p-6">
                     <Input
                       labelText="Naslov"
                       placeholderValue="Unesite naslov putovanja"
