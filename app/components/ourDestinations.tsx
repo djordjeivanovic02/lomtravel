@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Offers from "./offers";
@@ -9,7 +9,7 @@ export default function OurDestinations() {
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 1 }}
         className="container"
       >
@@ -26,7 +26,6 @@ export default function OurDestinations() {
           alt="Orange Arrow"
         />
       </motion.div>
-      ;
       <div className="w-full flex justify-center">
         <div className="w-full max-w-[1500px] px-0 md:px-5">
           <div className="py-14">

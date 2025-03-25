@@ -1,10 +1,9 @@
-const departures = [
-  { city: "Beograd", time: "10:00", surcharge: "10" },
-  { city: "Leskovac", time: "12:30", surcharge: "30" },
-  { city: "Nis", time: "14:15", surcharge: "25" },
-];
+import { Departure } from "../interfaces/departure";
 
-export default function DeparturesTable() {
+type Props = {
+  departures: Departure[];
+};
+export default function DeparturesTable({ departures }: Props) {
   return (
     <table className="min-w-full text-text table-auto border-collapse">
       <thead>
@@ -19,7 +18,7 @@ export default function DeparturesTable() {
           <tr key={index} className="border-b hover:bg-gray-50">
             <td className="py-2 px-4">{departure.city}</td>
             <td className="py-2 px-4">{departure.time}</td>
-            <td className="py-2 px-4">{departure.surcharge}€</td>
+            <td className="py-2 px-4">{departure.price}€</td>
           </tr>
         ))}
       </tbody>

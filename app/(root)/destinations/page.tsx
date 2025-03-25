@@ -1,57 +1,35 @@
-import CustomButton from "@/app/components/button";
-import CustomIcon from "@/app/components/icon";
 import NavigationLinks from "@/app/components/navigationLinks";
-import VacattionOffer from "@/app/components/vacationOffer";
-import { Travel } from "@/app/interfaces/travel";
+import Widgets from "@/app/components/widgets";
+import { Metadata } from "next";
+import { Suspense } from "react";
 
-export default async function Destionations() {
-  const res = await fetch(process.env.BASE_URL + "/api/travel");
-  const data: Travel[] = await res.json();
+export const metadata: Metadata = {
+  title: "Sve Destinacije | LomTravel",
+  description:
+    "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji. Posetite popularne destinacije, prirodne lepote i kulturne spomenike na nezaboravnim jednodnevnim izletima. Planirajte savršen vikend odmor ili jednodnevni izlet sa profesionalnom organizacijom, sigurnošću i personalizovanim uslugama. Rezervišite svoje idealno jednodnevno putovanje već danas i uživajte u vrhunskim destinacijama uz povoljne cene.",
+  openGraph: {
+    url: "https://www.lomtravel.com/destinations",
+    title: "Sve Destinacije | LomTravel",
+    description:
+      "Otkrijte najbolja jednodnevna putovanja sa našom turističkom agencijom. Nudimo širok izbor jednodnevnih tura u Srbiji...",
+    images: [{ url: "https://www.lomtravel.com/images/logo.svg" }],
+  },
+  keywords:
+    "jednodnevna putovanja Srbija, jednodnevni izleti, jednodnevna tura, turističke destinacije Srbija, vikend putovanja Srbija, putovanja za vikend, izleti u prirodu Srbija, kulturni izleti Srbija, popularne destinacije Srbija, jednodnevne ture Beograd, avanturistički izleti Srbija, organizovani izleti Srbija, porodična putovanja Srbija, prirodne lepote Srbije, jednodnevni izleti po Srbiji, putovanja sa vodičem, agencija za putovanja Srbija, planiranje putovanja Srbija, putovanje u Srbiji za 1 dan, destinacije za izlete u Srbiji",
+};
+
+export default async function Destinations() {
   return (
     <section className="DestinationsSection mb-24">
       <div className="container mt-32">
         <NavigationLinks
-          prevText="Pocetna"
+          prevText="Početna"
           prevLink="/"
           currentText="Destinacije"
         />
-        <div className="w-full mb-14 mt-10">
-          <div className="flex justify-center relative w-full">
-            <div className="relative w-full max-w-[600px]">
-              <div className="absolute left-4 top-1/2 transform -translate-y-1/2 pt-1">
-                <CustomIcon name="search" color="#717171" size={24} />
-              </div>
-              <input
-                type="text"
-                className="w-full py-3 pl-12 pr-4 border border-border rounded-full outline-none"
-                placeholder="Pronađite svoju omiljenu destinaciju"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center gap-8 mb-10">
-          {data.map((destination, index) => (
-            <VacattionOffer
-              key={index}
-              imageUrl={destination.images?.[1] ?? ""}
-              location={destination.location}
-              title={destination.title}
-              duration={destination.duration}
-              price={destination.price}
-            />
-          ))}
-        </div>
-        <div className="flex justify-center">
-          <div>
-            <CustomButton
-              text="Prikazi jos"
-              color="main"
-              icon="keyboard_arrow_down"
-              radius="full"
-              padding="px-6"
-            />
-          </div>
-        </div>
+        <Suspense >
+          <Widgets />
+        </Suspense>
       </div>
     </section>
   );

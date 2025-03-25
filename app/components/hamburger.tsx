@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ClientLink from "./clientLink";
 import HamburgerLink from "./hamburgerLink";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +40,7 @@ export default function HamburgerMenu() {
           >
             <CustomIcon name="close" color="black" size={20} />
           </button>
-          <div className="">
+          <div className="mt-4">
             <HamburgerLink
               text="Pocetna"
               link="/"
@@ -48,7 +48,7 @@ export default function HamburgerMenu() {
             />
             <HamburgerLink
               text="Ponude"
-              link="/"
+              link="/#CurrentOffers"
               toggleMenu={() => setIsOpen(!isOpen)}
             />
             <HamburgerLink
@@ -58,67 +58,64 @@ export default function HamburgerMenu() {
             />
             <HamburgerLink
               text="O nama"
-              link="/"
+              link="/#AboutUs"
               toggleMenu={() => setIsOpen(!isOpen)}
             />
           </div>
+          <div>
+            <div className="flex border-b border-border justify-between pb-3 px-6">
+              <Link
+                href="https://www.instagram.com/lom_travel/"
+                className="flex gap-2 pb-2"
+                target="_blank"
+              >
+                <Image
+                  src="/icons/insta_icon_blue.svg"
+                  alt="Instagram"
+                  width={19}
+                  height={19}
+                  color="#094174"
+                />
+              </Link>
+              <Link
+                href="https://www.facebook.com/p/lom-travel-100066774284154/"
+                className="flex gap-2 pb-2"
+                target="_blank"
+              >
+                <Image
+                  src="/icons/facebook_icon_blue.svg"
+                  alt="facebook"
+                  width={19}
+                  height={19}
+                  color="#094174"
+                />
+              </Link>
+              <Link
+                href="mailto:lomtravel11@gmail.com?subject=Kontakt"
+                className="flex gap-2 pb-2"
+                target="_blank"
+              >
+                <CustomIcon name="mail" size={22} color="#094174" />
+              </Link>
 
-          <div className="">
-            <Link
-              href="https://www.instagram.com/lom_travel/"
-              className="flex gap-2 pb-2"
-              target="_blank"
-            >
-              <Image
-                src="/icons/insta_icon_blue.svg"
-                alt="Instagram"
-                width={19}
-                height={19}
-                color="#094174"
-              />
-              @lom_travel
-            </Link>
-            <Link
-              href="https://www.facebook.com/p/lom-travel-100066774284154/"
-              className="flex gap-2 pb-2"
-              target="_blank"
-            >
-              <Image
-                src="/icons/facebook_icon_blue.svg"
-                alt="facebook"
-                width={19}
-                height={19}
-                color="#094174"
-              />
-              lom travel
-            </Link>
-            <Link
-              href="mailto:lomtravel11@gmail.com?subject=Kontakt"
-              className="flex gap-2 pb-2"
-              target="_blank"
-            >
-              <CustomIcon name="mail" size={22} color="#094174" />
-              lomtravel11@gmail.com
-            </Link>
-
-            <Link
-              href="tel:+381637056233"
-              className="flex gap-2 pb-2 border-b border-border"
-            >
-              <CustomIcon name="call" size={22} color="#094174" />
-              063/70-56-233
-            </Link>
-
+              <Link
+                href="tel:+381637056233"
+                className="flex gap-2 pb-2"
+              >
+                <CustomIcon name="call" size={22} color="#094174" />
+              </Link>
+            </div>
             <div onClick={() => setIsOpen(false)}>
               <ClientLink
-                signedText="Odjavi se"
+                signedText="Kontrolna tabla"
                 notSignedText="Rezervisi putovanje"
+                signedUrl="/dashboard"
                 notSignedUrl="/destinations"
                 radius="full"
                 padding="py-2 px-5 mt-2"
-                signedIcon="exit_to_app"
+                signedIcon="dashboard"
                 notSignedIcon="call_made"
-                action="signout"
+                linkVisibility="flex"
               />
             </div>
           </div>

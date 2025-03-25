@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Departure } from "../interfaces/departure";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 import Input from "./input";
 
 interface Props {
   onDeparturesChange: (departures: Departure[]) => void;
+  intialDepartures?: Departure[];
   resetTrigger: boolean;
 }
 
 export default function SelectCity({
   onDeparturesChange,
+  intialDepartures,
   resetTrigger,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +23,8 @@ export default function SelectCity({
 
   useEffect(() => {
     if (resetTrigger) setDepartures([]);
-  }, [resetTrigger]);
+    if (intialDepartures) setDepartures(intialDepartures);
+  }, [intialDepartures, resetTrigger]);
 
   const handleAddDeparture = () => {
     if (newCity.trim() !== "" && departureTime.trim() !== "") {

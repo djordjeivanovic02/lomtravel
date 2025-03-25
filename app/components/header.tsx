@@ -53,11 +53,15 @@ export default function Header() {
           </div>
 
           <ClientLink
+            signedText="Kontrolna tabla"
             notSignedText="Rezervisi putovanje"
             signedUrl="/dashboard"
             notSignedUrl="/destinations"
             padding="py-3 px-5"
             radius="full"
+            linkVisibility="hidden md:flex"
+            signedIcon="dashboard"
+            notSignedIcon="call_made"
           />
         </div>
 

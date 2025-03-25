@@ -23,8 +23,8 @@ export default function Input({
       <input
         name={name}
         type={inputType}
-        placeholder={placeholderValue}
-        className={`bg-white w-full text-base rounded-full font-roboto py-3 px-6 my-3 ${border}`}
+        placeholder={inputType !== "date" ? placeholderValue : ""}
+        className={`bg-white w-full min-w-0 text-base rounded-full font-roboto py-3 px-6 my-3 ${border} appearance-none`}
         {...(onChange ? { value, onChange } : { defaultValue: value })}
       />
     </div>

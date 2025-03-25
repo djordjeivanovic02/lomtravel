@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FooterLink from "./footerLink";
-import CustomIcon from "./icon";
+import CustomIcon from "./customicon";
 
 export default function Footer() {
   return (
@@ -31,11 +31,16 @@ export default function Footer() {
           <p className="font-roboto text-lg text-white max-w-72 mt-4">
             Lider u organizaciji jednodnevnih putovanja
           </p>
-          <Link href="mailto: lomtravel11@gmail.com" className="flex items-center gap-4 mt-5 group">
+          <Link
+            href="mailto: lomtravel11@gmail.com"
+            className="flex items-center gap-4 mt-5 group"
+          >
             <div className="bg-title p-4 rounded-[1000px] flex items-center justify-center group-hover:bg-main duration-300">
-              <CustomIcon name="arrow_right_alt" size={24}/>
+              <CustomIcon name="arrow_right_alt" size={24} />
             </div>
-            <p className="text-xl text-white font-bold group-hover:text-lightText duration-300">Kontaktiraj Nas</p>
+            <p className="text-xl text-white font-bold group-hover:text-lightText duration-300">
+              Kontaktiraj Nas
+            </p>
           </Link>
 
           <p className="text-md text-white font-sans mt-8">
@@ -43,7 +48,10 @@ export default function Footer() {
             Reserved
           </p>
           <p className="text-md text-white font-sans">
-            Design & Development By <b>Remenex</b>
+            Design & Development By{" "}
+            <Link href="https://remenex.com" target="_blank">
+              <b>Remenex</b>
+            </Link>
           </p>
         </div>
 
@@ -57,10 +65,10 @@ export default function Footer() {
             className="my-5"
           />
           <FooterLink link="/" text="Pocetna" />
-          <FooterLink link="/#CurrentOffers" text="Ponude"/>
+          <FooterLink link="/#CurrentOffers" text="Ponude" />
           <FooterLink link="/destinations" text="Destinacije" />
           <FooterLink link="/#AboutUs" text="O nama" />
-          <FooterLink link="/login" text="Admin" scroll={true}/>
+          <FooterLink link="/login" text="Admin" scroll={true} />
         </div>
         <div className="secondColumn">
           <h2 className="text-2xl text-white font-bold">
@@ -79,23 +87,33 @@ export default function Footer() {
           <p className="font0roboto text-lg text-white font-bold">
             lomtravel11@gmail.com
           </p>
-          <Link href="https://www.instagram.com/lom_travel/" className="flex items-center gap-1 my-4">
+          <Link
+            href="https://www.instagram.com/lom_travel/"
+            className="flex items-center gap-1 my-4"
+          >
             <Image
               src="/icons/insta_icon.svg"
               alt="Instagram"
               width={24}
               height={24}
             />
-            <p className="font-roboto text-md text-white hover:text-lightText duration-300">@lom_travel</p>
+            <p className="font-roboto text-md text-white hover:text-lightText duration-300">
+              @lom_travel
+            </p>
           </Link>
-          <Link href="https://www.facebook.com/p/lom-travel-100066774284154/" className="flex items-center gap-1 mb-4">
+          <Link
+            href="https://www.facebook.com/p/lom-travel-100066774284154/"
+            className="flex items-center gap-1 mb-4"
+          >
             <Image
               src="/icons/facebook_icon.svg"
               alt="Facebook"
               width={24}
               height={24}
             />
-            <p className="font-roboto text-md text-white hover:text-lightText duration-300">lom travel</p>
+            <p className="font-roboto text-md text-white hover:text-lightText duration-300">
+              lom travel
+            </p>
           </Link>
         </div>
       </div>

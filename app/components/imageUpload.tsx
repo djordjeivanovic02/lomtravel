@@ -1,19 +1,26 @@
 import { convertBlobUrlToFile } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import CustomIcon from "./icon";
+import { useEffect, useRef, useState } from "react";
+import CustomIcon from "./customicon";
 
 type Props = {
-  onImagesChange: (files: File[]) => void;
+  onImagesChange: (files?: File[], urls?: string[]) => void;
+  initialImages?: string[];
   resetTrigger: boolean;
 };
 
-export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
+export default function ImageUpload({
+  onImagesChange,
+  initialImages,
+  resetTrigger,
+}: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (resetTrigger) setImageUrls([]);
-  }, [resetTrigger]);
+    if (initialImages) setImageUrls(initialImages);
+  }, [initialImages, resetTrigger]);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -31,6 +38,24 @@ export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
   const handleRemoveImage = (index: number) => {
     const updatedImages = imageUrls.filter((_, i) => i !== index);
     setImageUrls(updatedImages);
+    onImagesChange(undefined, updatedImages);
+
+    const files = inputFileRef.current?.files;
+    if (files) {
+      const filesArray = Array.from(files);
+
+      filesArray.splice(index, 1);
+
+      const newFileList = new DataTransfer();
+      filesArray.forEach((file) => {
+        newFileList.items.add(file);
+      });
+
+      inputFileRef.current!.files = newFileList.files;
+
+      const imagesFiles = Array.from(inputFileRef.current!.files);
+      onImagesChange(imagesFiles);
+    }
   };
 
   return (
@@ -39,6 +64,7 @@ export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
       <div className="flex flex-wrap gap-5">
         <div className="w-32 h-32 rounded-xl bg-white flex justify-center items-center cursor-pointer relative">
           <input
+            ref={inputFileRef}
             type="file"
             accept="image/*"
             multiple
@@ -53,6 +79,7 @@ export default function ImageUpload({ onImagesChange, resetTrigger }: Props) {
             <button
               className="bg-white rounded-full w-fit h-fit flex justify-center items-center p-[2px] absolute top-1 right-1 z-10"
               onClick={() => handleRemoveImage(index)}
+              type="button"
             >
               <CustomIcon name="close" color="#717171" />
             </button>

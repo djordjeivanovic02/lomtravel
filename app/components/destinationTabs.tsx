@@ -2,22 +2,29 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import DeparturesTable from "./departuresTable";
+import { Departure } from "../interfaces/departure";
 
-export default function DestinationTabs() {
+type Props = {
+  description: string;
+  departures: Departure[];
+};
+
+export default function DestinationTabs({ description, departures }: Props) {
   const [activeTab, setActiveTab] = useState("description");
 
   const renderContent = () => {
     switch (activeTab) {
       case "description":
         return (
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
+            className="whitespace-pre-line"
           >
-            Ovo je descripcija
-          </motion.p>
+            {description}
+          </motion.div>
         );
       case "departures":
         return (
@@ -27,7 +34,7 @@ export default function DestinationTabs() {
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
           >
-            <DeparturesTable />
+            <DeparturesTable departures={departures} />
           </motion.div>
         );
       case "notes":
@@ -47,7 +54,12 @@ export default function DestinationTabs() {
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.5, delay: 0.5 }}
+    >
       <div className="flex gap-4 text-title">
         {["description", "departures", "notes"].map((tab) => (
           <motion.button
@@ -80,6 +92,6 @@ export default function DestinationTabs() {
           {renderContent()}
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }

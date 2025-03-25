@@ -1,6 +1,6 @@
 export default function Loader() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="absolute inset-0 flex items-center justify-center z-50">
       <div className="relative w-10 h-10 transform rotate-[165deg]">
         <div className="absolute top-1/2 left-1/2 w-2 h-2 rounded-lg animate-before absolute-center"></div>
         <div className="absolute top-1/2 left-1/2 w-2 h-2 rounded-lg animate-after absolute-center"></div>
