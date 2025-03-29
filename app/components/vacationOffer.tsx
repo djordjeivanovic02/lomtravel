@@ -20,7 +20,7 @@ export default function VacationOffer({
   price,
 }: Props) {
   return (
-    <div className="w-full max-w-72 p-4 rounded-xl border bg-white shrink-0 h-fit">
+    <div className="w-full min-w-72 max-w-72 p-4 rounded-xl border bg-white shrink-0 h-fit">
       <div className="w-full h-48 relative rounded-lg overflow-hidden">
         <Link href={`/destination/${id}`}>
           <Image
