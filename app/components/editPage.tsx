@@ -95,12 +95,14 @@ export default function EditPage() {
   };
 
   const handleImagesChange = (newFiles?: File[], changedUrls?: string[]) => {
-    if (newFiles != undefined) setImages(newFiles);
+    if (newFiles !== undefined) setImages(newFiles);
 
     if (changedUrls !== undefined) {
       const removedUrls = imageUrls.filter((url) => !changedUrls.includes(url));
       setDeletedImages((prevDeletedImages) => {
-        const updatedDeletedImages = [...prevDeletedImages, ...removedUrls];
+        const updatedDeletedImages = Array.from(
+          new Set([...prevDeletedImages, ...removedUrls])
+        );
         // console.log(updatedDeletedImages);
         return updatedDeletedImages;
       });
@@ -122,6 +124,13 @@ export default function EditPage() {
       }
 
       const formData = new FormData(e.currentTarget);
+      console.log(
+        images.length,
+        " + ",
+        imageUrls.length,
+        " - ",
+        deletedImages.length
+      );
 
       if (
         !travel.id ||
@@ -137,8 +146,8 @@ export default function EditPage() {
         return;
       }
 
-      if (images.length <= 3 && imageUrls.length <= 3) {
-        toast.error("Morate dodati barem cetir slike!");
+      if (images.length + imageUrls.length - deletedImages.length <= 3) {
+        toast.error("Morate dodati barem cetiri slike!");
         return;
       }
 
@@ -173,9 +182,9 @@ export default function EditPage() {
         formData.append("deletedImages[]", JSON.stringify(deletedImages));
       }
 
-      // formData.forEach((value, key) => {
-      //   console.log(key, value);
-      // });
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`,

@@ -1,4 +1,3 @@
-import { convertBlobUrlToFile } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import CustomIcon from "./customicon";
@@ -15,46 +14,47 @@ export default function ImageUpload({
   resetTrigger,
 }: Props) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [filesList, setFilesList] = useState<File[]>([]); // Čuvamo fajlove
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (resetTrigger) setImageUrls([]);
+    if (resetTrigger) {
+      setImageUrls([]);
+      setFilesList([]);
+    }
     if (initialImages) setImageUrls(initialImages);
   }, [initialImages, resetTrigger]);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const filesArray = Array.from(e.target.files);
-      const newImageUrls = filesArray.map((file) => URL.createObjectURL(file));
+      const newFiles = Array.from(e.target.files);
 
-      setImageUrls((prevImageUrls) => [...prevImageUrls, ...newImageUrls]);
+      const newImageUrls = newFiles.map((file) => URL.createObjectURL(file));
 
-      const files = await Promise.all(newImageUrls.map(convertBlobUrlToFile));
+      setImageUrls((prev) => [...prev, ...newImageUrls]);
+      setFilesList((prev) => [...prev, ...newFiles]);
 
-      onImagesChange(files);
+      onImagesChange([...filesList, ...newFiles]);
+
+      e.target.value = "";
     }
   };
 
   const handleRemoveImage = (index: number) => {
-    const updatedImages = imageUrls.filter((_, i) => i !== index);
-    setImageUrls(updatedImages);
-    onImagesChange(undefined, updatedImages);
+    const updatedImageUrls = imageUrls.filter((_, i) => i !== index);
+    const updatedFiles = filesList.filter(
+      (_, i) => i !== index - updatedImageUrls.length
+    );
 
-    const files = inputFileRef.current?.files;
-    if (files) {
-      const filesArray = Array.from(files);
+    setImageUrls(updatedImageUrls);
+    setFilesList(updatedFiles);
+    onImagesChange(updatedFiles, updatedImageUrls);
 
-      filesArray.splice(index, 1);
+    const newFileList = new DataTransfer();
+    updatedFiles.forEach((file) => newFileList.items.add(file));
 
-      const newFileList = new DataTransfer();
-      filesArray.forEach((file) => {
-        newFileList.items.add(file);
-      });
-
-      inputFileRef.current!.files = newFileList.files;
-
-      const imagesFiles = Array.from(inputFileRef.current!.files);
-      onImagesChange(imagesFiles);
+    if (inputFileRef.current) {
+      inputFileRef.current.files = newFileList.files;
     }
   };
 

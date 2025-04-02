@@ -32,6 +32,10 @@ export default function CreatePage() {
     }
   }, [resetTrigger]);
 
+  useEffect(() => {
+    console.log("Ažuriran images state:", images);
+  }, [images]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
