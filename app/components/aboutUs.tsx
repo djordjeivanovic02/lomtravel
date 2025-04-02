@@ -56,15 +56,23 @@ export default function AboutUs() {
           />
           <div className="block lg:hidden">
             <p className="font-roboto text-sm md:text-base max-w-none lg:max-w-xl text-lightText mt-5 lg:mt-0">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. doloremque laudantium, totam rem aperiam,
-              eaque ipsa quae ab illo inventore veritatis.
+              Preko 30.000 zadovoljnih istraživača već je bilo deo naše
+              avanture! 🌍✨ Kroz godine rada, Lom Travel je postao sinonim
+              jednodnevnih putovanja koja otkrivaju više od samih destinacija.
+              Naša ekipa je obišla mnoge destinacije stvarajući priče koje se
+              pamte: od zapanjujućih prirodnih lepota do bogate kulturne
+              baštine. Putujte sa nama zato što je svaki nas izlet kap u okeanu
+              nezaboravnih priča Pridružite nam se i postanite deo ovog
+              neverovatnog putovanja, jer svakim novim izletom stvaramo uspomene
+              koja se ne zaboravljaju!
             </p>
             <div className="mt-10 flex gap-16">
-            <AnimatedCoutner text="Destinacija" from={0} to={50}/>
-            <AnimatedCoutner text="Zadovoljnih korisnika" from={0} to={15000} />
+              <AnimatedCoutner text="Destinacija" from={0} to={50} />
+              <AnimatedCoutner
+                text="Zadovoljnih korisnika"
+                from={0}
+                to={15000}
+              />
             </div>
           </div>
         </motion.div>
@@ -96,11 +104,14 @@ export default function AboutUs() {
         </div>
         <div>
           <p className="font-roboto text-sm md:text-base max-w-xl text-lightText mt-5 lg:mt-0">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. doloremque laudantium, totam rem aperiam,
-            eaque ipsa quae ab illo inventore veritatis.
+            Preko 30.000 zadovoljnih istraživača već je bilo deo naše avanture!
+            🌍✨ Kroz godine rada, Lom Travel je postao sinonim jednodnevnih
+            putovanja koja otkrivaju više od samih destinacija. Naša ekipa je
+            obišla mnoge destinacije stvarajući priče koje se pamte: od
+            zapanjujućih prirodnih lepota do bogate kulturne baštine. Putujte sa
+            nama zato što je svaki nas izlet kap u okeanu nezaboravnih priča.
+            Pridružite nam se i postanite deo ovog neverovatnog putovanja, jer
+            svakim novim izletom stvaramo uspomene koja se ne zaboravljaju!
           </p>
           <div className="mt-10 flex gap-16">
             <AnimatedCoutner text="Destinacija" from={0} to={50} />

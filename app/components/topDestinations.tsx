@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
-import WideWidget from "./wideWidget";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Travel } from "../interfaces/travel";
-import Link from "next/link";
+import WideWidget from "./wideWidget";
 
 export default function TopDestinations() {
   const [travels, setTravels] = useState<Travel[]>([]);
@@ -73,11 +73,15 @@ export default function TopDestinations() {
             transition={{ duration: 1 }}
             className="font-roboto text-sm md:text-base max-w-xl text-lightText mt-5 lg:mt-0"
           >
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. doloremque laudantium, totam rem aperiam,
-            eaque ipsa quae ab illo inventore veritatis.
+            Dobrodošli na zvanični sajt turističke agencije “L.O.M. TRAVEL”.
+            Naša specijalnost su jednodnevna putovanja koja su postala naš
+            zaštitni znak i zbog kojih sa ponosom nosimo titulu lidera u ovoj
+            oblasti zahvaljujući poverenju naših turista. Od samog planiranja do
+            same realizacije izleta, naš tim vredno i posvećeno radi da svaki
+            deo vašeg puta bude jednostavan, siguran i pun uživanja. Naša vozila
+            su Vaša sigurna luka u svetu putovanja gde su udobnost i bezbednost
+            na prvom mestu. Putujte sa nama zato što svaki naš izlet predstavlja
+            kap u okeanu nezaboravnih priča.
           </motion.p>
         </div>
       </div>
