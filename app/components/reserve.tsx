@@ -101,8 +101,15 @@ export default function ReserveDialog({
           text="Rezerviši sada"
           icon="call_made"
           radius="lg"
-          action={() => setIsOpen(true)}
-          disabled={disabled}
+          action={() => {
+            if (disabled) {
+              toast.error(
+                "Morate izabrati mesto polaska i broj putnika pre rezervacije!"
+              );
+            } else {
+              setIsOpen(true);
+            }
+          }}
         />
       </Dialog.Trigger>
 

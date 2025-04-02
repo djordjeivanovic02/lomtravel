@@ -1,8 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import DeparturesTable from "./departuresTable";
 import { Departure } from "../interfaces/departure";
+import DeparturesTable from "./departuresTable";
 
 type Props = {
   description: string;
@@ -45,7 +45,7 @@ export default function DestinationTabs({ description, departures }: Props) {
             exit={{ opacity: 0, x: 50 }}
             transition={{ duration: 0.3 }}
           >
-            Ovo su napomene
+            Trenutno nema napomena.
           </motion.p>
         );
       default:

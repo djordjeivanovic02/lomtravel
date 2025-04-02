@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import FooterLink from "./footerLink";
 import CustomIcon from "./customicon";
+import FooterLink from "./footerLink";
 
 export default function Footer() {
   return (
@@ -23,7 +23,7 @@ export default function Footer() {
       <div className="container p-4 flex flex-col gap-20 md:flex-row items-start justify-between relative z-20">
         <div className="firstColumn pr-0 xl:pr-20 md-border-none xl:border-r border-border">
           <Image
-            src="/images/footer_logo.svg"
+            src="/images/logo.svg"
             alt="Lom Travel Logo"
             width={100}
             height={86}
