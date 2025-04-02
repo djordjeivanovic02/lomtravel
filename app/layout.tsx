@@ -30,11 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html
-        lang="sr"
-        data-lt-installed="true"
-        className="w-screen overflow-x-hidden"
-      >
+      <html lang="sr" data-lt-installed="true" className="overflow-x-hidden">
         <head>
           <link
             rel="apple-touch-icon"
