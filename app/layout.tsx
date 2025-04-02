@@ -30,15 +30,23 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="sr" data-lt-installed="true" className="w-screen overflow-x-hidden">
+      <html
+        lang="sr"
+        data-lt-installed="true"
+        className="w-screen overflow-x-hidden"
+      >
         <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="https://www.lomtravel.com/images/logo.svg" />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="https://www.lomtravel.com/images/logo.svg"
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
           />
         </head>
-        <body className={`${dmSans.variable} antialiased overflow-x-hidden w-screen`}>
+        <body className={`${dmSans.variable} antialiased overflow-x-hidden`}>
           <NextTopLoader color="#f38255" showSpinner={false} />
 
           <Provider>
