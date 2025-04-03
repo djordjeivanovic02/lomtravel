@@ -79,13 +79,10 @@ export default function CreatePage() {
         formData.append("images[]", image);
       });
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`, {
+        method: "POST",
+        body: formData,
+      });
 
       if (res.ok) {
         toast.success("Putovanje uspešno kreirano!");

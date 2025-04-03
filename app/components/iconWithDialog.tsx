@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DialogActions } from "../interfaces/dialogAction";
-import Dialog from "./dialog";
 import CustomIcon from "./customicon";
+import Dialog from "./dialog";
 
 type Props = {
   travelId: number;
@@ -18,7 +18,7 @@ export default function IconWithDialog({ travelId }: Props) {
       textColor: "#ffffff",
       action: async () => {
         await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${travelId}`,
+          `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel?id=${travelId}`,
           {
             method: "DELETE",
           }
