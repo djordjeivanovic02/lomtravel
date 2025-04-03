@@ -34,7 +34,7 @@ export default function Widgets() {
     previousPageData: { data: Travel[]; totalCount: number }
   ) => {
     if (previousPageData && !previousPageData.data.length) return null;
-    return `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?page=${
+    return `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel?page=${
       pageIndex + 1
     }&limit=${limit}&search=${encodeURIComponent(
       searchTerm
@@ -109,7 +109,7 @@ export default function Widgets() {
                   className="flex items-center cursor-pointer"
                   onClick={() => handleRemoveFilter("place")}
                 >
-                  <CustomIcon name="close" size={18} color="#717171"/>
+                  <CustomIcon name="close" size={18} color="#717171" />
                 </span>
               </div>
             )}

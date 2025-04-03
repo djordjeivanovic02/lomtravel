@@ -44,7 +44,7 @@ export default function EditPage() {
       try {
         setLoadingPage(true);
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?id=${id}`
+          `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel?id=${id}`
         );
         if (!res.ok) {
           throw new Error("Failed to fetch travel data");
@@ -186,13 +186,10 @@ export default function EditPage() {
         console.log(key, value);
       });
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`, {
+        method: "PUT",
+        body: formData,
+      });
 
       if (res.ok) {
         toast.success("Putovanje uspešno ažurirano!");

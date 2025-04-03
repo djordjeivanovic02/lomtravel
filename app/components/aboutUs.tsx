@@ -29,7 +29,7 @@ export default function AboutUs() {
           className="w-full h-[250px]  md:h-[400px] lg:h-[250px] lg:max-w-xl relative"
         >
           <Image
-            src="/images/img5.png"
+            src="/images/img5.JPG"
             alt="Lake"
             fill={true}
             objectFit="cover"
@@ -71,7 +71,7 @@ export default function AboutUs() {
               <AnimatedCoutner
                 text="Zadovoljnih korisnika"
                 from={0}
-                to={15000}
+                to={30000}
               />
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function AboutUs() {
         <div className="flex gap-8 items-start relative justify-center">
           <div className="w-72 h-64 relative hidden xl:block">
             <Image
-              src="/images/img6.png"
+              src="/images/img6.jpg"
               alt="Lake"
               fill={true}
               objectFit="cover"
@@ -95,7 +95,7 @@ export default function AboutUs() {
           </div>
           <div className="w-[460px] h-[340px] relative">
             <Image
-              src="/images/img7.png"
+              src="/images/img7.jpg"
               alt="Lake"
               fill={true}
               objectFit="cover"
@@ -115,7 +115,7 @@ export default function AboutUs() {
           </p>
           <div className="mt-10 flex gap-16">
             <AnimatedCoutner text="Destinacija" from={0} to={50} />
-            <AnimatedCoutner text="Zadovoljnih korisnika" from={0} to={15000} />
+            <AnimatedCoutner text="Zadovoljnih korisnika" from={0} to={30000} />
           </div>
         </div>
       </motion.div>

@@ -1,9 +1,9 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { Travel } from "../interfaces/travel";
 import CustomIcon from "./customicon";
 import VacattionOffer from "./vacationOffer";
-import { motion } from "framer-motion";
-import { Travel } from "../interfaces/travel";
 
 export default function Offers() {
   const [travels, setTravels] = useState<Travel[]>([]);
@@ -27,7 +27,7 @@ export default function Offers() {
     const fetchedData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_ROOT_URL}/api/travel?type=popular`
+          `${process.env.NEXT_PUBLIC_ROOT_URL}api/travel?type=popular`
         );
         if (!res.ok) {
           throw new Error(
@@ -52,7 +52,7 @@ export default function Offers() {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } =
         scrollContainerRef.current;
-        console.log(scrollLeft, scrollWidth, clientWidth);
+      console.log(scrollLeft, scrollWidth, clientWidth);
       setShowLeftButton(scrollLeft > 0);
       setShowRightButton(scrollLeft < scrollWidth - clientWidth);
     }
