@@ -12,7 +12,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const res = await fetch(process.env.BASE_URL + "/api/travel?id=" + id);
+  const res = await fetch(process.env.BASE_URL + "api/travel?id=" + id);
   const data: Travel = await res.json();
 
   return {
@@ -42,7 +42,7 @@ export default async function Destination({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const res = await fetch(process.env.BASE_URL + "/api/travel?id=" + id);
+  const res = await fetch(process.env.BASE_URL + "api/travel?id=" + id);
   const data: Travel = await res.json();
   const date = new Date(data.date ?? "");
   const options = { day: "numeric", month: "long", year: "numeric" } as const;
