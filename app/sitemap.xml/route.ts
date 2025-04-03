@@ -4,7 +4,7 @@ import { Travel } from "../interfaces/travel";
 export async function GET() {
   let destinations: Travel[] = [];
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/travel`);
+    const res = await fetch(`${process.env.BASE_URL}api/travel`);
     destinations = await res.json();
   } catch (error) {
     console.error("Error fetching travels:", error);
