@@ -7,6 +7,7 @@ import NavigationLinks from "@/app/components/navigationLinks";
 import SelectCity from "@/app/components/selectCity";
 import { Departure } from "@/app/interfaces/departure";
 import { Travel } from "@/app/interfaces/travel";
+import Compressor from "compressorjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -124,13 +125,13 @@ export default function EditPage() {
       }
 
       const formData = new FormData(e.currentTarget);
-      console.log(
-        images.length,
-        " + ",
-        imageUrls.length,
-        " - ",
-        deletedImages.length
-      );
+      // console.log(
+      //   images.length,
+      //   " + ",
+      //   imageUrls.length,
+      //   " - ",
+      //   deletedImages.length
+      // );
 
       if (
         !travel.id ||
@@ -175,16 +176,45 @@ export default function EditPage() {
         );
       }
 
-      images.forEach((image) => {
-        formData.append("images[]", image);
-      });
+      const compressedImages: File[] = [];
+
+      const compressImage = (image: File): Promise<File> => {
+        return new Promise((resolve, reject) => {
+          new Compressor(image, {
+            quality: 0.6,
+            maxWidth: 1920,
+            maxHeight: 1080,
+            success(result) {
+              const compressedFile = new File([result], image.name, {
+                type: result.type,
+              });
+              resolve(compressedFile);
+            },
+            error(err) {
+              reject(err);
+            },
+          });
+        });
+      };
+
+      for (const image of images) {
+        try {
+          const compressed = await compressImage(image);
+          compressedImages.push(compressed);
+          formData.append("images", compressed);
+        } catch (error) {
+          console.error("Greška prilikom kompresije slike:", error);
+          return;
+        }
+      }
+
       if (deletedImages.length > 0) {
         formData.append("deletedImages[]", JSON.stringify(deletedImages));
       }
 
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
+      // formData.forEach((value, key) => {
+      //   console.log(key, value);
+      // });
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`, {
         method: "PUT",
