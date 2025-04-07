@@ -1,6 +1,6 @@
 import { Departure } from "@/app/interfaces/departure";
 import { NextResponse } from "next/server";
-import sharp from "sharp";
+
 import {
   createTravel,
   deleteTravel,
@@ -129,25 +129,8 @@ export async function PUT(req: Request) {
         ? JSON.parse(deletedDeparturesJson)
         : [];
 
-      let images: File[] = [];
-      const imgs: File[] = formData.getAll("images[]") as File[];
+      const images: File[] = formData.getAll("images") as File[];
 
-      images = await Promise.all(
-        imgs.map(async (file) => {
-          if (file instanceof File) {
-            const arrayBuffer = await file.arrayBuffer();
-            const compressedBuffer = await sharp(Buffer.from(arrayBuffer))
-              .resize(1024)
-              .jpeg({ quality: 90 })
-              .toBuffer();
-
-            return new File([compressedBuffer], file.name, {
-              type: "image/jpeg",
-            });
-          }
-          return file;
-        })
-      );
       const deletedImagesJson = formData.get("deletedImages[]");
       const deletedImages: string[] = deletedImagesJson
         ? JSON.parse(deletedImagesJson as string)

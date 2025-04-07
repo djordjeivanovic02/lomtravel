@@ -1,6 +1,7 @@
 import { Departure } from "@/app/interfaces/departure";
 import { Travel } from "@/app/interfaces/travel";
 import { supabase } from "@/lib/supabase";
+import { v4 as uuidv4 } from "uuid";
 import { createDeparture, deleteDeparture } from "../departure/service";
 
 export const getAllTravels = async () => {
@@ -218,7 +219,9 @@ export const createTravel = async (
   await Promise.all(departurePromises);
 
   const imageUploadPromises = images.map((file) => {
-    const filePath = `${travel_id}/${file.name}`;
+    const fileExtension = file.name.split(".").pop();
+    const filePath = `${travel_id}/${uuidv4()}.${fileExtension}`;
+
     return supabase.storage.from("travels-images").upload(filePath, file);
   });
 
@@ -312,7 +315,8 @@ export const editTravel = async (
   }
 
   const imageUploadPromises = images.map((file) => {
-    const filePath = `${travel.id}/${file.name}`;
+    const fileExtension = file.name.split(".").pop();
+    const filePath = `${travel.id}/${uuidv4()}.${fileExtension}`;
     return supabase.storage.from("travels-images").upload(filePath, file);
   });
 
