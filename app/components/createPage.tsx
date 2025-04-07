@@ -5,6 +5,7 @@ import Input from "@/app/components/input";
 import NavigationLinks from "@/app/components/navigationLinks";
 import SelectCity from "@/app/components/selectCity";
 import { Departure } from "@/app/interfaces/departure";
+import Compressor from "compressorjs";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -32,13 +33,13 @@ export default function CreatePage() {
     }
   }, [resetTrigger]);
 
-  useEffect(() => {
-    console.log("Ažuriran images state:", images);
-  }, [images]);
+  // useEffect(() => {
+  //   console.log("Ažuriran images state:", images);
+  // }, [images]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
       const formData = new FormData(e.currentTarget);
 
       const form = e.currentTarget;
@@ -75,14 +76,49 @@ export default function CreatePage() {
 
       handleLoading(true);
       formData.append("departures", JSON.stringify(departures));
-      images.forEach((image) => {
-        formData.append("images[]", image);
-      });
+
+      const compressedImages: File[] = [];
+
+      const compressImage = (image: File): Promise<File> => {
+        return new Promise((resolve, reject) => {
+          new Compressor(image, {
+            quality: 0.6,
+            maxWidth: 1920,
+            maxHeight: 1080,
+            success(result) {
+              const compressedFile = new File([result], image.name, {
+                type: result.type,
+              });
+              resolve(compressedFile);
+            },
+            error(err) {
+              reject(err);
+            },
+          });
+        });
+      };
+
+      for (const image of images) {
+        try {
+          const compressed = await compressImage(image);
+          compressedImages.push(compressed);
+          formData.append("images", compressed);
+        } catch (error) {
+          console.error("Greška prilikom kompresije slike:", error);
+          toast.error("Greška prilikom kompresije slike.");
+          handleLoading(false);
+          return;
+        }
+      }
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`, {
         method: "POST",
         body: formData,
       });
+
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(key, value);
+      // }
 
       if (res.ok) {
         toast.success("Putovanje uspešno kreirano!");

@@ -52,7 +52,7 @@ export default function Offers() {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } =
         scrollContainerRef.current;
-      console.log(scrollLeft, scrollWidth, clientWidth);
+      //console.log(scrollLeft, scrollWidth, clientWidth);
       setShowLeftButton(scrollLeft > 0);
       setShowRightButton(scrollLeft < scrollWidth - clientWidth);
     }

@@ -124,13 +124,13 @@ export default function EditPage() {
       }
 
       const formData = new FormData(e.currentTarget);
-      console.log(
-        images.length,
-        " + ",
-        imageUrls.length,
-        " - ",
-        deletedImages.length
-      );
+      // console.log(
+      //   images.length,
+      //   " + ",
+      //   imageUrls.length,
+      //   " - ",
+      //   deletedImages.length
+      // );
 
       if (
         !travel.id ||
@@ -182,9 +182,9 @@ export default function EditPage() {
         formData.append("deletedImages[]", JSON.stringify(deletedImages));
       }
 
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
+      // formData.forEach((value, key) => {
+      //   console.log(key, value);
+      // });
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}api/travel`, {
         method: "PUT",
