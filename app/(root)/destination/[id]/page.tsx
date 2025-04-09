@@ -49,11 +49,11 @@ export default async function Destination({
   const options2 = {
     month: 'short', // 'short' daje skraćeni naziv meseca (npr. "jan")
     day: 'numeric'  // 'numeric' daje dan u mesecu kao broj
-  };
+  } as const;
   const formattedDate = new Intl.DateTimeFormat("sr-Latn-RS", options).format(
     date
   );
-  const formattedDate2 = new Intl.DateTimeFormat("sr-Latn-RS", options).format(date);
+  const formattedDate2 = new Intl.DateTimeFormat("sr-Latn-RS", options2).format(date);
 
   const infos = [
     {
