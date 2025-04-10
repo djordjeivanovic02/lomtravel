@@ -218,9 +218,9 @@ export const createTravel = async (
 
   await Promise.all(departurePromises);
 
-  const imageUploadPromises = images.map((file) => {
+  const imageUploadPromises = images.map((file, index) => {
     const fileExtension = file.name.split(".").pop();
-    const filePath = `${travel_id}/${uuidv4()}.${fileExtension}`;
+    const filePath = `${travel_id}/${index + 1}-${uuidv4()}.${fileExtension}`;
 
     return supabase.storage.from("travels-images").upload(filePath, file);
   });
@@ -281,6 +281,14 @@ export const editTravel = async (
 ) => {
   if (!travel && !departures && !images) return;
 
+  const { data: existingImages, error: listError } = await supabase.storage
+    .from("travels-images")
+    .list(`${travel.id}`);
+
+  if (listError) throw new Error(listError.message);
+
+  const existingCount = existingImages?.length || 0;
+
   const { error: travelError } = await supabase
     .from("travels")
     .update(travel)
@@ -314,9 +322,11 @@ export const editTravel = async (
     await Promise.all(deletedImagePromises);
   }
 
-  const imageUploadPromises = images.map((file) => {
+  const imageUploadPromises = images.map((file, index) => {
     const fileExtension = file.name.split(".").pop();
-    const filePath = `${travel.id}/${uuidv4()}.${fileExtension}`;
+    const filePath = `${travel.id}/${
+      existingCount + index + 1
+    }-${uuidv4()}.${fileExtension}`;
     return supabase.storage.from("travels-images").upload(filePath, file);
   });
 
