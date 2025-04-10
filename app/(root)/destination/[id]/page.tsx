@@ -46,9 +46,14 @@ export default async function Destination({
   const data: Travel = await res.json();
   const date = new Date(data.date ?? "");
   const options = { day: "numeric", month: "long", year: "numeric" } as const;
+  const options2 = {
+    month: 'short', // 'short' daje skraćeni naziv meseca (npr. "jan")
+    day: 'numeric'  // 'numeric' daje dan u mesecu kao broj
+  } as const;
   const formattedDate = new Intl.DateTimeFormat("sr-Latn-RS", options).format(
     date
   );
+  const formattedDate2 = new Intl.DateTimeFormat("sr-Latn-RS", options2).format(date);
 
   const infos = [
     {
@@ -76,7 +81,7 @@ export default async function Destination({
         title={data.title ?? ""}
         location={data.location ?? ""}
       />
-      <DestinationImages images={data.images ?? []} />
+      <DestinationImages images={data.images ?? []} date={formattedDate2} />
 
       <div className="flex flex-col md:flex-row md:items-start py-7 md:justify-between gap-5">
         <div>
