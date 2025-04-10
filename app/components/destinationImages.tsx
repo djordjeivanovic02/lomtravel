@@ -7,9 +7,10 @@ import { motion } from "framer-motion";
 
 type Props = {
   images: string[];
+  date: string;
 };
 
-export default function DestinationImages({ images }: Props) {
+export default function DestinationImages({ images, date }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -30,8 +31,8 @@ export default function DestinationImages({ images }: Props) {
             className="w-full h-full relative overflow-hidden rounded-2xl md:rounded-r-none md:rounded-bl-xl"
           >
             <div className="absolute text-center top-5 left-5 bg-white rounded-lg py-2 px-4 z-10">
-              <p className="text-2xl font-bold">24</p>
-              <p className="font-roboto text-lightText">JAN</p>
+              <p className="text-2xl font-bold text-up">{ date.split(' ')[0] }</p>
+              <p className="font-roboto text-lightText uppercase">{ date.split(' ')[1] }</p>
             </div>
             {images[0] && (
               <Image
