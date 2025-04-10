@@ -5,6 +5,7 @@ import DestinationTabs from "@/app/components/destinationTabs";
 import DestinationTag from "@/app/components/destinationTag";
 import { Travel } from "@/app/interfaces/travel";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -43,6 +44,9 @@ export default async function Destination({
 }) {
   const { id } = await params;
   const res = await fetch(process.env.BASE_URL + "api/travel?id=" + id);
+
+  if (!res.ok) redirect("/");
+
   const data: Travel = await res.json();
   const date = new Date(data.date ?? "");
   const options = { day: "numeric", month: "long", year: "numeric" } as const;

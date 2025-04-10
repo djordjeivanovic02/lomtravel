@@ -42,9 +42,8 @@ export default function ImageUpload({
 
   const handleRemoveImage = (index: number) => {
     const updatedImageUrls = imageUrls.filter((_, i) => i !== index);
-    const updatedFiles = filesList.filter(
-      (_, i) => i !== index - updatedImageUrls.length
-    );
+
+    const updatedFiles = filesList.filter((_, i) => i !== index);
 
     setImageUrls(updatedImageUrls);
     setFilesList(updatedFiles);
